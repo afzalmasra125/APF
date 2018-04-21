@@ -1,3 +1,7 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+   get '/employees' => 'employees#index'
+   post '/employees' => 'employees#create'
+   get '/employees/:id' => 'employees#show'
+   patch '/employee/:id' => 'employees#update'
+   delete '/employee/:id' => 'employees#destroy'
 end

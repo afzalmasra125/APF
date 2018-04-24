@@ -1,7 +1,7 @@
 class Review < ApplicationRecord
-      enum :relationship  {:peer => 0, :self => 1}
-      enum :judgement  {:Does_Not_Meet_Expectation => "0" :Partially_Meets => "1", :Fully_Meets_Expectations => 2 , :Exceeds_Expectations =>  3}
-      enum :teamwork {:Does_Not_Meet_Expectation => 0 :Partially_Meets => 1, :Fully_Meets_Expectations =>  2 , :Exceeds_Expectations =>  3}
-      enum :leadership  {:Does_Not_Meet_Expectation => 0 :Partially_Meets => 1, :Fully_Meets_Expectations =>  2 , :Exceeds_Expectations =>  3}
-      enum :technical {:Does_Not_Meet_Expectation => 0 :Partially_Meets => 1, :Fully_Meets_Expectations => 2 , :Exceeds_Expectations =>  3}
+      enum relationship:  {peer: 0, self: 1}
+      enum judgement:  {does_not_meet_expectation: 0, partially_meets: 1, fully_meets_expectations: 2 , exceeds_expectations: 3}
+      enum teamwork: {does_not_meet_expectation: 0, partially_meets: 1, fully_meets_expectations: 2 , exceeds_expectations: 3}
+      enum leadership:  {does_not_meet_expectation: 0, partially_meets: 1, fully_meets_expectations: 2 , exceeds_expectations: 3}
+      enum technical: {does_not_meet_expectation: 0, partially_meets: 1, fully_meets_expectations: 2 , exceeds_expectations: 3}
 end

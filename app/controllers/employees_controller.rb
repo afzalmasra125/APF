@@ -2,8 +2,8 @@ class EmployeesController < ApplicationController
   def index
     employees = Employee.all
     render json: employees.as_json
-    end
-    def create
+  end
+  def create
     employees = Employee.new( {
                         first_name: params[:first_name],
                         last_name: params[:last_name],

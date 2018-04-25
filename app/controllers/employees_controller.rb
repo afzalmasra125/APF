@@ -23,7 +23,7 @@ class EmployeesController < ApplicationController
     # user = current_user.id
     employee.first_name = params[:first_name] || employee.first_name
     employee.last_name = params[:last_name] || employee.last_name
-    movie.email = params[:email] || employee.email
+    employee.email = params[:email] || employee.email
     employee.manager_id = params[:manager_id] || employee.manager_id
     employee.manager_status = params[:manager_status] || employee.manager_status
     render json: employee.as_json

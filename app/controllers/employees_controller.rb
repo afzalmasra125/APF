@@ -30,7 +30,7 @@ class EmployeesController < ApplicationController
   end 
  def destroy
    employee = Employee.find(params[:id])
-   Employee.destroy    
+   employee.destroy    
    render json: {message: "Successfully destroyed employee ##{employee.name}"}
  end
 end   

@@ -1,10 +1,10 @@
 class EmployeesController < ApplicationController
   def index
-    employees = Employee.all
-    render json: employees.as_json
+    @employees = Employee.all
+    render 'index.json.jbuilder'
   end
   def create
-    employees = Employee.new( {
+    @employees = Employee.new( {
                         first_name: params[:first_name],
                         last_name: params[:last_name],
                         email: params[:email],
@@ -15,8 +15,8 @@ class EmployeesController < ApplicationController
     render json: employees.as_json
   end
   def show
-    employees = Employee.find(params[:id])
-    render json: employee.as_json
+    @employee = Employee.find(params[:id])
+    render 'show.json.jbuilder'
   end 
  def update
     employee = Employee.find(params[:id])

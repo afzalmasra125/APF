@@ -11,8 +11,10 @@ class EmployeesController < ApplicationController
                         manager_id: params[:manager_id],
                         manager_status: params[:manager_status]
                        })
-    employees.save
-    render json: employees.as_json
+     if employees.save
+      render json: {message:"Employee created "}
+     render json: employees.as_json
+
   end
   def show
     @employee = Employee.find(params[:id])

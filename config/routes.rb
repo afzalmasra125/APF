@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  post 'employee_token' => 'employee_token#create'
    get '/employees' => 'employees#index'
    post '/employees' => 'employees#create'
    get '/employees/:id' => 'employees#show'

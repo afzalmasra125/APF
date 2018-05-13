@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# employees = Employee.create([{first_name: 'Afzal'},{last_name: 'Masra'},{email: 'afzal.masra@csgi.com'},{manager_id:0},{manager_status:false}])
+employees = Employee.create([{first_name: 'Afzal'},{last_name: 'Masra'},{email: 'afzal.masra@csgi.com'},{manager_id:0},{manager_status:false}])
 
 
- reviews = Review.create([{ reviewer_id: 1, reviewee_id: 1, relationship:1, judgement:1, teamwork: 1, leadership: 1, technical: 1}])
+ # reviews = Review.create([{ reviewer_id: 1, reviewee_id: 1, relationship:1, judgement:1, teamwork: 1, leadership: 1, technical: 1}])

@@ -1,34 +1,23 @@
-
+// var ReviewIndexPage = {
+//   template: "#review-index-page",
+//   data: function() {
+//     return {
+//       review:[]
+//     };
+//   },
+//   created: function() {
+//     axios.get("/reviews")
+//       .then(function(response) {
+//         this.movies = response.data;
+//       }.bind(this));
+//   },
+//   methods: {},
+//   computed: {}
+// };
 
 var HomePage = {
-  template: "#home-page",
-  data: function() {
-    return {
-      message: "Agile Performance Feedback"
-    };
-  },
-  created: function() {},
-  methods: {},
-  computed: {}
-};
-
-
-var router = new VueRouter({
-  routes: [{ path: "/", component: HomePage }],
-  scrollBehavior: function(to, from, savedPosition) {
-    return { x: 0, y: 0 };
-  }
-});
-
-var app = new Vue({
-  el: "#vue-app",
-  router: router
-});
-
-
-var LoginPage = {
-  template: "#login-page",
-  data: function() {
+  template: "#HomePage",
+   data: function() {
     return {
       email: "",
       password: "",
@@ -41,12 +30,12 @@ var LoginPage = {
         auth: { email: this.email, password: this.password }
       };
       axios
-        .post("/user_token", params)
+        .post("/employee_token", params)
         .then(function(response) {
           axios.defaults.headers.common["Authorization"] =
             "Bearer " + response.data.jwt;
           localStorage.setItem("jwt", response.data.jwt);
-          router.push("/");
+          router.push("/reviews");
         })
         .catch(
           function(error) {
@@ -57,6 +46,8 @@ var LoginPage = {
         );
     }
   }
+};
+
 var LogoutPage = {
   created: function() {
     axios.defaults.headers.common["Authorization"] = undefined;
@@ -65,26 +56,18 @@ var LogoutPage = {
   }
 };
 
-
-var app = new Vue({
-  el: "#vue-app",
-  router: router,
-  created: function() {
-    var jwt = localStorage.getItem("jwt");
-    if (jwt) {
-      axios.defaults.headers.common["Authorization"] = jwt;
-    }
-  }
-});
-
-
-
 var router = new VueRouter({
   routes: [
-    { path: "/", component: homePage },
-    { path: "/signup", component: SignupPage },
-    { path: "/login", component: LoginPage },
+    { path: "/", component: HomePage },
     { path: "/logout", component: LogoutPage }
-
-  ]
+    // { path: "/reviews", component: ReviewIndexPage}
+    ],
+  scrollBehavior: function(to, from, savedPosition) {
+    return { x: 0, y: 0 };
+  }
 });
+var app = new Vue({
+  el: "#vue-app",
+  router: router
+});
+

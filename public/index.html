@@ -9,29 +9,16 @@
   <script src="index.js" defer></script>
 </head>
 <body>
-
   <div id="vue-app">
-    <a href="/signup">Signup</a>
-    <a href="/login">Login</a>
-    <a href="/logout">Logout</a>
-    <router-view></router-view>
+  <router-view></router-view>
   </div>
-</body>
+ </body>
 </html>
-
-<template id="home-page">
+<template id="HomePage">
   <div class="vue-component">
-
-    <h1>{{ message }}</h1>
-
-  </div>
-</template>
-
-<template id="login-page">
-  <div class="vue-component">
-
     <div class="container">
-      <h1>Login</h1>
+      <h1>Agile Performance Feedback</h1>
+      <h2>
       <ul>
         <li class="text-danger" v-for="error in errors">{{ error }}</li>
       </ul>
@@ -48,3 +35,10 @@
   </div>
 </template>
 
+<template id="review-index-page">
+  <div class="vue-component">
+    <div class="container">
+      <h1>Agile Performance Feedback</h1>
+    </div>
+  </div>
+</template>

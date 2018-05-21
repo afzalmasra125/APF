@@ -9,8 +9,11 @@
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.js"></script>
   <script src="index.js" defer></script>
+</br>
+  <h1><img src="csg-logo.png" alt="csg" style="width:170px;height:75px;border:15;">  Agile Performance Feedback</h1>
 </head>
 <body>
+</br>
    <div id="vue-app">
     <router-view></router-view>
   </div>
@@ -18,7 +21,6 @@
 </html>
 <template id="signup-page">
   <div class="vue-component">
-
     <div class="container">
       <h1>Signup</h1>
       <ul>
@@ -52,7 +54,7 @@
 <template id="homepage">
   <div class="vue-component">
     <div class="container">
-      <h1>Agile Performance Feedback</h1>
+
       <h2>
       <ul>
         <li class="text-danger" v-for="error in errors">{{ error }}</li>
@@ -73,7 +75,6 @@
 <template id="review-index-page">
   <div class="vue-component">
     <div class="container">
-      <h1>Agile Performance Feedback</h1>
   <a class="btn btn-danger" v-bind:href="'/#/reviews/new' ">Create Review</a>
 </br>
 <!--   <a class="btn btn-danger" v-bind:href="'/#/reviews/new' ">View Review</a>
@@ -83,11 +84,8 @@
  -->    </div>
   </div>
 </template>
-
 <template id="reviews-new-page">
   <div class="vue-component">
-    <div class="container">
-      <h1>Agile Performance Feedback</h1>
     <div class="container">
       <h2>Review</h2>
       <ul>
@@ -95,52 +93,54 @@
       </ul>
       <div class="form-group">
         <label>Employee Name</label>
-        <input type="text" class="form-control" v-model="reviewee_id">
+        <input type="dropdown" class="form-control" v-model="reviewee_id">
       </div>
          </br>
           <div class="form-group">
         <label>Relationship</label>
-      </br>
-        </br>
         <select>
-        <option value="0">Does not meet expectation</option>
-        <option value="1">Partially meet expectation</option>
-        <option value="2">Fully meet expectation</option>
-        <option value="3">Exceed expectation</option>
- <class="form-control" v-model="relationship"></select>
+        <option value="0"></option>
+        <option value="1">Peer</option>
+        <option value="1">Self</option>
+        <class="form-control" v-model="relationship"></select>
       </div>
-         </br>
       <div class="form-group">
         <label>Judgement</label>
-        <input type="text"class="form-control" v-model="judgement">
+        <select>
+        <option value="0"></option>
+        <option value="1">Does not meet expectation</option>
+        <option value="2">Partially meet expectation</option>
+        <option value="3">Fully meet expectation</option>
+        <option value="4">Exceed expectation</option>
+        <class= "form-control" v-model="judgement"></select>
       </div>
-      </br>
       <div class="form-group">
         <label>Teamwork</label>
-        <input type="text" class="form-control" v-model="teamwork">
+        <select>
+        <option value="0"></option>
+        <option value="1">Does not meet expectation</option>
+        <option value="2">Partially meet expectation</option>
+        <option value="3">Fully meet expectation</option>
+        <option value="4">Exceed expectation</option>
+        <class="form-control" v-model="teamwork"></select>
       </div>
-        </br>
       <div class="form-group">
         <label>Leadership</label>
-        <input type="text" class="form-control" v-model="Leadership">
+        <input type="text" class="form-control" v-model="leadership">
       </div>
-      </br>
        <div class="form-group">
         <label>Technical</label>
-        <input type="text" class="form-control" v-model="Technical">
+        <input type="text" class="form-control" v-model="technical">
       </div>
-        </br>
        <div class="form-group">
         <label>Positive Feedback</label>
         <input type="text" class="form-control" v-model="positive_feedback">
       </div>
-         </br>
        <div class="form-group">
         <label>Needs Improvment</label>
         <input type="text" class="form-control" v-model="needs_improvement">
       </div>
-         </br>
-            <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+        <button class="btn btn-primary" v-on:click="submit()">Submit</button>
        </div>
       </div>
     </div>

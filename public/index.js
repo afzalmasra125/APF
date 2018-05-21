@@ -2,9 +2,11 @@ var ReviewsNewPage = {
   template: "#reviews-new-page",
   data: function() {
     return {
+      reviewee_id: "",
       relationship: "",
       judgement: "",
       teamwork: "",
+      leadership:"",
       technical: "",
       positive_feedback: "",
       needs_improvement: "",
@@ -14,11 +16,12 @@ var ReviewsNewPage = {
   methods: {
     submit: function() {
       var params = {
-        title: this.title,
-        ingredients: this.ingredients,
-        directions: this.directions,
-        prep_time: this.prepTime,
-        image_url: this.imageUrl
+        reviews: this.reviewee_id,
+        relationship: this.relationship,
+        teamwork: this.teamwork,
+        technical: this.technical,
+        positive_feedback: this.positive_feedback,
+        needs_improvement: this.needs_improvement
       };
       axios
         .post("/reviews", params)

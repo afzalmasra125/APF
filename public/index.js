@@ -58,17 +58,17 @@ var ReviewsNewPage = {
   }
 };
 
-var ReviewIndexPage = {
-  template: "#review-index-page",
+var EmployeeIndexPage = {
+  template: "#employees-index-page",
   data: function() {
     return {
-      reviews:[]
+      employees:[]
     };
   },
   created: function() {
-    axios.get("/reviews")
+    axios.get("/employees")
       .then(function(response) {
-        this.reviews = response.data;
+        this.employees = response.data;
       }.bind(this));
   },
   methods: {},
@@ -156,7 +156,7 @@ var router = new VueRouter({
     { path: "/home", component: HomePage },
     { path: "/signup", component: SignupPage },
     { path: "/logout", component: LogoutPage },
-    { path: "/reviews", component: ReviewIndexPage},
+    { path: "/employees", component: EmployeeIndexPage},
     { path: "/reviews/new", component: ReviewsNewPage }
     ],
   scrollBehavior: function(to, from, savedPosition) {

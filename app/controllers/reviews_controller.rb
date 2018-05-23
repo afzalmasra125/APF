@@ -5,8 +5,8 @@ class ReviewsController < ApplicationController
       end 
     end
   def create 
-    review = Review.new( {
-                        reviewer_id: params[:reviewer_id],
+    reviews = Review.new( {
+                        reviewer_id: current_user.id,
                         reviewee_id: params[:reviewee_id],
                         relationship: params[:relationship],
                         judgement: params[:judgement],
@@ -15,8 +15,8 @@ class ReviewsController < ApplicationController
                         positive_feedback: params[:positive_feedback],
                         needs_improvement: params[:needs_improvement]
                        })
-    review.save
-    render json: review.as_json
+    reviews.save
+    render json: reviews.as_json
   end
   def show
     review = Review.find(params[:id])

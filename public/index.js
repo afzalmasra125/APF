@@ -1,3 +1,16 @@
+var HomePage = {
+  template: "#home-page",
+  data: function() {
+    return {
+      message: "Welcome to Vue.js!"
+    };
+  },
+  created: function() {},
+  methods: {},
+  computed: {}
+};
+
+
 var ReviewsNewPage = {
   template: "#reviews-new-page",
   data: function() {
@@ -16,9 +29,11 @@ var ReviewsNewPage = {
   methods: {
     submit: function() {
       var params = {
-        reviews: this.reviewee_id,
+        reviewee_id: this.reviewee_id,
         relationship: this.relationship,
         teamwork: this.teamwork,
+        technical: this.technical,
+        leadership: this.leadership,
         technical: this.technical,
         positive_feedback: this.positive_feedback,
         needs_improvement: this.needs_improvement
@@ -26,7 +41,7 @@ var ReviewsNewPage = {
       axios
         .post("/reviews", params)
         .then(function(response) {
-          router.push("/");
+          router.push("/reviews");
         })
         .catch(
           function(error) {
@@ -59,8 +74,8 @@ var ReviewIndexPage = {
   methods: {},
   computed: {}
 };
-var HomePage = {
-  template: "#homepage",
+var Login = {
+  template: "#loginpage",
    data: function() {
     return {
       email: "",
@@ -79,7 +94,7 @@ var HomePage = {
           axios.defaults.headers.common["Authorization"] =
             "Bearer " + response.data.jwt;
           localStorage.setItem("jwt", response.data.jwt);
-          router.push("/reviews");
+          router.push("/home");
         })
         .catch(
           function(error) {
@@ -137,7 +152,8 @@ var LogoutPage = {
 
 var router = new VueRouter({
   routes: [
-    { path: "/", component: HomePage },
+    { path: "/", component: Login },
+    { path: "/home", component: HomePage },
     { path: "/signup", component: SignupPage },
     { path: "/logout", component: LogoutPage },
     { path: "/reviews", component: ReviewIndexPage},

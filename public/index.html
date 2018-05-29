@@ -10,7 +10,7 @@
   <script src="https://unpkg.com/axios/dist/axios.js"></script>
   <script src="index.js" defer></script>
 </br>
-  <h1><img src="csg-logo.png" alt="csg" style="width:170px;height:75px;border:15;">  Agile Performance Feedback</h1>
+  <h1><img src="csg-logo.png" alt="csg" style="width:200px;height:75px;border:15;">     Agile Performance Feedback</h1>
 </head>
 <body>
 </br>
@@ -68,9 +68,23 @@
         <input type="password" class="form-control" v-model="password">
       </div>
       <button class="btn btn-primary" v-on:click="submit()">Submit</button>
-      <a v-bind:href=" '/#/signup'" class="btn btn-secondary float-right">Sign Up</a>
+
+      <a v-bind:href=" '/#/signup'" class="btn btn-secondary float-middle">Sign Up </a>
+
+      </br>
+       <a href="#" target="_blank">Forgot your password?</a> 
     </div>
   </div>
+</template>
+<template id="logout-page">
+  <div class="vue-component">
+    <div class="container">
+  <br>
+    <h1> Thank you for visiting CSG APF</h1>
+  </br>
+    <a v-bind:href=" '/'" class="btn btn-success float-left">Login </a>
+  </br>
+</br>
 </template>
 <template id="home-page">
   <div class="vue-component">
@@ -97,7 +111,6 @@
                       <tr>
                         <th>First Name</th>
                         <th>Last Name</th>
-                        <th>Email</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -105,7 +118,6 @@
       <tr v-for="employee in employees">
               <th>{{employee.first_name}}</th>
               <th>{{employee.last_name}}</th>
-              <th>{{employee.email}}</th>
               <th class="btn btn-primary"> Reviews</th>
               </tr>
         </tbody>
@@ -137,7 +149,7 @@
         <label>Judgement</label>
         <select>
         <option value="5"></option>
-        <option value="0">Does not meet expectation</option>
+        <option value="0">1</option>
         <option value="1">Partially meet expectation</option>
         <option value="2">Fully meet expectation</option>
         <option value="3">Exceed expectation</option>

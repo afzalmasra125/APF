@@ -1,3 +1,5 @@
+var rating = {"does_not_meet_expectation":0, "partially_meets":2, "fully_meets_expectations":3,"exceed_expectations":4};
+
 var HomePage = {
   template: "#home-page",
   data: function() {
@@ -9,7 +11,22 @@ var HomePage = {
   methods: {},
   computed: {}
 };
-
+var ReviewShowPage = {
+  template: "#reviews-show-page",
+  data: function() {
+    return {
+      employees:[]
+    };
+  },
+  created: function() {
+    axios.get("/reviews")
+      .then(function(response) {
+        this.employees = response.data;
+      }.bind(this));
+  },
+  methods: {},
+  computed: {}
+};
 
 var ReviewsNewPage = {
   template: "#reviews-new-page",
@@ -143,10 +160,11 @@ var SignupPage = {
 };
 
 var LogoutPage = {
+template: "#logout-page",
   created: function() {
     axios.defaults.headers.common["Authorization"] = undefined;
     localStorage.removeItem("jwt");
-    router.push("/");
+    router.push("/logout");
   }
 };
 
@@ -157,7 +175,10 @@ var router = new VueRouter({
     { path: "/signup", component: SignupPage },
     { path: "/logout", component: LogoutPage },
     { path: "/employees", component: EmployeeIndexPage},
-    { path: "/reviews/new", component: ReviewsNewPage }
+    // { path: "/reviews", component: ReviewShowPage},
+    { path: "/reviews/new", component: ReviewsNewPage },
+    { path: "/logout", component: LogoutPage }
+
     ],
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };

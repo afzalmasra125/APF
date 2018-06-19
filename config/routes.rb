@@ -7,6 +7,7 @@ Rails.application.routes.draw do
    delete '/employee/:id' => 'employees#destroy'
 
    get '/reviews' => 'reviews#index'
+   get '/pending_reviews' => 'reviews#pending_reviews'
    post '/reviews' => 'reviews#create'
    get '/reviews/:id' => 'reviews#show'
    patch '/review/:id' => 'reviews#update'

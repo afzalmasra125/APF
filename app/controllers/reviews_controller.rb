@@ -1,10 +1,13 @@
 class ReviewsController < ApplicationController
-before_action :authenticate_user!
+# before_action :authenticate_user!
   def index
-            reviews = Review.all
-            render json: reviews.as_json
-      end 
-    end
+        reviews = Review.all
+        render json: reviews.as_json
+  end 
+  def pending_reviews
+      @reviews = Review.where(reviewer_id: nil)
+      render 'index.json.jbuilder'
+  end
   def create 
     reviews = Review.new( {
                         reviewer_id: current_user.id,
@@ -37,3 +40,4 @@ before_action :authenticate_user!
    review.destroy    
    render json: {message: "Successfully destroyed employee ##{employee.name}"}
  end
+end

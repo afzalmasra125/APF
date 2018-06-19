@@ -1,5 +1,3 @@
-var rating = {"does_not_meet_expectation":0, "partially_meets":2, "fully_meets_expectations":3,"exceed_expectations":4};
-
 var HomePage = {
   template: "#home-page",
   data: function() {
@@ -40,8 +38,17 @@ var ReviewsNewPage = {
       technical: "",
       positive_feedback: "",
       needs_improvement: "",
+      pending_reviews: [],
       errors: []
     };
+  },
+  created: function() {
+    axios
+      .get("/pending_reviews")
+      .then(function(response) {
+        console.log(response);
+        this.pending_reviews = response.data;
+      }.bind(this) );
   },
   methods: {
     submit: function() {

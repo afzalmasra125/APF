@@ -1,5 +1,5 @@
 class EmployeesController < ApplicationController
-before_action :authenticate_user!
+# before_action :authenticate_user!
   def index
     @employees = Employee.all
     render 'index.json.jbuilder'

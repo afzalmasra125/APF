@@ -175,6 +175,18 @@ template: "#logout-page",
   }
 };
 
+var ReviewsPending = {
+  template: "#pending-reviews-page",
+  data: function() {
+    return {
+      message: "Welcome to Vue.js!"
+    };
+  },
+  created: function() {},
+  methods: {},
+  computed: {}
+};
+
 var router = new VueRouter({
   routes: [
     { path: "/", component: Login },
@@ -184,7 +196,8 @@ var router = new VueRouter({
     { path: "/employees", component: EmployeeIndexPage},
     // { path: "/reviews", component: ReviewShowPage},
     { path: "/reviews/new", component: ReviewsNewPage },
-    { path: "/logout", component: LogoutPage }
+    { path: "/logout", component: LogoutPage },
+    { path: "/reviews/pending", component: ReviewsPending }
 
     ],
   scrollBehavior: function(to, from, savedPosition) {

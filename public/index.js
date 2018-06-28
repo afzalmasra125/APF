@@ -26,10 +26,12 @@ var ReviewShowPage = {
   computed: {}
 };
 
+// path '/reviews/new'
 var ReviewsNewPage = {
   template: "#reviews-new-page",
   data: function() {
     return {
+      employees_names: [],
       reviewee_id: "",
       relationship: "",
       judgement: "",
@@ -46,8 +48,15 @@ var ReviewsNewPage = {
     axios
       .get("/pending_reviews")
       .then(function(response) {
-        console.log(response);
         this.pending_reviews = response.data;
+      }.bind(this) );
+    var params = {
+      manager_id: 1
+    }
+    axios
+      .get("/manager/employees", {params})
+      .then(function(response){
+        this.employees_names = response.data;
       }.bind(this) );
   },
   methods: {
@@ -82,6 +91,7 @@ var ReviewsNewPage = {
   }
 };
 
+
 var EmployeeIndexPage = {
   template: "#employees-index-page",
   data: function() {
@@ -98,6 +108,8 @@ var EmployeeIndexPage = {
   methods: {},
   computed: {}
 };
+
+
 var Login = {
   template: "#loginpage",
    data: function() {

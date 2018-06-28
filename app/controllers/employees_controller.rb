@@ -39,5 +39,11 @@ class EmployeesController < ApplicationController
    employee.destroy    
    render json: {message: "Successfully destroyed employee ##{employee.name}"}
  end
+
+ def getEmployeesByManagerID
+    employees = Employee.where(manager_id: params[:manager_id])
+    render json: employees.as_json 
+ end
+
 end 
   

@@ -107,22 +107,21 @@
   <div class="vue-component">
     <div class="container">
       <div class="card-block">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-     <tbody>          
-      <tr v-for="employee in employees">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+            </tr>
+          </thead>
+          <tbody>          
+            <tr v-for="employee in employees">
               <th>{{employee.first_name}}</th>
               <th>{{employee.last_name}}</th>
-              <th class="btn btn-primary"> Reviews</th>
-              </tr>
-        </tbody>
-     </table>
+              <td> <a class="btn btn-primary" v-bind:href="'/#/reviews' "> Reviews</a></td>
+            </tr>
+          </tbody>
+        </table>
   </div>
   </div>
 </template>
@@ -223,6 +222,38 @@
   <div class="vue-component">
     <div class="container">
       <h1>Pending Reviews</h1>
+    </div>
+  </div>
+</template>
+
+
+<!-- Reviews template -->
+<template id="reviews-show-page">
+  <div class="vue-component">
+    <div class="container">
+      <h1>Reviews List</h1>
+
+
+      <div class="list-group" v-for="review in reviews">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">New review</h5>
+          <small>By {{review.reviewer_id}}</small>
+        </div>
+        <div>
+          <p>
+            Relationship: {{review.relationship}}<br>
+            Judgement: {{review.judgement}}<br>
+            Teamwork: {{review.teamwork}}<br>
+            Leadership: {{review.leadership}}<br>
+            Technical: {{review.technical}}<br>
+            Positive feedback: {{review.positive_feedback}}<br>
+            Needs Improvement: {{review.needs_improvement}}<br>
+          </p>
+        </div>
+        
+      </div>
+
+
     </div>
   </div>
 </template>

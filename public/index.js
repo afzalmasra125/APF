@@ -9,17 +9,19 @@ var HomePage = {
   methods: {},
   computed: {}
 };
+
 var ReviewShowPage = {
   template: "#reviews-show-page",
   data: function() {
     return {
-      employees:[]
+      reviews:[]
     };
   },
   created: function() {
     axios.get("/reviews")
       .then(function(response) {
-        this.employees = response.data;
+        this.reviews = response.data;
+        console.log( this.reviews);
       }.bind(this));
   },
   methods: {},
@@ -206,7 +208,7 @@ var router = new VueRouter({
     { path: "/signup", component: SignupPage },
     { path: "/logout", component: LogoutPage },
     { path: "/employees", component: EmployeeIndexPage},
-    // { path: "/reviews", component: ReviewShowPage},
+    { path: "/reviews", component: ReviewShowPage},
     { path: "/reviews/new", component: ReviewsNewPage },
     { path: "/logout", component: LogoutPage },
     { path: "/reviews/pending", component: ReviewsPending }

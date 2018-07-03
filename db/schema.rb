@@ -26,15 +26,6 @@ ActiveRecord::Schema.define(version: 20180626005151) do
     t.string "password_digest"
   end
 
-  create_table "products", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.decimal "price", precision: 5, scale: 2
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "image"
-  end
-
   create_table "reviews", force: :cascade do |t|
     t.integer "reviewer_id"
     t.integer "reviewee_id"

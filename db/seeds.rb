@@ -16,3 +16,8 @@ employees = Employee.create([
 	{first_name: 'Vraj',last_name: 'Patel', email: 'v@a.com', manager_id:1 , manager_status: false, password:'test'}, 
 	{first_name: 'Panth',last_name: 'Patel', email: 'p@a.com', manager_id:1 , manager_status: false, password:'test'}, 
 	{first_name: 'Nirav',last_name: 'Patel', email: 'n@a.com', manager_id:1 , manager_status: false, password:'test'}])
+
+reviews = Review.create([
+	{reviewer_id: 2, reviewee_id: 1, relationship:1, judgement:1, teamwork: 1, leadership: 1, technical: 1},
+	{reviewer_id: 3, reviewee_id: 1, relationship:1, judgement:1, teamwork: 1, leadership: 1, technical: 1},
+	{reviewer_id: 4, reviewee_id: 1, relationship:1, judgement:1, teamwork: 1, leadership: 1, technical: 1}])

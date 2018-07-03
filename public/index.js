@@ -26,10 +26,12 @@ var ReviewShowPage = {
   computed: {}
 };
 
+// path '/reviews/new'
 var ReviewsNewPage = {
   template: "#reviews-new-page",
   data: function() {
     return {
+      employees_names: [],
       reviewee_id: "",
       relationship: "",
       judgement: "",
@@ -46,8 +48,15 @@ var ReviewsNewPage = {
     axios
       .get("/pending_reviews")
       .then(function(response) {
-        console.log(response);
         this.pending_reviews = response.data;
+      }.bind(this) );
+    var params = {
+      manager_id: 1
+    }
+    axios
+      .get("/manager/employees", {params})
+      .then(function(response){
+        this.employees_names = response.data;
       }.bind(this) );
   },
   methods: {
@@ -82,6 +91,7 @@ var ReviewsNewPage = {
   }
 };
 
+
 var EmployeeIndexPage = {
   template: "#employees-index-page",
   data: function() {
@@ -98,6 +108,8 @@ var EmployeeIndexPage = {
   methods: {},
   computed: {}
 };
+
+
 var Login = {
   template: "#loginpage",
    data: function() {
@@ -175,6 +187,18 @@ template: "#logout-page",
   }
 };
 
+var ReviewsPending = {
+  template: "#pending-reviews-page",
+  data: function() {
+    return {
+      message: "Welcome to Vue.js!"
+    };
+  },
+  created: function() {},
+  methods: {},
+  computed: {}
+};
+
 var router = new VueRouter({
   routes: [
     { path: "/", component: Login },
@@ -184,7 +208,8 @@ var router = new VueRouter({
     { path: "/employees", component: EmployeeIndexPage},
     // { path: "/reviews", component: ReviewShowPage},
     { path: "/reviews/new", component: ReviewsNewPage },
-    { path: "/logout", component: LogoutPage }
+    { path: "/logout", component: LogoutPage },
+    { path: "/reviews/pending", component: ReviewsPending }
 
     ],
   scrollBehavior: function(to, from, savedPosition) {

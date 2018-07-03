@@ -19,6 +19,7 @@
   </div>
  </body>
 </html>
+
 <template id="signup-page">
   <div class="vue-component">
     <div class="container">
@@ -90,6 +91,7 @@
     <div class="container">
   <a class="btn btn-primary" v-bind:href="'/#/reviews/new' ">Create Review</a>
   <a class="btn btn-primary" v-bind:href="'/#/employees' ">View Review</a>
+  <a class="btn btn-primary" v-bind:href="'/#/reviews/pending' ">Pending Reviews</a>
 
 </br>
 </br>
@@ -124,6 +126,8 @@
   </div>
   </div>
 </template>
+
+<!-- '/reviews/new' -->
 <template id="reviews-new-page">
   <div class="vue-component">
     <div class="container">
@@ -141,10 +145,20 @@
         </select>
       </div>
          </br>
+
+      <div class="form-group">
+        <label>Employee Name in my group</label>
+        <select class="form-control" v-model="reviewee_id">
+          <option v-for="names in employees_names">
+            {{names.first_name}}
+          </option>
+        </select>
+      </div>
+         </br>
+
           <div class="form-group">
         <label>Relationship</label>
         <select class= "form-control" v-model="relationship">
-        <option value="3"></option>
         <option value="0">Peer</option>
         <option value="1">Self</option>
         </select>
@@ -200,6 +214,15 @@
         <button class="btn btn-primary" v-on:click="submit()">Submit</button>
        </div>
       </div>
+    </div>
+  </div>
+</template>
+
+<!-- Pending Reviews template -->
+<template id="pending-reviews-page">
+  <div class="vue-component">
+    <div class="container">
+      <h1>Pending Reviews</h1>
     </div>
   </div>
 </template>

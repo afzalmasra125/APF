@@ -5,6 +5,7 @@ Rails.application.routes.draw do
    get '/employees/:id' => 'employees#show'
    patch '/employee/:id' => 'employees#update'
    delete '/employee/:id' => 'employees#destroy'
+   get '/manager/employees' => 'employees#getEmployeesByManagerID'
 
    get '/reviews' => 'reviews#index'
    get '/pending_reviews' => 'reviews#pending_reviews'

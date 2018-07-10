@@ -114,7 +114,7 @@ var EmployeeIndexPage = {
       employees = [];
       for (var i = this.employees.length - 1; i >= 0; i--) {
         fullName = (this.employees[i].first_name + this.employees[i].last_name).toLowerCase();
-        if (fullName.includes(this.search.toLowerCase())){ employees.push(this.employees[i])}
+        if (fullName.includes(this.search.toLowerCase())){employees.push(this.employees[i])}
       }
       return employees; 
     }

@@ -41,9 +41,8 @@ class EmployeesController < ApplicationController
  end
 
  def getEmployeesByManagerID
-    employees = Employee.where(manager_id: params[:manager_id])
+    employees = Employee.where(manager_id: params[:manager_id]) 
     render json: employees.as_json 
  end
-
 end 
   

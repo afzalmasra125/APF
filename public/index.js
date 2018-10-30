@@ -18,7 +18,8 @@ var ReviewShowPage = {
     };
   },
   created: function() {
-    axios.get("/reviews")
+    const token = localStorage.getItem("jwt");
+    axios.get("/reviews", { headers: {"Authorization" : `Bearer ${token}`} })
       .then(function(response) {
         this.reviews = response.data;
         console.log( this.reviews);
@@ -55,7 +56,7 @@ var ReviewsNewPage = {
     var params = {
       manager_id: 1
     }
-    axios
+   axios
       .get("/manager/employees", {params})
       .then(function(response){
         this.employees_names = response.data;
@@ -69,7 +70,6 @@ var ReviewsNewPage = {
         teamwork: this.teamwork,
         technical: this.technical,
         leadership: this.leadership,
-        technical: this.technical,
         positive_feedback: this.positive_feedback,
         needs_improvement: this.needs_improvement
       };
@@ -110,17 +110,20 @@ var EmployeeIndexPage = {
   },
   methods: {},
   computed: {
-     filteredEmployees: function(){
-      employees = [];
-      for (var i = this.employees.length - 1; i >= 0; i--) {
-        fullName = (this.employees[i].first_name + this.employees[i].last_name).toLowerCase();
-        if (fullName.includes(this.search.toLowerCase())){employees.push(this.employees[i])}
+    filteredEmployees: function(){
+      let employees = [];
+       for (var i = this.employees.length - 1; i >= 0; i--) {
+        const firstName = this.employees[i].first_name || ''
+        const lastName = this.employees[i].last_name || ''
+        fullName = firstName + lastName;
+        if (fullName.toLowerCase().includes(this.search.toLowerCase())) {
+          employees.push(this.employees[i])
+        }
       }
       return employees; 
     }
   }
 };
-
 
 var Login = {
   template: "#loginpage",
@@ -232,4 +235,3 @@ var app = new Vue({
   el: "#vue-app",
   router: router
 });
-

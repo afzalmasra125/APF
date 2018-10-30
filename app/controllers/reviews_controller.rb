@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-# before_action :authenticate_user!
+  before_action :authenticate_employee
   def index
         reviews = Review.all
         render json: reviews.as_json
@@ -10,17 +10,19 @@ class ReviewsController < ApplicationController
   end
   def create 
     reviews = Review.new( {
-                        reviewer_id: current_user.id,
-                        reviewee_id: params[:reviewee_id],
-                        relationship: params[:relationship],
-                        judgement: params[:judgement],
-                        teamwork: params[:teamwork],
-                        positive_feedback: params[:positive_feedback],
+                        reviewer_id: current_employee.id,
+                        reviewee_id: params[:reviewee_id].to_i,
+                        relationship: params[:relationship].to_i,
+                        judgement: params[:judgement].to_i,
+                        teamwork: params[:teamwork].to_i,
                         positive_feedback: params[:positive_feedback],
                         needs_improvement: params[:needs_improvement]
                        })
-    reviews.save
-    render json: reviews.as_json
+    if reviews.save
+      render json: reviews.as_json
+    else
+      p reviews.errors
+    end
   end
   def show
     review = Review.find(params[:id])
@@ -28,12 +30,12 @@ class ReviewsController < ApplicationController
   end
   def update
       review = Review.find(params[:id])
-      review.relationship = params[:relationship]||review.relationship
-      review.judgement = params[:judgement]||review.judgement = params[:judgement]
-      review.teamwork = params[:teamwork]||review.teamwork = params[:teamwork]
-      review.positive_feedback = params[:positive_feedback]||review.positive_feedback
-      review.positive_feedback = params[:positive_feedback]||review.positive_feedback
-      review.needs_improvement = params[:needs_improvement]||eview.needs_improvement
+      review.relationship = params[:relationship].to_i||review.relationship
+      review.judgement = params[:judgement].to_i||review.judgement = params[:judgement]
+      review.teamwork = params[:teamwork].to_i||review.teamwork = params[:teamwork]
+      review.positive_feedback = params[:positive_feedback].to_i||review.positive_feedback
+      review.positive_feedback = params[:positive_feedback].to_i||review.positive_feedback
+      review.needs_improvement = params[:needs_improvement].to_i||eview.needs_improvement
   end    
    def destroy
    review = Review.find(params[:id])

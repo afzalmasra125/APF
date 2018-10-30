@@ -136,7 +136,7 @@
         <li class="text-danger" v-for="error in errors">{{ error }}</li>
       </ul>
       <div class="form-group">
-        <label>Employee Name</label>
+      <!--   <label>Employee Name</label>
         <select class="form-control" v-model="reviewee_id">
           <option v-for="review in pending_reviews">
             {{review.reviewee.first_name}}
@@ -145,11 +145,11 @@
         </select>
       </div>
          </br>
-
+ -->
       <div class="form-group">
         <label>Employee Name in my group</label>
         <select class="form-control" v-model="reviewee_id">
-          <option v-for="names in employees_names">
+          <option v-for="names in employees_names" :value=names.id>
             {{names.first_name}}
           </option>
         </select>
@@ -232,13 +232,18 @@
 <template id="reviews-show-page">
   <div class="vue-component">
     <div class="container">
-      <h1>Reviews List</h1>
-
-
+      <h1>Reviews</h1>
+<!-- v
       <div class="list-group" v-for="review in reviews">
         <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">New review</h5>
-          <small>By {{review.reviewer_id}}</small>
+          <small>By {{review.reviewer_id}}</small> -->
+          <div class="table" v-for="review in reviews">
+            <table>
+                <tr>
+                <th>Area of the strenght</th>
+                <th>Area of improvement</th>
+              </tr>
+            </table>
         </div>
         <div>
           <p>

@@ -119,7 +119,7 @@
             <tr v-for="employee in filteredEmployees">
               <th>{{employee.first_name}}</th>
               <th>{{employee.last_name}}</th>
-              <td> <a class="btn btn-primary" v-bind:href="'/#/reviews' "> Reviews</a></td>
+              <td> <a class="btn btn-primary" v-bind:href="'/#/employees/'+ employee.id"> Reviews</a></td>
             </tr>
           </tbody>
         </table>
@@ -226,40 +226,66 @@
     </div>
   </div>
 </template>
-
-
 <!-- Reviews template -->
 <template id="reviews-show-page">
   <div class="vue-component">
-    <div class="container">
-      <h1>Reviews</h1>
-<!-- v
-      <div class="list-group" v-for="review in reviews">
-        <div class="d-flex w-100 justify-content-between">
-          <small>By {{review.reviewer_id}}</small> -->
-          <div class="table" v-for="review in reviews">
-            <table>
-                <tr>
-                <th>Area of the strenght</th>
-                <th>Area of improvement</th>
-              </tr>
-            </table>
-        </div>
-        <div>
-          <p>
-            Relationship: {{review.relationship}}<br>
-            Judgement: {{review.judgement}}<br>
-            Teamwork: {{review.teamwork}}<br>
-            Leadership: {{review.leadership}}<br>
-            Technical: {{review.technical}}<br>
-            Positive feedback: {{review.positive_feedback}}<br>
-            Needs Improvement: {{review.needs_improvement}}<br>
-          </p>
-        </div>
-        
+   <div class ="container">
+     <div class ="row">
+      <div v-for="review in employee.reviews" class="col-md-4">
+   <h1>Reviews</h1> 
+ </br>
+  <table style="width:200%" border="1px solid black" padding = "15px">
+     <tr>
+      <th COLSPAN="2">
+         <h3><br><center> Self Review</center></h3>
+      </th>
+  <tr>
+    <th>Area of Strenght</th>
+    <th>Area of Improvement</th> 
+  </tr>
+  <tr v-if="review.reviewee_id == review.reviewer_id">
+    <td>{{review.positive_feedback}}</td>
+    <br>
+    <td>{{review.needs_improvement}}</td> 
+  </tr>
+</table>
+</br>
+ <table style="width:200%" border="1px solid black" padding = "15px">
+  <tr>
+      <th COLSPAN="2">
+         <h3><br><center> Peer Comments </center></h3>
+      </th>
+      <tr>
+    <th>Area of Strenght</th>
+    <th>Area of Improvement</th> 
+  </tr>
+  <tr v-else="!review.reviewer_manager_status">
+    <td>{{review.positive_feedback}}</td>
+    <br>
+    <td>{review.needs_improvement}}</td> 
+  </tr>
+</table>
+  <tr>
+  </table>
+  </br> 
+<table style="width:200%" border="1px solid black" padding = "15px">
+  <tr>
+      <th COLSPAN="2">
+         <h3><br><center> Manager Comments </center></h3>
+      </th>
+      <tr>
+    <th>Area of Strenght</th>
+    <th>Area of Improvement</th> 
+  </tr>
+  <tr v-elsif="review.reviewer_manager_status">
+    <td>{{review.positive_feedback}}</td>
+    <br>
+    <td>{{review.needs_improvement}}</td> 
+  </tr>
+</table>
+  <tr>
+  </table>
       </div>
-
-
     </div>
   </div>
 </template>

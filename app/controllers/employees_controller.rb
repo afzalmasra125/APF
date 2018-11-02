@@ -23,6 +23,7 @@ class EmployeesController < ApplicationController
     end
   def show
     @employee = Employee.find(params[:id])
+    p @employee.reviews
     render 'show.json.jbuilder'
   end 
  def update

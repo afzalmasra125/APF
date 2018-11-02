@@ -14,15 +14,15 @@ var ReviewShowPage = {
   template: "#reviews-show-page",
   data: function() {
     return {
-      reviews:[]
+      employee: null
     };
   },
   created: function() {
     const token = localStorage.getItem("jwt");
-    axios.get("/reviews", { headers: {"Authorization" : `Bearer ${token}`} })
+    axios.get("/employees/" + this.$route.params.id, { headers: {"Authorization" : `Bearer ${token}`} })
       .then(function(response) {
-        this.reviews = response.data;
-        console.log( this.reviews);
+        this.employee = response.data;
+        console.log(this.employee);
       }.bind(this));
   },
   methods: {},
@@ -92,8 +92,6 @@ var ReviewsNewPage = {
     }
   }
 };
-
-
 var EmployeeIndexPage = {
   template: "#employees-index-page",
   data: function() {
@@ -221,7 +219,7 @@ var router = new VueRouter({
     { path: "/signup", component: SignupPage },
     { path: "/logout", component: LogoutPage },
     { path: "/employees", component: EmployeeIndexPage},
-    { path: "/reviews", component: ReviewShowPage},
+    { path: "/employees/:id", component: ReviewShowPage},
     { path: "/reviews/new", component: ReviewsNewPage },
     { path: "/logout", component: LogoutPage },
     { path: "/reviews/pending", component: ReviewsPending }

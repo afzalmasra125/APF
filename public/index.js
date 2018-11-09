@@ -14,7 +14,19 @@ var ReviewShowPage = {
   template: "#reviews-show-page",
   data: function() {
     return {
-      employee: null
+      employee: null,
+      selfReview: [],
+      managerReview: null,
+      peerReviews: null,
+      averageJudgement:null,
+      averageTeamwork:null,
+      averageLeadership:null,
+      averageTechnical:null,
+      countJudgement:null,
+      countTeamwork:null,
+      countLeadership:null,
+      countTechnical:null,
+
     };
   },
   created: function() {
@@ -22,10 +34,22 @@ var ReviewShowPage = {
     axios.get("/employees/" + this.$route.params.id, { headers: {"Authorization" : `Bearer ${token}`} })
       .then(function(response) {
         this.employee = response.data;
-        console.log(this.employee);
+        this.selfReview = this.employee.reviews.filter(review => review.reviewee_id === review.reviewer_id)[0];
+        this.managerReview = this.employee.reviews.filter(review => review.reviewer_manager_status && review.reviewee_id !== review.reviewer_id)[0];
+        this.peerReviews = this.employee.reviews.filter(review => !review.reviewer_manager_status && review.reviewee_id !== review.reviewer_id);
+        this.averageJudgement = this.getAverage(this.peerReviews.map(review => review.judgement + 1));
+        this.averageTeamwork = this.getAverage(this.peerReviews.map(review => review.teamwork + 1));
+        this.averageLeadership = this.getAverage(this.peerReviews.map(review => review.leadership + 1));
+        this.averageTechnical = this.getAverage(this.peerReviews.map(review => review.technical + 1));
+        this.countTechnical = this.count()
       }.bind(this));
   },
-  methods: {},
+  methods: {
+    getAverage(arr) {
+      return arr.reduce((a, b) => a + b, 0) / arr.length;
+    }
+    count()
+  },
   computed: {}
 };
 
@@ -54,7 +78,7 @@ var ReviewsNewPage = {
         this.pending_reviews = response.data;
       }.bind(this) );
     var params = {
-      manager_id: 1
+      manager_id: 6
     }
    axios
       .get("/manager/employees", {params})

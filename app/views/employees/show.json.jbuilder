@@ -6,6 +6,9 @@ json.manager_id @employee.manager_id
 json.manager_status @employee.manager_status
 
 json.reviews @employee.reviews.each do|review|
+  json.review_id review.id
+  json.reviewee_id review.reviewee.id
+  json.reviewer_id review.reviewer.id
   json.relationship review.relationship
   json.judgement review.judgement
   json.teamwork review.teamwork
@@ -13,7 +16,5 @@ json.reviews @employee.reviews.each do|review|
   json.technical review.technical
   json.positive_feedback review.positive_feedback
   json.needs_improvement review.needs_improvement
-  json.reviewee_id review.reviewee.id
-  json.reviewer_id review.reviewer.id
   json.reviewer_manager_status review.reviewer.manager_status
 end 

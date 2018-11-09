@@ -9,8 +9,11 @@
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.js"></script>
   <script src="index.js" defer></script>
+  <link rel="stylesheet" href="review.css">
 </br>
-  <h1><img src="csg-logo.png" alt="csg" style="width:200px;height:75px;border:15;">     Agile Performance Feedback</h1>
+ <img src="csg-logo.png" alt="csg" style="width:200px;height:75px;border:15;">  
+ </br>   
+    <h1>Agile Performance Feedback</h1>
 </head>
 <body>
 </br>
@@ -135,7 +138,7 @@
       <ul>
         <li class="text-danger" v-for="error in errors">{{ error }}</li>
       </ul>
-      <div class="form-group">
+      <!-- <div class="form-group"> -->
       <!--   <label>Employee Name</label>
         <select class="form-control" v-model="reviewee_id">
           <option v-for="review in pending_reviews">
@@ -146,7 +149,7 @@
       </div>
          </br>
  -->
-      <div class="form-group">
+      <div class="form-group" style="width:500px;">
         <label>Employee Name in my group</label>
         <select class="form-control" v-model="reviewee_id">
           <option v-for="names in employees_names" :value=names.id>
@@ -156,14 +159,14 @@
       </div>
          </br>
 
-          <div class="form-group">
+          <div class="form-group" style="width:500px;">
         <label>Relationship</label>
         <select class= "form-control" v-model="relationship">
         <option value="0">Peer</option>
         <option value="1">Self</option>
         </select>
       </div>
-      <div class="form-group">
+      <div class="form-group" style="width:500px;">
         <label>Judgement</label>
         <select class="form-control" v-model="judgement">
         <option value="5"></option>
@@ -173,7 +176,7 @@
         <option value="3">Exceed expectation</option>
       </select>
       </div>
-      <div class="form-group">
+      <div class="form-group" style="width:500px;" >
         <label>Teamwork</label>
         <select class="form-control" v-model="teamwork">>
         <option value="5"></option>
@@ -183,7 +186,7 @@
         <option value="3">Exceed expectation</option>
        </select>
       </div>
-      <div class="form-group">
+      <div class="form-group" style="width:500px;" >
         <label>Leadership</label>
         <select class= "form-control"  v-model="leadership">
         <option value="5"></option>
@@ -193,7 +196,7 @@
         <option value="3">Exceed expectation</option>
         </select>
       </div>
-       <div class="form-group">
+       <div class="form-group" style="width:500px;">
         <label>Technical</label>
       <select class= "form-control"  v-model="technical">
         <option value="5"></option>
@@ -205,11 +208,11 @@
       </div>
        <div class="form-group">
         <label>Positive Feedback</label>
-        <input type="text" class="form-control" v-model="positive_feedback">
+        <input type="text" class="form-control" v-model="positive_feedback" style="height:200px;" width = "500px">
       </div>
        <div class="form-group">
         <label>Needs Improvement</label>
-        <input type="text" class="form-control" v-model="needs_improvement">
+        <input type="text" class="form-control" v-model="needs_improvement" style="height:200px;">
       </div>
         <button class="btn btn-primary" v-on:click="submit()">Submit</button>
        </div>
@@ -217,7 +220,6 @@
     </div>
   </div>
 </template>
-
 <!-- Pending Reviews template -->
 <template id="pending-reviews-page">
   <div class="vue-component">
@@ -226,66 +228,105 @@
     </div>
   </div>
 </template>
+
 <!-- Reviews template -->
 <template id="reviews-show-page">
   <div class="vue-component">
-   <div class ="container">
-     <div class ="row">
-      <div v-for="review in employee.reviews" class="col-md-4">
-   <h1>Reviews</h1> 
- </br>
-  <table style="width:200%" border="1px solid black" padding = "15px">
-     <tr>
-      <th COLSPAN="2">
-         <h3><br><center> Self Review</center></h3>
-      </th>
+    <div class ="container">
+      <div class ="row">
+        <div class = "name" v-if="employee">   
+          <br/>
+          <br/>
+          <b>APF review for:- </b> <h3>{{employee.first_name}}  {{employee.last_name}}</h3>
+          <br/>
+          <br/>
+          <br/>
+        </div>
+<table style="width:100%" border="1px solid black" padding = "15px">
+ <tr>
+  <th COLSPAN="7">
+   <h3><br/><center>Ratings</center></h3>
+  </th>
   <tr>
-    <th>Area of Strenght</th>
-    <th>Area of Improvement</th> 
-  </tr>
-  <tr v-if="review.reviewee_id == review.reviewer_id">
-    <td>{{review.positive_feedback}}</td>
-    <br>
-    <td>{{review.needs_improvement}}</td> 
-  </tr>
-</table>
-</br>
- <table style="width:200%" border="1px solid black" padding = "15px">
+   <th>Question</th> 
+   <th>Self Ratings</th>
+   <th>Peer Ratings(Average)</th>
+   <th>Did not meet Expectations(Peer)</th>
+   <th>Partially Meets Expectations(Peer)</th>
+   <th>Fully Meets Expectations(Peer)</th>
+   <th>Exceeds Expectations(Peer)</th>
+  </tr> 
   <tr>
-      <th COLSPAN="2">
-         <h3><br><center> Peer Comments </center></h3>
-      </th>
-      <tr>
-    <th>Area of Strenght</th>
-    <th>Area of Improvement</th> 
-  </tr>
-  <tr v-else="!review.reviewer_manager_status">
-    <td>{{review.positive_feedback}}</td>
-    <br>
-    <td>{review.needs_improvement}}</td> 
-  </tr>
-</table>
+   <td>Judgement</td>
+   <td>{{(selfReview.judgement + 1).toFixed(1)}}</td>
+   <td>{{(averageJudgement).toFixed(1)}}</td>
+   <td></td>
+  </tr> 
+   <tr>
+    <td>Teamwork / Collaboration</td>
+    <td>{{(selfReview.teamwork + 1).toFixed(1)}}</td>
+    <td>{{(averageTeamwork).toFixed(1)}}</td>
+   </tr> 
+   <tr>
+    <td>Personal Leadership</td>
+    <td>{{(selfReview.leadership + 1).toFixed(1)}}</td>
+    <td>{{(averageLeadership).toFixed(1)}}</td>
+    </tr> 
+    <tr>
+      <td>Functional / Technical</td>
+      <td>{{(selfReview.technical + 1).toFixed(1)}}</td>
+      <td>{{(averageTechnical).toFixed(1)}}</td>
+    </tr> 
+    <tr>
+      <td><b><h4>Total Average<h4></b></td>
+      <td>{{((selfReview.judgement + selfReview.teamwork + selfReview.technical + selfReview.leadership + 4) / 4).toFixed(1)}}</td>
+      <td>{{((averageJudgement + averageTeamwork + averageLeadership + averageTechnical)/4).toFixed(1)}}
+      </td>
+    </tr> 
+</table> 
+<table style="width:100%" border="1px solid black" padding = "15px">
   <tr>
+   <th COLSPAN="2">
+    <h3><br/><center>Self Review</center></h3>
+     </th>
+  <tr>
+   <th><h3>Area of Strength</h3></th>
+   <th><h3>Area of Improvement</h3></th> 
+  </tr>
+  <tr>
+   <td>{{selfReview.positive_feedback}}</td>
+   <br>
+   <td>{{selfReview.needs_improvement}}</td> 
+  </tr>
+ </table>
+ <div v-if="peerReviews">
+  <table style="width:100%" border="1px solid black" padding = "15px">
+   <tr>
+     <th COLSPAN="2">
+      <h3><br><center>Peer Comments </center></h3>
+     </th>
+    <tr>
+     <th><h3>Area of Strength</h3></th>
+     <th><h3>Area of Improvement</h3></th> 
+    </tr>
+    <tr v-for="peer in peerReviews">
+     <td>{{peer.positive_feedback}}</td>
+     <br>
+     <td>{{peer.needs_improvement}}</td> 
+    </tr>
   </table>
-  </br> 
-<table style="width:200%" border="1px solid black" padding = "15px">
+</div>
+<table v-if="managerReview" style="width:100%" border="1px solid black" padding = "15px">
   <tr>
-      <th COLSPAN="2">
-         <h3><br><center> Manager Comments </center></h3>
-      </th>
-      <tr>
-    <th>Area of Strenght</th>
-    <th>Area of Improvement</th> 
-  </tr>
-  <tr v-elsif="review.reviewer_manager_status">
-    <td>{{review.positive_feedback}}</td>
+    <th COLSPAN="2">
+      <h3><br><center> Manager Summary </center></h3>
+    </th>
+  <tr>
+    <td>{{managerReview.positive_feedback}}</td>
     <br>
-    <td>{{review.needs_improvement}}</td> 
   </tr>
 </table>
-  <tr>
-  </table>
-      </div>
-    </div>
+   </div>
   </div>
+ </div>
 </template>

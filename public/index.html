@@ -159,7 +159,6 @@
         </select>
       </div>
          </br>
-
           <div class="form-group" style="width:500px;">
         <label>Relationship</label>
         <select class= "form-control" v-model="relationship">
@@ -240,6 +239,13 @@
           <br/>
           <b>APF review for:- </b> <h3>{{employee.first_name}}  {{employee.last_name}}</h3>
           <br/>
+         </br>
+         <select style="width:200px;">
+           <option value="Feb">February 2019</option>
+           <option value="May">May 2019</option>
+           <option value="Aug">August 2019</option>
+           <option value="Nov">November 2019</option>
+         </select>
           <br/>
           <br/>
         </div>
@@ -322,21 +328,21 @@
     <th COLSPAN="3">
       <h3><br><center> Manager Summary </center></h3>
     </th>
-  <tr>
-   <td>Judegment</td> 
+  <tr >
+   <td><b>Judegment</td> 
   <td>{{managerReview.judgement}}</td>
   <td rowspan="4">{{managerReview.positive_feedback}}</td>
   </tr>
  <tr>
- <td>Teamwork/Collaboration</td>
+ <td><b>Teamwork/Collaboration</td>
   <td>{{managerReview.teamwork}}</td>
  </tr>
 <tr>
- <td>Personal Leadership</td>
+ <td><b>Personal Leadership</td>
  <td>{{managerReview.leadership}}</td>
   </tr>
   <tr>
-    <td>Functional/Technical</td>
+    <td><b>Functional/Technical</td>
     <td>{{managerReview.technical}}</td>
   </tr>
  </table>

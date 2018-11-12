@@ -41,14 +41,19 @@ var ReviewShowPage = {
         this.averageTeamwork = this.getAverage(this.peerReviews.map(review => review.teamwork + 1));
         this.averageLeadership = this.getAverage(this.peerReviews.map(review => review.leadership + 1));
         this.averageTechnical = this.getAverage(this.peerReviews.map(review => review.technical + 1));
-        this.countTechnical = this.count()
+        // this.countTechnical = this.count()
       }.bind(this));
   },
   methods: {
     getAverage(arr) {
       return arr.reduce((a, b) => a + b, 0) / arr.length;
     }
-    count()
+    // count() {
+
+      
+    // }
+
+
   },
   computed: {}
 };

@@ -116,6 +116,7 @@
             <tr>
               <th>First Name</th>
               <th>Last Name</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>          
@@ -242,7 +243,7 @@
           <br/>
           <br/>
         </div>
-<table style="width:100%" border="1px solid black" padding = "15px">
+<table class=review>
  <tr>
   <th COLSPAN="7">
    <h3><br/><center>Ratings</center></h3>
@@ -284,7 +285,7 @@
       </td>
     </tr> 
 </table> 
-<table style="width:100%" border="1px solid black" padding = "15px">
+<table class=review>
   <tr>
    <th COLSPAN="2">
     <h3><br/><center>Self Review</center></h3>
@@ -299,8 +300,8 @@
    <td>{{selfReview.needs_improvement}}</td> 
   </tr>
  </table>
- <div v-if="peerReviews">
-  <table style="width:100%" border="1px solid black" padding = "15px">
+<!--  <div v-if="peerReviews"> -->
+  <table class=review v-if="peerReviews">
    <tr>
      <th COLSPAN="2">
       <h3><br><center>Peer Comments </center></h3>
@@ -315,17 +316,31 @@
      <td>{{peer.needs_improvement}}</td> 
     </tr>
   </table>
-</div>
-<table v-if="managerReview" style="width:100%" border="1px solid black" padding = "15px">
+<!-- </div> -->
+ <table v-if="managerReview" class=review>
   <tr>
-    <th COLSPAN="2">
+    <th COLSPAN="3">
       <h3><br><center> Manager Summary </center></h3>
     </th>
   <tr>
-    <td>{{managerReview.positive_feedback}}</td>
-    <br>
+   <td>Judegment</td> 
+  <td>{{managerReview.judgement}}</td>
+  <td rowspan="4">{{managerReview.positive_feedback}}</td>
   </tr>
-</table>
+ <tr>
+ <td>Teamwork/Collaboration</td>
+  <td>{{managerReview.teamwork}}</td>
+ </tr>
+<tr>
+ <td>Personal Leadership</td>
+ <td>{{managerReview.leadership}}</td>
+  </tr>
+  <tr>
+    <td>Functional/Technical</td>
+    <td>{{managerReview.technical}}</td>
+  </tr>
+ </table>
+<!-- </div> -->
    </div>
   </div>
  </div>

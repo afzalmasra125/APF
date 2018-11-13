@@ -251,7 +251,7 @@
         </div>
 <table class=review>
  <tr>
-  <th COLSPAN="7">
+  <th COLSPAN="8">
    <h3><br/><center>Ratings</center></h3>
   </th>
   <tr>
@@ -262,34 +262,61 @@
    <th>Partially Meets Expectations(Peer)</th>
    <th>Fully Meets Expectations(Peer)</th>
    <th>Exceeds Expectations(Peer)</th>
+   <th>N/A</th>
   </tr> 
   <tr>
    <td>Judgement</td>
    <td>{{(selfReview.judgement + 1).toFixed(1)}}</td>
    <td>{{(averageJudgement).toFixed(1)}}</td>
-   <td></td>
+   <td>{{ getCount(peerReviews, "judgement", 0) }}</td>
+   <td>{{ getCount(peerReviews, "judgement", 1) }}</td>
+   <td>{{ getCount(peerReviews, "judgement", 2) }}</td>
+   <td>{{ getCount(peerReviews, "judgement", 3) }}</td>
+   <td>{{ getCount(peerReviews, "judgement", null) }}</td>
   </tr> 
    <tr>
     <td>Teamwork / Collaboration</td>
     <td>{{(selfReview.teamwork + 1).toFixed(1)}}</td>
     <td>{{(averageTeamwork).toFixed(1)}}</td>
+    <td>{{ getCount(peerReviews, "teamwork", 0) }}</td>
+    <td>{{ getCount(peerReviews, "teamwork", 1) }}</td>
+    <td>{{ getCount(peerReviews, "teamwork", 2) }}</td>
+    <td>{{ getCount(peerReviews, "teamwork", 3) }}</td>
+    <td>{{ getCount(peerReviews, "teamwork", null) }}</td>
    </tr> 
    <tr>
     <td>Personal Leadership</td>
     <td>{{(selfReview.leadership + 1).toFixed(1)}}</td>
     <td>{{(averageLeadership).toFixed(1)}}</td>
-    </tr> 
+    <td>{{ getCount(peerReviews, "leadership", 0) }}</td>
+    <td>{{ getCount(peerReviews, "leadership", 1) }}</td>
+    <td>{{ getCount(peerReviews, "leadership", 2) }}</td>
+    <td>{{ getCount(peerReviews, "leadership", 3) }}</td>
+    <td>{{ getCount(peerReviews, "leadership", null) }}</td>    
+   </tr> 
     <tr>
       <td>Functional / Technical</td>
       <td>{{(selfReview.technical + 1).toFixed(1)}}</td>
       <td>{{(averageTechnical).toFixed(1)}}</td>
+      <td>{{ getCount(peerReviews, "technical", 0) }}</td>
+      <td>{{ getCount(peerReviews, "technical", 1) }}</td>
+      <td>{{ getCount(peerReviews, "technical", 2) }}</td>
+      <td>{{ getCount(peerReviews, "technical", 3) }}</td>
+      <td>{{ getCount(peerReviews, "technical", null) }}</td>  
     </tr> 
     <tr>
       <td><b><h4>Total Average<h4></b></td>
       <td>{{((selfReview.judgement + selfReview.teamwork + selfReview.technical + selfReview.leadership + 4) / 4).toFixed(1)}}</td>
       <td>{{((averageJudgement + averageTeamwork + averageLeadership + averageTechnical)/4).toFixed(1)}}
       </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+
     </tr> 
+
 </table> 
 <table class=review>
   <tr>
@@ -330,20 +357,20 @@
     </th>
   <tr >
    <td><b>Judegment</td> 
-  <td>{{managerReview.judgement}}</td>
+  <td>{{convertRatings(managerReview.judgement)}}</td>
   <td rowspan="4">{{managerReview.positive_feedback}}</td>
   </tr>
  <tr>
  <td><b>Teamwork/Collaboration</td>
-  <td>{{managerReview.teamwork}}</td>
+  <td>{{convertRatings(managerReview.teamwork)}}</td>
  </tr>
 <tr>
  <td><b>Personal Leadership</td>
- <td>{{managerReview.leadership}}</td>
+ <td>{{convertRatings(managerReview.leadership)}}</td>
   </tr>
   <tr>
     <td><b>Functional/Technical</td>
-    <td>{{managerReview.technical}}</td>
+    <td>{{convertRatings(managerReview.technical)}}</td>
   </tr>
  </table>
 <!-- </div> -->

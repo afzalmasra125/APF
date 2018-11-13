@@ -47,12 +47,26 @@ var ReviewShowPage = {
   methods: {
     getAverage(arr) {
       return arr.reduce((a, b) => a + b, 0) / arr.length;
+    },
+    convertRatings(rating) {
+      switch (rating) {
+      case 0:
+        return "Does Not Meet Expectations";
+      case 1:
+        return "Partially Meets Expectations";
+      case 2:
+        return "Fully Meets Expectations";
+      case 3:
+        return "Exceeds Expectations";
+      }
+    },
+    judgementcounts(ratings, count) {},
+    teamworkcounts(ratings, count){},
+    leadershipcounts(ratings, count){},
+    technicalcounts(ratings, count){},
+    getCount(arr, attribute, score) {
+      return arr.filter( obj => obj[attribute] === score ).length;
     }
-    // count() {
-
-      
-    // }
-
 
   },
   computed: {}

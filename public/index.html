@@ -9,12 +9,18 @@
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.js"></script>
   <script src="index.js" defer></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/data.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.0.min.js"></script>
+  <script src="fnExcelReport.js"></script>
   <link rel="stylesheet" href="review.css">
 </br>
  <img src="csg-logo.png" alt="csg" style="width:200px;height:75px;border:15;">  
  </br>   
     <h1>Agile Performance Feedback</h1>
-</head>
 <body>
 </br>
    <div id="vue-app">
@@ -228,13 +234,12 @@
     </div>
   </div>
 </template>
-
 <!-- Reviews template -->
 <template id="reviews-show-page">
   <div class="vue-component">
     <div class ="container">
       <div class ="row">
-        <div class = "name" v-if="employee">   
+        <div class = "name" v-if="employee">  
           <br/>
           <br/>
           <b>APF review for:- </b> <h3>{{employee.first_name}}  {{employee.last_name}}</h3>
@@ -246,10 +251,17 @@
            <option value="Aug">August 2019</option>
            <option value="Nov">November 2019</option>
          </select>
+         <br/>
+         <br/>
+        
+     <button> <a href="#" id="test" onClick="javascript:fnExcelReport()"> <h4> Download APF </h4></a> </button>
+        <br/>
+    <br/>
           <br/>
           <br/>
         </div>
-<table class=review>
+  <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<table class="review" id="ratings">
  <tr>
   <th COLSPAN="8">
    <h3><br/><center>Ratings</center></h3>
@@ -265,7 +277,7 @@
    <th>N/A</th>
   </tr> 
   <tr>
-   <td>Judgement</td>
+   <th>Judgement</th>
    <td>{{(selfReview.judgement + 1).toFixed(1)}}</td>
    <td>{{(averageJudgement).toFixed(1)}}</td>
    <td>{{ getCount(peerReviews, "judgement", 0) }}</td>
@@ -275,7 +287,7 @@
    <td>{{ getCount(peerReviews, "judgement", null) }}</td>
   </tr> 
    <tr>
-    <td>Teamwork / Collaboration</td>
+    <th>Teamwork / Collaboration</th>
     <td>{{(selfReview.teamwork + 1).toFixed(1)}}</td>
     <td>{{(averageTeamwork).toFixed(1)}}</td>
     <td>{{ getCount(peerReviews, "teamwork", 0) }}</td>
@@ -285,7 +297,7 @@
     <td>{{ getCount(peerReviews, "teamwork", null) }}</td>
    </tr> 
    <tr>
-    <td>Personal Leadership</td>
+    <th>Personal Leadership</th>
     <td>{{(selfReview.leadership + 1).toFixed(1)}}</td>
     <td>{{(averageLeadership).toFixed(1)}}</td>
     <td>{{ getCount(peerReviews, "leadership", 0) }}</td>
@@ -295,7 +307,7 @@
     <td>{{ getCount(peerReviews, "leadership", null) }}</td>    
    </tr> 
     <tr>
-      <td>Functional / Technical</td>
+      <th>Functional / Technical</th>
       <td>{{(selfReview.technical + 1).toFixed(1)}}</td>
       <td>{{(averageTechnical).toFixed(1)}}</td>
       <td>{{ getCount(peerReviews, "technical", 0) }}</td>
@@ -305,7 +317,7 @@
       <td>{{ getCount(peerReviews, "technical", null) }}</td>  
     </tr> 
     <tr>
-      <td><b><h4>Total Average<h4></b></td>
+      <th><b><h4>Total Average<h4></b></th>
       <td>{{((selfReview.judgement + selfReview.teamwork + selfReview.technical + selfReview.leadership + 4) / 4).toFixed(1)}}</td>
       <td>{{((averageJudgement + averageTeamwork + averageLeadership + averageTechnical)/4).toFixed(1)}}
       </td>
@@ -314,11 +326,9 @@
       <td></td>
       <td></td>
       <td></td>
-
     </tr> 
-
 </table> 
-<table class=review>
+<table class=review id="selfReview">
   <tr>
    <th COLSPAN="2">
     <h3><br/><center>Self Review</center></h3>
@@ -334,7 +344,7 @@
   </tr>
  </table>
 <!--  <div v-if="peerReviews"> -->
-  <table class=review v-if="peerReviews">
+  <table class=review id="peer" v-if="peerReviews">
    <tr>
      <th COLSPAN="2">
       <h3><br><center>Peer Comments </center></h3>
@@ -350,7 +360,7 @@
     </tr>
   </table>
 <!-- </div> -->
- <table v-if="managerReview" class=review>
+ <table v-if="managerReview" class=review id="manager" >
   <tr>
     <th COLSPAN="3">
       <h3><br><center> Manager Summary </center></h3>
@@ -378,3 +388,30 @@
   </div>
  </div>
 </template>
+<script>  
+$(function() { 
+var myChart = Highcharts.chart('container', {
+    data: {
+        table: 'review.judgement'
+    },
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Data extracted from a HTML table in the page'
+    },
+    yAxis: {
+        allowDecimals: true,
+        title: {
+            text: 'Units'
+        }
+    },
+    tooltip: {
+        formatter: function () {
+            return '<b>' + this.series.name + '</b><br/>' +
+                this.point.y + ' ' + this.point.name.toLowerCase();
+        }
+    }
+  });
+});
+ </script>

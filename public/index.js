@@ -42,6 +42,7 @@ var ReviewShowPage = {
         this.averageLeadership = this.getAverage(this.peerReviews.map(review => review.leadership + 1));
         this.averageTechnical = this.getAverage(this.peerReviews.map(review => review.technical + 1));
         // this.countTechnical = this.count()
+
       }.bind(this));
   },
   methods: {
@@ -69,7 +70,8 @@ var ReviewShowPage = {
     }
 
   },
-  computed: {}
+  computed: {
+  }
 };
 
 // path '/reviews/new'
@@ -275,4 +277,5 @@ var router = new VueRouter({
 var app = new Vue({
   el: "#vue-app",
   router: router
+
 });

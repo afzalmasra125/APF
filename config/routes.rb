@@ -7,6 +7,7 @@ Rails.application.routes.draw do
    patch '/employee/:id' => 'employees#update'
    delete '/employee/:id' => 'employees#destroy'
    get '/manager/employees' => 'employees#getEmployeesByManagerID'
+   get '/currentuser' => 'employees#currentuser'
 
 
    get '/reviews' => 'reviews#index'

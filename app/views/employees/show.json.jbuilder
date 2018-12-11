@@ -17,4 +17,6 @@ json.reviews @employee.reviews.each do|review|
   json.positive_feedback review.positive_feedback
   json.needs_improvement review.needs_improvement
   json.reviewer_manager_status review.reviewer.manager_status
-end 
+end
+
+json.current_employee @current_employee

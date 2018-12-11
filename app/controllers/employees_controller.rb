@@ -25,6 +25,10 @@ class EmployeesController < ApplicationController
       render json: {errors: 'Error creating account'}, status: :bad_requested
       end 
     end
+  def currentuser 
+    @current_employee = current_employee
+    render 'currentuser.jbuilder'
+  end
   def show
     @employee = Employee.find(params[:id])
     render 'show.json.jbuilder'

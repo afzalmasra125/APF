@@ -6,6 +6,11 @@ var HomePage = {
     };
   },
   created: function() {
+    axios
+      .get("/currentuser")
+      .then(function(response) {
+        this.employees = response.data;
+      }.bind(this) );
   },
   methods: {},
   computed: {}

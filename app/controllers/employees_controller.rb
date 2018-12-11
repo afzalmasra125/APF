@@ -4,7 +4,11 @@ class EmployeesController < ApplicationController
      @employees = Employee.all
      render 'index.json.jbuilder'
   end
-
+  def manager_index
+    @employee = Employee.all
+    @managers = @employee.where(manager_status: true)
+    render json: @managers.as_json 
+  end
   def create
     @employees = Employee.new(
                         first_name: params[:first_name],
@@ -23,7 +27,6 @@ class EmployeesController < ApplicationController
     end
   def show
     @employee = Employee.find(params[:id])
-    p @employee.reviews
     render 'show.json.jbuilder'
   end 
  def update

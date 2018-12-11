@@ -2,14 +2,14 @@ var HomePage = {
   template: "#home-page",
   data: function() {
     return {
-      message: "Welcome to Vue.js!"
+      employees:[]
     };
   },
-  created: function() {},
+  created: function() {
+  },
   methods: {},
   computed: {}
 };
-
 var ReviewShowPage = {
   template: "#reviews-show-page",
   data: function() {
@@ -26,7 +26,6 @@ var ReviewShowPage = {
       countTeamwork:null,
       countLeadership:null,
       countTechnical:null,
-
     };
   },
   created: function() {
@@ -41,8 +40,6 @@ var ReviewShowPage = {
         this.averageTeamwork = this.getAverage(this.peerReviews.map(review => review.teamwork + 1));
         this.averageLeadership = this.getAverage(this.peerReviews.map(review => review.leadership + 1));
         this.averageTechnical = this.getAverage(this.peerReviews.map(review => review.technical + 1));
-        // this.countTechnical = this.count()
-
       }.bind(this));
   },
   methods: {
@@ -62,24 +59,25 @@ var ReviewShowPage = {
       }
     },
     judgementcounts(ratings, count) {},
-    teamworkcounts(ratings, count){},
-    leadershipcounts(ratings, count){},
-    technicalcounts(ratings, count){},
+    teamworkcounts(ratings, count) {},
+    leadershipcounts(ratings, count) {},
+    technicalcounts(ratings, count) {},
     getCount(arr, attribute, score) {
       return arr.filter( obj => obj[attribute] === score ).length;
     }
-
   },
   computed: {
   }
 };
-
-// path '/reviews/new'
 var ReviewsNewPage = {
   template: "#reviews-new-page",
   data: function() {
     return {
+      managers: [],
       employees_names: [],
+      pending_reviews: [],
+      errors: [],
+      manager_id:"",
       reviewee_id: "",
       relationship: "",
       judgement: "",
@@ -88,26 +86,29 @@ var ReviewsNewPage = {
       technical: "",
       positive_feedback: "",
       needs_improvement: "",
-      pending_reviews: [],
-      errors: []
     };
   },
   created: function() {
+    axios
+    .get("/manager")
+      .then(function(response) {
+        this.managers = response.data;
+      }.bind(this) );
     axios
       .get("/pending_reviews")
       .then(function(response) {
         this.pending_reviews = response.data;
       }.bind(this) );
-    var params = {
-      manager_id: 6
-    }
-   axios
-      .get("/manager/employees", {params})
-      .then(function(response){
-        this.employees_names = response.data;
-      }.bind(this) );
   },
   methods: {
+    getEmployees: function() {
+      console.log('hi')
+      axios
+        .get("/manager/employees?manager_id=" + this.manager_id)
+        .then(function(response) {
+          this.employees_names = response.data;
+        }.bind(this) );
+    },
     submit: function() {
       var params = {
         reviewee_id: this.reviewee_id,
@@ -152,25 +153,24 @@ var EmployeeIndexPage = {
       }.bind(this));
   },
   methods: {},
-  computed: {
-    filteredEmployees: function(){
+  computed: { 
+    filteredEmployees: function() {
       let employees = [];
-       for (var i = this.employees.length - 1; i >= 0; i--) {
-        const firstName = this.employees[i].first_name || ''
-        const lastName = this.employees[i].last_name || ''
-        fullName = firstName + lastName;
+      for (var i = this.employees.length - 1; i >= 0; i--) {
+        const firstName = this.employees[i].first_name || '';
+        const lastName = this.employees[i].last_name || '';
+        const fullName = firstName + lastName;
         if (fullName.toLowerCase().includes(this.search.toLowerCase())) {
-          employees.push(this.employees[i])
+          employees.push(this.employees[i]);
         }
       }
       return employees; 
     }
   }
 };
-
 var Login = {
   template: "#loginpage",
-   data: function() {
+  data: function() {
     return {
       email: "",
       password: "",
@@ -200,7 +200,6 @@ var Login = {
     }
   }
 };
-
 var SignupPage = {
   template: "#signup-page",
   data: function() {
@@ -235,9 +234,8 @@ var SignupPage = {
     }
   }
 };
-
 var LogoutPage = {
-template: "#logout-page",
+  template: "#logout-page",
   created: function() {
     axios.defaults.headers.common["Authorization"] = undefined;
     localStorage.removeItem("jwt");
@@ -268,7 +266,6 @@ var router = new VueRouter({
     { path: "/reviews/new", component: ReviewsNewPage },
     { path: "/logout", component: LogoutPage },
     { path: "/reviews/pending", component: ReviewsPending }
-
     ],
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };
@@ -277,5 +274,4 @@ var router = new VueRouter({
 var app = new Vue({
   el: "#vue-app",
   router: router
-
-});
+  });

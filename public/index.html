@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Agile Performance Feedback</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-   <link href="//vjs.zencdn.net/5.4.6/video-js.min.css" rel="stylesheet">
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.js"></script>
   <script src="index.js" defer></script>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/data.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -28,7 +27,6 @@
   </div>
  </body>
 </html>
-
 <template id="signup-page">
   <div class="vue-component">
     <div class="container">
@@ -77,9 +75,7 @@
         <input type="password" class="form-control" v-model="password">
       </div>
       <button class="btn btn-primary" v-on:click="submit()">Submit</button>
-
       <a v-bind:href=" '/#/signup'" class="btn btn-secondary float-middle">Sign Up </a>
-
       </br>
        <a href="#" target="_blank">Forgot your password?</a> 
     </div>
@@ -101,7 +97,6 @@
   <a class="btn btn-primary" v-bind:href="'/#/reviews/new' ">Create Review</a>
   <a class="btn btn-primary" v-bind:href="'/#/employees' ">View Review</a>
   <a class="btn btn-primary" v-bind:href="'/#/reviews/pending' ">Pending Reviews</a>
-
 </br>
 </br>
 </br>
@@ -111,7 +106,6 @@
   </div>
   </div>
 </template>
-
 <template id="employees-index-page">
   <div class="vue-component">
     <div class="container">
@@ -136,7 +130,6 @@
   </div>
   </div>
 </template>
-
 <!-- '/reviews/new' -->
 <template id="reviews-new-page">
   <div class="vue-component">
@@ -145,22 +138,22 @@
       <ul>
         <li class="text-danger" v-for="error in errors">{{ error }}</li>
       </ul>
-      <!-- <div class="form-group"> -->
-      <!--   <label>Employee Name</label>
-        <select class="form-control" v-model="reviewee_id">
-          <option v-for="review in pending_reviews">
-            {{review.reviewee.first_name}}
-            {{review.reviewee.last_name}}
+       <div class="form-group" style="width:500px;">
+        <label>Manager</label>
+        <select class="form-control" v-model="manager_id" @change="getEmployees">
+          <option v-for="manager in managers" :value=manager.id>
+           {{manager.first_name}}
+           {{manager.last_name}}
           </option>
         </select>
       </div>
          </br>
- -->
       <div class="form-group" style="width:500px;">
         <label>Employee Name in my group</label>
         <select class="form-control" v-model="reviewee_id">
-          <option v-for="names in employees_names" :value=names.id>
-            {{names.first_name}}
+          <option v-for="employee in employees_names" :value=employee.id>
+            {{employee.first_name}}
+            {{employee.last_name}}
           </option>
         </select>
       </div>
@@ -253,8 +246,7 @@
          </select>
          <br/>
          <br/>
-        
-     <button> <a href="#" id="test" onClick="javascript:fnExcelReport()"> <h4> Download APF </h4></a> </button>
+     <button style="width:700px;" > <a href="#" id="test" onClick="javascript:fnExcelReport()"> <h4> Download APF </h4></a> </button>
         <br/>
     <br/>
           <br/>

@@ -21,7 +21,7 @@ class ReviewsController < ApplicationController
     if reviews.save
       render json: reviews.as_json
     else
-      reviews.errors
+      p reviews.errors
     end
   end
   def show

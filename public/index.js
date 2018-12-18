@@ -2,14 +2,23 @@ var HomePage = {
   template: "#home-page",
   data: function() {
     return {
-      employees:[]
+      message: "Welcome to Vue.js!",
+      managerStatus: false
     };
   },
   created: function() {
+    const token = localStorage.getItem("jwt");
+    axios.get("/employeestatus/", { headers: {"Authorization" : `Bearer ${token}`} })
+      .then((response) => {
+        const employee = response.data
+        this.managerStatus = employee.manager_status
+      })
+
   },
   methods: {},
   computed: {}
 };
+
 var ReviewShowPage = {
   template: "#reviews-show-page",
   data: function() {

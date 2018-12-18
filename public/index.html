@@ -224,6 +224,44 @@
   <div class="vue-component">
     <div class="container">
       <h1>Pending Reviews</h1>
+        <h2>Manager</h2>
+
+        <select v-model="selectedManager">
+          <option value="">Please Select</option>
+          <option
+            v-for="employee in employees"
+            :value="employee.id"
+            v-if="employee.manager_status == true"
+          >
+            {{employee.first_name}} 
+            {{employee.last_name}}
+          </option>
+        </select>
+        <h2>Employee</h2>
+        <select v-model="selectedEmployee">
+          <option value="">Please Select</option>
+          <option
+            v-for="employee in managedEmployees"
+            :value="employee.id"
+          >
+            {{employee.first_name}} 
+            {{employee.last_name}}
+          </option>
+        </select>
+
+
+        <h2>Employees Reviewed</h2>
+        <ul>
+
+          <li v-for="review in reviewedEmployees">{{review.reviewee.first_name + " " + review.reviewee.last_name}}</li>
+        </ul> 
+        <h2>Employees to be Reviewed</h2>
+        <ul>
+          <li v-for="employee in unreviewedEmployees">
+            {{employee.first_name + " " + employee.last_name}}
+          </li>
+        </ul>
+        <button> Send Emails </button>      
     </div>
   </div>
 </template>

@@ -102,7 +102,6 @@ var ReviewsNewPage = {
   },
   methods: {
     getEmployees: function() {
-      console.log('hi')
       axios
         .get("/manager/employees?manager_id=" + this.manager_id)
         .then(function(response) {
@@ -209,8 +208,16 @@ var SignupPage = {
       email:"",
       password: "",
       passwordConfirmation: "",
+      managers: [],
       errors: []
     };
+  },
+  created: function() {
+    axios
+      .get("/manager")
+      .then(function(response) {
+        this.managers = response.data;
+      }.bind(this) );
   },
   methods: {
     submit: function() {
@@ -247,7 +254,6 @@ var ReviewsPending = {
   template: "#pending-reviews-page",
   data: function() {
     return {
-      message: "Welcome to Vue.js!",
       reviews: [],
       employees: [],
       review: {

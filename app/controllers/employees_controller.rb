@@ -6,11 +6,10 @@ class EmployeesController < ApplicationController
   end
 
   def manager_index
-     @employee = Employee.all
-     @managers = @employee.where(manager_status: true)
-     render json: @managers.as_json 
-   end
-
+    @employee = Employee.all
+    @managers = @employee.where(manager_status: true)
+    render json: @managers.as_json
+  end
   def create
     @employees = Employee.new(
                         first_name: params[:first_name],
@@ -25,12 +24,12 @@ class EmployeesController < ApplicationController
       render json: {message: 'Employee created successfully'}, status: :created
     else
       render json: {errors: 'Error creating account'}, status: :bad_requested
-      end 
+      end
     end
   def show
     @employee = Employee.find(params[:id])
     render 'show.json.jbuilder'
-  end 
+  end
  def update
     employee = Employee.find(params[:id])
     # user = current_user.id
@@ -40,16 +39,20 @@ class EmployeesController < ApplicationController
     employee.manager_id = params[:manager_id] || employee.manager_id
     employee.manager_status = params[:manager_status] || employee.manager_status
     render json: employee.as_json
-  end 
+  end
  def destroy
    employee = Employee.find(params[:id])
-   employee.destroy    
+   employee.destroy
    render json: {message: "Successfully destroyed employee ##{employee.name}"}
  end
 
  def getEmployeesByManagerID
-    employees = Employee.where(manager_id: params[:manager_id]) 
-    render json: employees.as_json 
+    employees = Employee.where(manager_id: params[:manager_id])
+    render json: employees.as_json
  end
-end 
-  
+
+  def get_current_employee
+    render json: current_employee
+ end
+end
+

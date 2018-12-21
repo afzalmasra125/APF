@@ -2,14 +2,22 @@ var HomePage = {
   template: "#home-page",
   data: function() {
     return {
-      employees:[]
+      managerStatus: false
     };
   },
   created: function() {
+    const token = localStorage.getItem("jwt");
+    axios.get("/current_employee", { headers: {"Authorization" : `Bearer ${token}`} })
+      .then((response) => {
+        const employee = response.data
+        this.managerStatus = employee.manager_status
+      })
+
   },
   methods: {},
   computed: {}
 };
+
 var ReviewShowPage = {
   template: "#reviews-show-page",
   data: function() {

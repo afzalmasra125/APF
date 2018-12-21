@@ -5,7 +5,9 @@ class ReviewsController < ApplicationController
         render json: reviews.as_json
   end 
   def pending_reviews
-      @reviews = Review.where(reviewer_id: nil)
+      @reviews = Review.all
+      # @reviews = Review.all
+
       render 'index.json.jbuilder'
   end
   def create 

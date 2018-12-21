@@ -4,6 +4,7 @@ class EmployeesController < ApplicationController
      @employees = Employee.all
      render 'index.json.jbuilder'
   end
+
   def manager_index
     @employee = Employee.all
     @managers = @employee.where(manager_status: true)
@@ -50,7 +51,7 @@ class EmployeesController < ApplicationController
     render json: employees.as_json
  end
 
-  def status
+  def get_current_employee
     render json: current_employee
  end
 end

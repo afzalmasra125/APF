@@ -43,6 +43,15 @@
         <label>Last Name:</label> 
         <input type="text" class="form-control" v-model="last_name">
       </div>
+     <div class="form-group">
+        <label>Manager</label>
+        <select class="form-control" v-model="managers">
+          <option value="">Select</option>
+          <option v-for="manager in managers" :value=manager.id>
+           {{manager.first_name}}
+           {{manager.last_name}}
+         </option>
+       </div>
       <div class="form-group">
         <label>Email:</label>
         <input type="email" class="form-control" v-model="email">
@@ -96,7 +105,8 @@
     <div class="container">
       <a class="btn btn-primary" v-bind:href="'/#/reviews/new' ">Create Review</a>
       <a id="manager" :class="'btn btn-primary ' + (managerStatus ? '' : 'disabled') " v-bind:href="'/#/employees' ">View Review</a>
-      <a class="btn btn-primary" v-bind:href="'/#/reviews/pending' ">Pending Reviews</a>
+      <a id="manager" :class="'btn btn-primary ' + (managerStatus ? '' : 'disabled') " v-bind:href="'/#/reviews/pending' ">Pending Review</a>
+<!--       <a class="btn btn-primary" v-bind:href="'/#/reviews/pending' ">Pending Reviews</a> -->
       <p v-for="employee in employees">{{ employee.name }}</p>  
       <br/>
       <br/>
@@ -142,6 +152,7 @@
        <div class="form-group" style="width:500px;">
         <label>Manager</label>
         <select class="form-control" v-model="manager_id" @change="getEmployees">
+          <option value="">Select</option>
           <option v-for="manager in managers" :value=manager.id>
            {{manager.first_name}}
            {{manager.last_name}}
@@ -152,6 +163,7 @@
       <div class="form-group" style="width:500px;">
         <label>Employee Name in my group</label>
         <select class="form-control" v-model="reviewee_id">
+          <option value="">Select</option>
           <option v-for="employee in employees_names" :value=employee.id>
             {{employee.first_name}}
             {{employee.last_name}}
@@ -162,6 +174,7 @@
           <div class="form-group" style="width:500px;">
         <label>Relationship</label>
         <select class= "form-control" v-model="relationship">
+        <option value="">Select</option>
         <option value="0">Peer</option>
         <option value="1">Self</option>
         </select>
@@ -169,7 +182,7 @@
       <div class="form-group" style="width:500px;">
         <label>Judgement</label>
         <select class="form-control" v-model="judgement">
-        <option value="5"></option>
+        <option value="">Select</option>
         <option value="0">Does not meet expectation</option>
         <option value="1">Partially meet expectation</option>
         <option value="2">Fully meet expectation</option>
@@ -179,7 +192,7 @@
       <div class="form-group" style="width:500px;" >
         <label>Teamwork</label>
         <select class="form-control" v-model="teamwork">>
-        <option value="5"></option>
+        <option value=""> Select</option>
         <option value="0">Does not meet expectation</option>
         <option value="1">Partially meet expectation</option>
         <option value="2">Fully meet expectation</option>
@@ -189,7 +202,7 @@
       <div class="form-group" style="width:500px;" >
         <label>Leadership</label>
         <select class= "form-control"  v-model="leadership">
-        <option value="5"></option>
+        <option value="">Select</option>
         <option value="0">Does not meet expectation</option>
         <option value="1">Partially meet expectation</option>
         <option value="2">Fully meet expectation</option>
@@ -199,7 +212,7 @@
        <div class="form-group" style="width:500px;">
         <label>Technical</label>
       <select class= "form-control"  v-model="technical">
-        <option value="5"></option>
+        <option value="">Select</option>
         <option value="0">Does not meet expectation</option>
         <option value="1">Partially meet expectation</option>
         <option value="2">Fully meet expectation</option>
@@ -224,7 +237,57 @@
 <template id="pending-reviews-page">
   <div class="vue-component">
     <div class="container">
-      <h1>Pending Reviews</h1>
+      <h2>Pending Reviews</h2>
+      </br>
+      <div class="form-group" style="width:500px;">
+        <label>Manager</label>
+         <select class= "form-control"  v-model="selectedManager">
+          <option value="">Select</option>
+          <option
+            v-for="employee in employees"
+            :value="employee.id"
+            v-if="employee.manager_status == true">
+            {{employee.first_name}} 
+            {{employee.last_name}}
+          </option>
+        </select>
+       </div> 
+       </br>
+      <div class="form-group" style="width:500px;">
+      <div>
+        <label>Employee</label>
+        <select class= "form-control" v-model="selectedEmployee">
+          <option value="">Select</option>
+          <option
+            v-for="employee in managedEmployees"
+            :value="employee.id" >
+            {{employee.first_name}} 
+            {{employee.last_name}}
+          </option>
+        </select>
+        </div> 
+      </br>
+      <div div class="card">
+     <div class="container">
+        <h3>Employees Reviewed</h3>
+        <ul>
+          <li v-for="review in reviewedEmployees">{{review.reviewee.first_name + " " + review.reviewee.last_name}}</li>
+        </ul> 
+      </div>
+         </div> 
+       </br>
+    <div div class="card">
+     <div class="container">
+        <h3>Employees to be Reviewed</h3>
+        <ul>
+          <li v-for="employee in unreviewedEmployees">
+            {{employee.first_name + " " + employee.last_name}}
+          </li>
+        </ul>
+      </div>
+    </div>
+      </br>
+        <button class="btn btn-primary"> Send Request </button>      
     </div>
   </div>
 </template>
@@ -247,7 +310,7 @@
          </select>
          <br/>
          <br/>
-     <button style="width:700px;" > <a href="#" id="test" onClick="javascript:fnExcelReport()"> <h4> Download APF </h4></a> </button>
+     <button  class="btn btn-primary" style="width:250px;" > <a href="#" id="test" onClick="javascript:fnExcelReport()"> <h4 class="text-white"> Download APF </h4></a> </button>
         <br/>
     <br/>
           <br/>

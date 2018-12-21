@@ -95,7 +95,7 @@
   <div class="vue-component">
     <div class="container">
       <a class="btn btn-primary" v-bind:href="'/#/reviews/new' ">Create Review</a>
-      <a id="manager" :class="'btn btn-primary ' + (managerStatus ? '' : 'disabled') " v-bind:href="'/#/employees' ">View Review manager</a>
+      <a id="manager" :class="'btn btn-primary ' + (managerStatus ? '' : 'disabled') " v-bind:href="'/#/employees' ">View Review</a>
       <a class="btn btn-primary" v-bind:href="'/#/reviews/pending' ">Pending Reviews</a>
       <p v-for="employee in employees">{{ employee.name }}</p>  
       <br/>

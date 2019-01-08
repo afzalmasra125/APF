@@ -6,7 +6,7 @@ import LogOut from './components/LogOut.vue'
 import HomePage from './components/HomePage.vue'
 import EmployeeIndexPage from './components/Employee.vue'
 import PendingReviewPage from './components/PendingReview.vue'
-
+import ReviewsNewPage from './components/CreateReview.vue'
 
 Vue.use(Router)
 
@@ -18,7 +18,7 @@ export default new Router({
     { path: "/logout", component: LogOut },
     { path: "/employees", component: EmployeeIndexPage},
     // { path: "/employees/:id", component: ReviewShowPage},
-    // { path: "/reviews/new", component: ReviewsNewPage },
     { path: "/reviews/pending", component: PendingReviewPage }
+    { path: "/reviews/new", component: ReviewsNewPage },
   ]
 })

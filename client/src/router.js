@@ -4,6 +4,7 @@ import SignUp from './components/SignUp.vue'
 import Login from './components/Login.vue'
 import LogOut from './components/LogOut.vue'
 import HomePage from './components/HomePage.vue'
+import EmployeeIndexPage from './components/Employee.vue'
 
 Vue.use(Router)
 
@@ -13,10 +14,9 @@ export default new Router({
     { path: "/home", component: HomePage },
     { path: "/signup", component: SignUp },
     { path: "/logout", component: LogOut },
-    // { path: "/employees", component: EmployeeIndexPage},
+    { path: "/employees", component: EmployeeIndexPage},
     // { path: "/employees/:id", component: ReviewShowPage},
     // { path: "/reviews/new", component: ReviewsNewPage },
-    // { path: "/logout", component: LogoutPage },
     // { path: "/reviews/pending", component: ReviewsPending }
   ]
 })

@@ -1,9 +1,17 @@
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+
+
 <template id="employees-index-page">
   <div class="vue-component">
     <div class="container">
       <div class="card-block">
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
         <table class="table">
           <thead>
+            <h1>I'M HERE RIGHT HERE!!!!!</h1>
             <input type="text" v-model="search" placeholder="Search Name...">
             <tr>
               <th>First Name</th>

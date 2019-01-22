@@ -1,9 +1,9 @@
 <template id="home-page">
   <div class="vue-component">
     <div class="container">
-      <a class="btn btn-primary" v-bind:href="'/#/reviews/new' ">Create Review</a>
-      <a class="btn btn-primary" v-bind:href="'/#/employees' ">View Review</a>
-      <a class="btn btn-primary" v-bind:href="'/#/reviews/pending' ">Pending Reviews</a>
+    <a class="btn btn-primary" v-bind:href="'/#/reviews/new' ">Create Review</a>
+      <a id="manager" :class="'btn btn-primary ' + (managerStatus ? '' : 'disabled') " v-bind:href="'/#/employees' ">View Review</a>
+      <a id="manager" :class="'btn btn-primary ' + (managerStatus ? '' : 'disabled') " v-bind:href="'/#/reviews/pending' ">Pending Review</a>
       <br />
       <br />
       <br />
@@ -15,17 +15,25 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  data: function() {
+data: function() {
     return {
-      employees:[]
+      managerStatus: false
     };
   },
   created: function() {
+    const token = localStorage.getItem("jwt");
+    axios.get("/current_employee", { headers: {"Authorization" : `Bearer ${token}`} })
+      .then((response) => {
+        const employee = response.data
+        this.managerStatus = employee.manager_status
+      })
+
   },
   methods: {},
   computed: {}
-}
+};
 </script>
 
 <style scoped>

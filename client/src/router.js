@@ -12,15 +12,32 @@ import ReviewShowPage from './components/ReviewShowPage.vue'
 
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
   routes: [
     { path: "/", component: Login },
-    { path: "/home", component: HomePage },
+
+    { path: "/home", component: HomePage, meta: { requiresAuth: true } },
     { path: "/signup", component: SignUp },
     { path: "/logout", component: LogOut },
-    { path: "/employees", component: EmployeeIndexPage},
-    { path: "/employees/:id", component: ReviewShowPage},
-    { path: "/reviews/pending", component: PendingReviewPage },
-    { path: "/reviews/new", component: ReviewsNewPage },
+    { path: "/employees", component: EmployeeIndexPage, meta: { requiresAuth: true }},
+    { path: "/employees/:id", component: ReviewShowPage, meta: { requiresAuth: true }},
+    { path: "/reviews/pending", component: PendingReviewPage , meta: { requiresAuth: true }},
+    { path: "/reviews/new", component: ReviewsNewPage , meta: { requiresAuth: true }},
   ]
 })
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (localStorage.getItem('jwt') == null) {
+            next({
+                path: '/',
+                params: { nextUrl: to.fullPath }
+            })
+        } else {
+            next()
+        }
+    } else {
+        next()
+    }
+})
+export default router

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-checkmark-inactive</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M25.9552,0.0782 C37.5802,1.0032 46.9972,10.4202 47.9222,22.0452 C49.0972,36.8172 36.8172,49.0972 22.0452,47.9222 C10.4202,46.9972 1.0032,37.5802 0.0782,25.9552 C-1.0978,11.1832 11.1822,-1.0978 25.9552,0.0782 Z M26.0762,44.2042 C35.5752,43.2592 43.2592,35.5752 44.2042,26.0762 C45.4812,13.2412 34.7592,2.5182 21.9242,3.7962 C12.4252,4.7412 4.7412,12.4252 3.7962,21.9242 C2.5182,34.7592 13.2412,45.4812 26.0762,44.2042 Z" id="path-1"></path>
+    </defs>
+    <g id="icon-checkmark-inactive" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="Mask" fill="#4A4A4A" xlink:href="#path-1"></use>
+        <g id="Core/Colors/Neutral/Border" mask="url(#mask-2)" fill="#C1C6CB">
+            <rect id="Rectangle" x="0" y="0" width="48" height="48"></rect>
+        </g>
+    </g>
+</svg>

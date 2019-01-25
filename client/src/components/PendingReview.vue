@@ -15,7 +15,6 @@
           </option>
         </select>
       </div>
-
       <div class="form-group my-4" style="width:500px;">
         <label>Employee</label>
         <select class="form-control" v-model="selectedEmployee">
@@ -25,7 +24,6 @@
           </option>
         </select>
       </div>
-
       <div class="card my-4">
         <div class="container">
           <h3>Employees Reviewed</h3>
@@ -82,13 +80,14 @@
         </div>
       </div>
 
-      <button class="btn btn-primary">Send Request</button>
+      <button class="btn btn-primary" v-on:click="submit()">Send Request</button>
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import $ from "jquery"
 export default {
   data: function() {
     return {
@@ -126,7 +125,32 @@ export default {
       }.bind(this)
     );
   },
-  methods: {},
+  methods: {
+     submit () {
+            $.ajax({
+        type: "POST",
+        url: "https://mandrillapp.com/api/1.0/messages/send.json",
+        data: {
+          "key": '8PI8CIKcBKSJpi1aS9oDDA',
+          "message": {
+            "from_email": 'afzalmasra125@hotmail.com',
+            "to": [
+              {
+                "email": 'afzalmasra125@hotmail.com',
+                "name": 'Afzal',
+                "type": 'to'
+              }
+            ],
+            "subject": 'Subject',
+            "html": 'Hello There'
+          }
+        }
+      });
+
+  //console.log("Message sent: %s", info.messageId);
+
+     }
+  },
   computed: {
     managedEmployees() {
       if (!this.selectedManager) {

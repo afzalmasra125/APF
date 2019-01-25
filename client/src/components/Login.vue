@@ -1,22 +1,33 @@
 <template id="loginpage">
-  <div class="vue-component">
-    <div class="container">
-      <ul>
-        <li class="text-danger" v-for="(error, i) in errors" :key="i">{{ error }}</li>
-      </ul>
-      <div class="form-group">
-        <label>Email:</label>
-        <input type="email" class="form-control" v-model="email">
+  <div class="main">
+      <div class="vue-component">
+      <div class="ascContainer">
+        <div class="container">
+          <div class="loginLogoCon">
+            <img src="../assets/csg-logo.png" class="loginLogo">
+          </div>
+
+          <ul>
+            <li class="text-danger" v-for="(error, i) in errors" :key="i">{{ error }}</li>
+          </ul>
+          <div class="form-group">
+            <label>Email:</label>
+            <input type="email" class="form-control" v-model="email">
+          </div>
+          <div class="form-group">
+            <label>Password:</label>
+            <input type="password" class="form-control" v-model="password">
+          </div>
+          <button class="btn btn-primary btn-login" v-on:click="submit()">Submit</button>
+          <br/>
+          <br/>
+           <a href="#" target="_blank">Forgot your password?</a>
+           <br/>
+           <br/>
+           <a href="/#/signup" target="_blank">Create an account</a>
       </div>
-      <div class="form-group">
-        <label>Password:</label>
-        <input type="password" class="form-control" v-model="password">
+        </div>
       </div>
-      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
-      <a v-bind:href=" '/#/signup'" class="btn btn-secondary float-middle">Sign Up </a>
-      <br/>
-       <a href="#" target="_blank">Forgot your password?</a>
-    </div>
   </div>
 </template>
 
@@ -58,4 +69,33 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.ascContainer{
+  min-width : 450px;
+  min-height : 550px;
+  margin-left: 1200px;
+  top:20%;
+  position:absolute;
+  background-color:#FFFFFF;
+
+}
+.main{
+  background-image: url("../assets/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 1050px;
+}
+.loginLogoCon{
+
+  margin-top: 50px;
+  
+}
+
+.loginLogo{
+    max-width:250px;
+    align:right;
+  }
+  .btn-login{
+    width:100%;
+    border-radius: 0px 0px 0px 0px;
+  }
 </style>

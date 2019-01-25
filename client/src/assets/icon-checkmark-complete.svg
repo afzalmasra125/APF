@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-checkmark-complete</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon-checkmark-complete" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="baseline-check_circle-24px-2" fill="#68C107" fill-rule="nonzero">
+            <path d="M24,0 C10.752,0 0,10.752 0,24 C0,37.248 10.752,48 24,48 C37.248,48 48,37.248 48,24 C48,10.752 37.248,0 24,0 Z M19.2,36 L7.2,24 L10.584,20.616 L19.2,29.208 L37.416,10.992 L40.8,14.4 L19.2,36 Z" id="Shape"></path>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-drop down</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon-drop-down" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="android/element/icon/dropdown" transform="translate(3.000000, 7.000000)" fill="#444444">
+            <path d="M1.00247329,0 C0.448822582,0 0.32258606,0.32258606 0.711840391,0.711840391 L5.28815961,5.28815961 C5.6812982,5.6812982 6.32258606,5.67741394 6.71184039,5.28815961 L11.2881596,0.711840391 C11.6812982,0.318701799 11.544239,0 10.9975267,0 L1.00247329,0 Z" id="Shape"></path>
+        </g>
+    </g>
+</svg>

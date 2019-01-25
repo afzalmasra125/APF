@@ -3,9 +3,7 @@
     <div class ="container">
       <div class ="row">
         <div class = "name" v-if="employee">  
-
           <b>APF review for:- </b> <h3>{{employee.first_name}}  {{employee.last_name}}</h3>
-
           <select style="width:200px;">
             <option value="Feb">February 2019</option>
             <option value="May">May 2019</option>
@@ -15,10 +13,7 @@
            <br>
            <br>
           <button  class="btn btn-primary" style="width:250px;" > <a href="#" id="test" @click="fnExcelReport"> <h4 class="text-white"> Download APF </h4></a> </button>
-
-        </div>
-
-
+        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
         <table class="review" id="ratings">
           <tr>
             <th COLSPAN="8">
@@ -148,11 +143,13 @@
   </div> 
    </div>
   </div>
+  </div>
 </template>
        
 <script>
 import axios from 'axios'
 import $ from 'jquery'
+import Highcharts from 'highcharts'
 export default {
   data: function() {
     return {
@@ -242,6 +239,68 @@ export default {
       }
     }
   },
+    addChart () {
+      Highcharts.chart('container', {
+          chart: {
+              renderTo: document.getElementById("container"),
+              type: 'column'
+          },
+          title: {
+              text: 'Review Rating'
+          },
+          subtitle: {
+              text: ''
+          },
+          xAxis: {
+              categories: [
+                  'Jan',
+                  'Feb',
+                  'Mar',
+                  'Apr',
+                  'May',
+                  'Jun',
+                  'Jul',
+                  'Aug',
+                  'Sep',
+                  'Oct',
+                  'Nov',
+                  'Dec'
+              ],
+              crosshair: true
+          },
+          yAxis: {
+              min: 0,
+              title: {
+                  text: 'Rating (%)'
+              }
+          },
+  
+          plotOptions: {
+              column: {
+                  pointPadding: 0.2,
+                  borderWidth: 0
+              }
+          },
+          
+          series: [{
+              name: 'Self',
+              data: [4, 5, 4, 5, 3, 5, 4, 5, 4, 5, 5, 5]
+
+          }, {
+              name: 'Peer',
+              data: [3, 3, 3, 2, 2, 3, 3, 2, 2, 3, 3, 2]
+
+          }, {
+              name: 'Manager',
+              data: [ 1, 2, 3, 4, 3, 3, 2, 2, 3, 3, 3, 2]
+
+          }, {
+              name: 'Average',
+              data: [ 3.2, 2.4, 2.5, 3.3, 2.3, 2.3, 1.2, 1.4, 2.6, 3.1, 2.8, 1.1]
+
+          }]
+      });
+    },
   computed: {
   }
 }

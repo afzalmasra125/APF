@@ -2,7 +2,7 @@
   <div class="vue-component">
     <div class="container">
       <h2>Pending Reviews</h2>
-      </br>
+      <br/>
       <div class="form-group" style="width:500px;">
         <label>Manager</label>
          <select class= "form-control"  v-model="selectedManager">
@@ -41,7 +41,7 @@
       </div>
          </div> 
        </br>
-    <div div class="card">
+    <div class="card">
      <div class="container">
         <h3>Employees to be Reviewed</h3>
         <ul>
@@ -51,7 +51,7 @@
         </ul>
       </div>
     </div>
-      </br>
+    </br>
         <button class="btn btn-primary"> Send Request </button>      
     </div>
   </div>

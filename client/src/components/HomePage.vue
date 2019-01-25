@@ -29,7 +29,6 @@ data: function() {
         const employee = response.data
         this.managerStatus = employee.manager_status
       })
-
   },
   methods: {},
   computed: {}

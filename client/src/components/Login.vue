@@ -35,7 +35,7 @@ export default {
       var params = {
         auth: { email: this.email, password: this.password }
       }
-      axios
+            axios
         .post("/employee_token", params)
         .then((response) => {
           axios.defaults.headers.common["Authorization"] =
@@ -50,6 +50,7 @@ export default {
             this.password = "";
           }
         );
+
     }
   }
 }

@@ -196,7 +196,7 @@ export default {
   },
 
   mounted: function () {
-    this.addChart()
+    this.addChart(this.selfReview, this.peerReviews, this.managerReview)
   },
 
   methods: {
@@ -294,7 +294,7 @@ export default {
           
           series: [{
               name: 'Self',
-              data: [4, 3, 4, 4]
+              data: [selfReview.judgement, 3, 4, 4]
 
           }, {
               name: 'Peer',

@@ -90,7 +90,7 @@ export default {
       }.bind(this));
 
     axios
-      .get("/employees")
+      .get("/employees") 
       .then(function(response) {
         this.employees = response.data;
         console.log(this.employees);

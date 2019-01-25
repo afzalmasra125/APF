@@ -57,11 +57,10 @@ export default {
     };
   },
   created: function() {
-    // axios
-    //   .get("/manager")
-    //   .then(function(response) {
-    //     this.managers = response.data;
-    //   }.bind(this) );
+    axios.get("/manager").then(
+      function(response) {
+        this.managers = response.data;
+      }.bind(this) );
   },
   methods: {
     submit () {

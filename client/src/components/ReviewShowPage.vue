@@ -294,7 +294,7 @@ export default {
           
           series: [{
               name: 'Self',
-              data: [selfReview.judgement, 3, 4, 4]
+              data: [5, 3, 4, 4]
 
           }, {
               name: 'Peer',

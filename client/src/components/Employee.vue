@@ -8,14 +8,12 @@
             <input type="text" v-model="search" placeholder="Search Name..." />
             <tr>
               <th>First Name</th>
-              <th>Last Name</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="employee in filteredEmployees" :key="employee.id">
-              <th>{{ employee.first_name }}</th>
-              <th>{{ employee.last_name }}</th>
+              <th>{{ employee.first_name }} {{employee.last_name }}</th>
               <td>
                 <a
                   class="btn btn-primary"

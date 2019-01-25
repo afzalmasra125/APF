@@ -75,14 +75,16 @@
         <option value="3">Exceed expectation</option>
         </select>
       </div>
-       <div class="form-group">
-        <label>Positive Feedback</label>
-        <input type="text" class="form-control" v-model="positive_feedback" style="height:200px;" width = "500px">
-      </div>
-       <div class="form-group">
-        <label>Needs Improvement</label>
-        <input type="text" class="form-control" v-model="needs_improvement" style="height:200px;">
-      </div>
+       <div>
+     <label>Positive Feedback</label>
+        <textarea  rows="4" cols="119" v-model="positive_feedback" style="height:200px;" width = "500px">
+        </textarea>
+       </div> 
+        <div>
+       <label>Negative Feedback</label>
+        <textarea  rows="4" cols="118" v-model="needs_improvement" style="height:200px;" width = "500px">
+        </textarea>
+         </div>
         <button class="btn btn-primary" v-on:click="submit()">Submit</button>
        </div>
       </div>
@@ -111,21 +113,22 @@ export default {
     };
   },
   created: function() {
-    axios
-    .get("/manager")
-      .then(function(response) {
+    const token = localStorage.getItem('jwt')
+    axios.get("/manager", { headers: {"Authorization" : `Bearer ${token}`}}).then(
+      function(response) {
         this.managers = response.data;
       }.bind(this) );
     axios
-      .get("/pending_reviews")
+      .get("/pending_reviews", { headers: {"Authorization" : `Bearer ${token}`}})
       .then(function(response) {
         this.pending_reviews = response.data;
       }.bind(this) );
   },
   methods: {
     getEmployees: function() {
+    const token = localStorage.getItem('jwt')
       axios
-        .get("/manager/employees?manager_id=" + this.manager_id)
+        .get("/manager/employees?manager_id=" + this.manager_id, { headers: {"Authorization" : `Bearer ${token}`}})
         .then(function(response) {
           this.employees_names = response.data;
         }.bind(this) );

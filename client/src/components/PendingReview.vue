@@ -51,6 +51,7 @@
       <div class="card my-4">
         <div class="container">
           <h3>Send Review Request</h3>
+
           <table class="table table-striped">
             <thead>
               <tr>
@@ -63,7 +64,7 @@
             <tbody>
               <tr v-for="employeePrime in employees">
                 <th scope="row">
-                  {{ employee.first_name }} {{ employee.last_name }}
+                  {{ employeePrime.first_name }} {{ employeePrime.last_name }}
                 </th>
                 <td v-for="employee in employees">
                   <div class="form-check">

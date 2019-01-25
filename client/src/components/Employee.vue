@@ -2,10 +2,7 @@
   <div class="vue-component">
     <div class="container">
       <div class="card-block">
-        <div
-          id="container"
-          style="min-width: 310px; height: 400px; margin: 0 auto"
-        ></div>
+        <div></div>
         <table class="table">
           <thead>
             <input type="text" v-model="search" placeholder="Search Name..." />
@@ -36,7 +33,6 @@
 </template>
 <script>
 import axios from "axios";
-import Highcharts from "highcharts";
 export default {
   data: function() {
     return {
@@ -45,80 +41,15 @@ export default {
     };
   },
   created: function() {
-    axios.get("/manager_employees").then(
+    const token = localStorage.getItem('jwt')
+    axios.get("/manager_employees", { headers: {"Authorization" : `Bearer ${token}`}}).then(
       function(response) {
         this.employees = response.data;
       }.bind(this)
     );
   },
-  mounted: function() {
-    this.addChart();
-  },
-  methods: {
-    addChart() {
-      Highcharts.chart("container", {
-        chart: {
-          renderTo: document.getElementById("container"),
-          type: "column"
-        },
-        title: {
-          text: "Review Rating"
-        },
-        subtitle: {
-          text: ""
-        },
-        xAxis: {
-          categories: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec"
-          ],
-          crosshair: true
-        },
-        yAxis: {
-          min: 0,
-          title: {
-            text: "Rating (%)"
-          }
-        },
-
-        plotOptions: {
-          column: {
-            pointPadding: 0.2,
-            borderWidth: 0
-          }
-        },
-
-        series: [
-          {
-            name: "Self",
-            data: [4, 5, 4, 5, 3, 5, 4, 5, 4, 5, 5, 5]
-          },
-          {
-            name: "Peer",
-            data: [3, 3, 3, 2, 2, 3, 3, 2, 2, 3, 3, 2]
-          },
-          {
-            name: "Manager",
-            data: [1, 2, 3, 4, 3, 3, 2, 2, 3, 3, 3, 2]
-          },
-          {
-            name: "Average",
-            data: [3.2, 2.4, 2.5, 3.3, 2.3, 2.3, 1.2, 1.4, 2.6, 3.1, 2.8, 1.1]
-          }
-        ]
-      });
-    }
-  },
+  mounted: function() {},
+  methods: {},
   computed: {
     filteredEmployees: function() {
       let employees = [];

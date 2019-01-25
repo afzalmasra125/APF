@@ -1,12 +1,12 @@
 class EmployeesController < ApplicationController
-  before_action :authenticate_employee!
+  before_action :authenticate_employee
   def index
     @employees = Employee.all
     render 'index.json.jbuilder'
   end
 
   def manager_employee_index
-    if current_employee.manager_status
+    if current_employee && current_employee.manager_status
       @employees = Employee.where(manager_id: current_employee.id)
       render 'index.json.jbuilder'
     else

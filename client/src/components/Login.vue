@@ -35,6 +35,7 @@ export default {
       var params = {
         auth: { email: this.email, password: this.password }
       }
+      let self = this
       axios
         .post("/employee_token", params)
         .then((response) => {
@@ -45,9 +46,9 @@ export default {
         })
         .catch(
           function() {
-            this.errors = ["Invalid email or password."];
-            this.email = "";
-            this.password = "";
+           self.errors = ["Invalid email or password."];
+           self.email = "";
+           self.password = "";
           }
         );
     }

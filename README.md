@@ -1,6 +1,6 @@
 # README
 
-Pleasetonight https://gorails.com/setup - make sure that it is the right osx
+Please install https://gorails.com/setup - make sure that it is the right osx
 * Install homebrew
 * Install ruby 2.5.0 using rbenv
 * Install rails 5.1.4

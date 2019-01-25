@@ -189,7 +189,7 @@ export default {
         this.averageTechnical = this.getAverage(this.peerReviews.map(review => review.technical + 1));
       }.bind(this));
 
-      axios.get("/employees")
+      axios.get("/employees" , { headers: {"Authorization" : `Bearer ${token}`}})
       .then(function(response) {
         this.ChartedEmployees = response.data;
       }.bind(this));
@@ -261,7 +261,6 @@ export default {
     addChart () {
       Highcharts.chart('highchart', {
           chart: {
-              // renderTo: document.getElementById("highchart"),
               type: 'column'
           },
           title: {
@@ -276,7 +275,6 @@ export default {
                 'Teamwork / Collaboration',
                 'Personal Leadership',      
                 'Functional / Technical',
-
               ],
               crosshair: true
           },
@@ -289,14 +287,14 @@ export default {
   
           plotOptions: {
               column: {
-                  pointPadding: 0.2,
+                  pointPadding: 0.0,
                   borderWidth: 0
               }
           },
           
           series: [{
               name: 'Self',
-              data: [5, 5, 4, 5]
+              data: [4, 3, 4, 4]
 
           }, {
               name: 'Peer',
@@ -304,7 +302,7 @@ export default {
 
           }, {
               name: 'Manager',
-              data: [ 1, 2, 3, 4]
+              data: [ 4, 2, 3, 4]
 
           }, {
               name: 'Average',

@@ -61,7 +61,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="employee in employees">
+              <tr v-for="employeePrime in employees">
                 <th scope="row">
                   {{ employee.first_name }} {{ employee.last_name }}
                 </th>
@@ -70,32 +70,12 @@
                     <input
                       class="form-check-input"
                       type="checkbox"
-                      v-model="employee.id"
+                      v-bind:value="[employeePrime.id, employee.id]"
+                      v-model="checkedEmployees"
                     />
                   </div>
                 </td>
               </tr>
-
-              <!--
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              -->
             </tbody>
           </table>
         </div>
@@ -126,7 +106,8 @@ export default {
       selectedManager: "",
       selectedEmployee: "",
       reviewedEmployeeIds: [],
-      unreviewedEmployees: []
+      unreviewedEmployees: [],
+      checkedEmployees: []
     };
   },
   created: function() {

@@ -12,12 +12,13 @@
             <option value="Aug">August 2019</option>
             <option value="Nov">November 2019</option>
           </select>
-           <br>
-           <br>
+           <br />
+           <br />
           <button  class="btn btn-primary" style="width:250px;" > <a href="#" id="test" @click="fnExcelReport"> <h4 class="text-white"> Download APF </h4></a> </button>
 
         </div>
-
+        </div>
+        <div id="highchart"></div> 
 
         <table class="review" id="ratings">
           <tr>
@@ -153,6 +154,8 @@
 <script>
 import axios from 'axios'
 import $ from 'jquery'
+import Highcharts from 'highcharts'
+
 export default {
   data: function() {
     return {
@@ -168,6 +171,8 @@ export default {
       countTeamwork:null,
       countLeadership:null,
       countTechnical:null,
+      ChartedEmployees:[],
+      search: "",
     };
   },
   created: function() {
@@ -183,7 +188,17 @@ export default {
         this.averageLeadership = this.getAverage(this.peerReviews.map(review => review.leadership + 1));
         this.averageTechnical = this.getAverage(this.peerReviews.map(review => review.technical + 1));
       }.bind(this));
+
+      axios.get("/employees")
+      .then(function(response) {
+        this.ChartedEmployees = response.data;
+      }.bind(this));
   },
+
+  mounted: function () {
+    this.addChart()
+  },
+
   methods: {
     getAverage(arr) {
       return arr.reduce((a, b) => a + b, 0) / arr.length;
@@ -205,6 +220,7 @@ export default {
     leadershipcounts(ratings, count) {},
     technicalcounts(ratings, count) {},
     getCount(arr, attribute, score) {
+      if (!arr) {return}
       return arr.filter( obj => obj[attribute] === score ).length;
     },
     fnExcelReport () {
@@ -240,9 +256,86 @@ export default {
         $('#test').attr('href', data_type + ', ' + encodeURIComponent(tab_text));
         $('#test').attr('download', 'APF_2019.xls');
       }
+    },
+
+    addChart () {
+      Highcharts.chart('highchart', {
+          chart: {
+              // renderTo: document.getElementById("highchart"),
+              type: 'column'
+          },
+          title: {
+              text: 'Review Rating'
+          },
+          subtitle: {
+              text: ''
+          },
+          xAxis: {
+              categories: [
+                  'Jan',
+                  'Feb',
+                  'Mar',
+                  'Apr',
+                  'May',
+                  'Jun',
+                  'Jul',
+                  'Aug',
+                  'Sep',
+                  'Oct',
+                  'Nov',
+                  'Dec'
+              ],
+              crosshair: true
+          },
+          yAxis: {
+              min: 0,
+              title: {
+                  text: 'Rating (%)'
+              }
+          },
+  
+          plotOptions: {
+              column: {
+                  pointPadding: 0.2,
+                  borderWidth: 0
+              }
+          },
+          
+          series: [{
+              name: 'Self',
+              data: [4, 5, 4, 5, 3, 5, 4, 5, 4, 5, 5, 5]
+
+          }, {
+              name: 'Peer',
+              data: [3, 3, 3, 2, 2, 3, 3, 2, 2, 3, 3, 2]
+
+          }, {
+              name: 'Manager',
+              data: [ 1, 2, 3, 4, 3, 3, 2, 2, 3, 3, 3, 2]
+
+          }, {
+              name: 'Average',
+              data: [ 3.2, 2.4, 2.5, 3.3, 2.3, 2.3, 1.2, 1.4, 2.6, 3.1, 2.8, 1.1]
+
+          }]
+      });
     }
+
   },
+
   computed: {
+      filteredEmployees: function() {
+      let employees = [];
+      for (var i = this.ChartedEmployees.length - 1; i >= 0; i--) {
+        const firstName = this.ChartedEmployees[i].first_name || '';
+        const lastName = this.ChartedEmployees[i].last_name || '';
+        const fullName = firstName + lastName;
+        if (fullName.toLowerCase().includes(this.search.toLowerCase())) {
+          employees.push(this.ChartedEmployees[i]);
+        }
+      }
+      return employees; 
+    }
   }
 }
 </script>
@@ -281,4 +374,111 @@ td
   padding: 10px;
   margin: 0px;
 }
+</style>
+
+
+<!-- <script>
+import axios from 'axios'
+import Highcharts from 'highcharts'
+export default {
+  data: function() {
+    return {
+      employees:[],
+      search: "",
+    };
+  },
+  created: function() {
+    axios.get("/employees")
+      .then(function(response) {
+        this.employees = response.data;
+      }.bind(this));
+  },
+  mounted: function () {
+    this.addChart()
+  },
+  methods: {
+    addChart () {
+      Highcharts.chart('container', {
+          chart: {
+              renderTo: document.getElementById("container"),
+              type: 'column'
+          },
+          title: {
+              text: 'Review Rating'
+          },
+          subtitle: {
+              text: ''
+          },
+          xAxis: {
+              categories: [
+                  'Jan',
+                  'Feb',
+                  'Mar',
+                  'Apr',
+                  'May',
+                  'Jun',
+                  'Jul',
+                  'Aug',
+                  'Sep',
+                  'Oct',
+                  'Nov',
+                  'Dec'
+              ],
+              crosshair: true
+          },
+          yAxis: {
+              min: 0,
+              title: {
+                  text: 'Rating (%)'
+              }
+          },
+  
+          plotOptions: {
+              column: {
+                  pointPadding: 0.2,
+                  borderWidth: 0
+              }
+          },
+          
+          series: [{
+              name: 'Self',
+              data: [4, 5, 4, 5, 3, 5, 4, 5, 4, 5, 5, 5]
+
+          }, {
+              name: 'Peer',
+              data: [3, 3, 3, 2, 2, 3, 3, 2, 2, 3, 3, 2]
+
+          }, {
+              name: 'Manager',
+              data: [ 1, 2, 3, 4, 3, 3, 2, 2, 3, 3, 3, 2]
+
+          }, {
+              name: 'Average',
+              data: [ 3.2, 2.4, 2.5, 3.3, 2.3, 2.3, 1.2, 1.4, 2.6, 3.1, 2.8, 1.1]
+
+          }]
+      });
+    }
+  },
+  computed: { 
+    filteredEmployees: function() {
+      let employees = [];
+      for (var i = this.employees.length - 1; i >= 0; i--) {
+        const firstName = this.employees[i].first_name || '';
+        const lastName = this.employees[i].last_name || '';
+        const fullName = firstName + lastName;
+        if (fullName.toLowerCase().includes(this.search.toLowerCase())) {
+          employees.push(this.employees[i]);
+        }
+      }
+      return employees; 
+    }
+  }
+};
+</script> -->
+
+
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
 </style>

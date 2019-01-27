@@ -17,10 +17,10 @@
       </div>
       <div class="form-group">
         <label>Manager</label>
-        <select class="form-control" v-model="managers">
+        <select class="form-control" v-model="manager_id">
           <option value="">Select</option>
-          <option v-for="manager in managers" :value="manager.id" :key="manager.id">
-           {{manager.first_name}}
+          <option v-for="manager in managers" :value="manager.id" :key="manager_id">
+           {{manager.first_name}} 
            {{manager.last_name}}
          </option>
          </select>
@@ -53,6 +53,7 @@ export default {
       password: "",
       passwordConfirmation: "",
       managers: [],
+      manager_id:"",
       errors: []
     };
   },
@@ -67,6 +68,7 @@ export default {
       const params = {
         first_name: this.first_name,
         last_name: this.last_name,
+        manager_id: this.manager_id,
         email: this.email,
         password: this.password,
         password_confirmation: this.passwordConfirmation

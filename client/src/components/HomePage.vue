@@ -1,20 +1,25 @@
 <template id="home-page">
   <div class="vue-component">
-  <a class="" v-bind:href="'/#/logout' ">Logout</a>
+  <div> 
+   <img src="../assets/csg-logo.png" class="loginLogo">
+  </div>
+    <div class="name">
+      {{first_name}}
+    </div>
+    <div class="logout">
+      <a v-bind:href="'/#/logout' ">LOG OUT</a>
+    </div>
+    <div>
+    <hr class="menu" align="left" width="100%" solid="15px" color="#d9d9d9" >
+    </div>
     <div class="asc-container">
     <div class="container">
     <div class="profileContainer">
-      <label>Agile Performance Review</label>
+      <label><b><h3>Agile Performance Review</h3></b></label>
     </div>
     <a class="btn btn-primary btn-home" v-bind:href="'/#/reviews/new' ">Create Review</a>
       <a id="manager" :class="'btn btn-primary btn-home ' + (managerStatus ? '' : 'disabled') " v-bind:href="'/#/employees' ">View Review</a>
       <a id="manager" :class="'btn btn-primary btn-home ' + (managerStatus ? '' : 'disabled') " v-bind:href="'/#/reviews/pending' ">Pending Review</a>
-      <br />
-      <br />
-      <br />
-      <hr />
-      
-      <br />
     </div>
     </div>
   </div>
@@ -25,6 +30,7 @@ import axios from 'axios'
 export default {
 data: function() {
     return {
+      first_name:"",
       managerStatus: false
     };
   },
@@ -34,6 +40,7 @@ data: function() {
       .then((response) => {
         const employee = response.data
         this.managerStatus = employee.manager_status
+        this.first_name = employee.first_name
       })
 
   },
@@ -43,11 +50,15 @@ data: function() {
 </script>
 
 <style scoped>
+.profileContainer{
+    margin-top:3%;
+
+}
 .asc-container{
   min-width : 650px;
   min-height : 350px;
   margin-left: 35%;
-  top:20%;
+  top:30%;
   position:absolute;
   background-color:#FFFFFF;
   
@@ -70,5 +81,27 @@ data: function() {
     text-align: center;
     font-size: larger;
 
+  }
+   .name {
+      right: 6.7%;
+      top: 2.5%;
+      font-size: 24px;
+      position:absolute;
+  }
+  .logout{
+    right: 1.5%;
+    top: 3.1%;
+    font-size: 18px;
+    position:absolute;
+  }
+  .menu
+  {
+     top: 7%;
+      position:absolute;
+  }
+  .loginLogo{
+    max-width:250px; 
+    top: 2%;
+    align:right;
   }
 </style>

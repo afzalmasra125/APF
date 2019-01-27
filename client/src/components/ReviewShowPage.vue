@@ -3,9 +3,7 @@
     <div class ="container">
       <div class ="row">
         <div class = "name" v-if="employee">  
-
           <b>APF review for:- </b> <h3>{{employee.first_name}}  {{employee.last_name}}</h3>
-
           <select style="width:200px;">
             <option value="Feb">February 2019</option>
             <option value="May">May 2019</option>

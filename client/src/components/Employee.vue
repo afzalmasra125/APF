@@ -15,12 +15,7 @@
             <tr v-for="employee in filteredEmployees" :key="employee.id">
               <th>{{ employee.first_name }} {{employee.last_name }}</th>
               <td>
-                <a
-                  class="btn btn-primary"
-                  v-bind:href="'/#/employees/' + employee.id"
-                >
-                  Reviews</a
-                >
+                <a class="btn btn-primary" v-bind:href="'/#/employees/' + employee.id">Reviews</a>
               </td>
             </tr>
           </tbody>

@@ -149,6 +149,7 @@
 import axios from 'axios'
 import $ from 'jquery'
 import Highcharts from 'highcharts'
+import mixin from '../mixin'
 
 export default {
     data: function() {
@@ -169,6 +170,7 @@ export default {
             search: "",
         };
     },
+    mixins: [mixin],
     created: function() {
         const token = localStorage.getItem("jwt");
         axios.get("/employees/" + this.$route.params.id, { headers: { "Authorization": `Bearer ${token}` } })
@@ -190,7 +192,8 @@ export default {
     },
 
     mounted: function() {
-        this.addChart(this.selfReview, this.peerReviews, this.managerReview)
+        this.addChart(this.selfReview, this.peerReviews, this.managerReview);
+        this.hideHeader()
     },
 
     methods: {
@@ -324,7 +327,7 @@ export default {
     }
 }
 </script>
-<style>
+<style scooped>
 .review {
     margin-top: 10px;
     margin-bottom: 50px;
@@ -357,41 +360,4 @@ td {
     padding: 10px;
     margin: 0px;
 }
-</style>
-<!-- <script>
-import axios from 'axios'
-import Highcharts from 'highcharts'
-export default {
-  data: function() {
-    return {
-      employees:[],
-      search: "",
-    };
-  },
-  created: function() {
-    axios.get("/employees")
-      .then(function(response) {
-        this.employees = response.data;
-      }.bind(this));
-  },
-  mounted: function () {},
-  methods: {},
-  computed: { 
-    filteredEmployees: function() {
-      let employees = [];
-      for (var i = this.employees.length - 1; i >= 0; i--) {
-        const firstName = this.employees[i].first_name || '';
-        const lastName = this.employees[i].last_name || '';
-        const fullName = firstName + lastName;
-        if (fullName.toLowerCase().includes(this.search.toLowerCase())) {
-          employees.push(this.employees[i]);
-        }
-      }
-      return employees; 
-    }
-  }
-};
-</script> -->
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
 </style>

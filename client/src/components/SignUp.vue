@@ -12,14 +12,14 @@
                 </div>
                 <div class="form-group">
                     <label>Last Name:</label>
-                    <input type="text" class="form-control" v-model="last_name">
+                    <input type="text" class="form-control" v-model="last_name"/>
                 </div>
             </div>
             <div class="form-group">
                 <label>Manager</label>
                 <select class="form-control" v-model="manager_id">
                     <option value="">Select</option>
-                    <option v-for="manager in managers" :value="manager.id" :key="manager_id">
+                    <option v-for="manager in managers" :value="manager.id">
                         {{manager.first_name}}
                         {{manager.last_name}}
                     </option>
@@ -27,15 +27,15 @@
             </div>
             <div class="form-group">
                 <label>Email:</label>
-                <input type="email" class="form-control" v-model="email">
+                <input type="email" class="form-control" v-model="email"/>
             </div>
             <div class="form-group">
                 <label>Password:</label>
-                <input type="password" class="form-control" v-model="password">
+                <input type="password" class="form-control" v-model="password"/>
             </div>
             <div class="form-group">
                 <label>Password confirmation:</label>
-                <input type="password" class="form-control" v-model="passwordConfirmation">
+                <input type="password" class="form-control" v-model="passwordConfirmation"/>
             </div>
             <button class="btn btn-primary" v-on:click="submit()">Submit</button>
         </div>
@@ -43,6 +43,7 @@
 </template>
 <script>
 import axios from 'axios'
+import mixin from '../mixin'
 export default {
     data: function() {
         return {
@@ -56,11 +57,15 @@ export default {
             errors: []
         };
     },
+    mixins: [mixin],
     created: function() {
         axios.get("/manager").then(
             function(response) {
                 this.managers = response.data;
             }.bind(this));
+    },
+    mounted: function () {
+        this.hideHeader()
     },
     methods: {
         submit() {
@@ -72,6 +77,7 @@ export default {
                 password: this.password,
                 password_confirmation: this.passwordConfirmation
             }
+            let self = this
             axios
                 .post("/employees", params)
                 .then((response) => {
@@ -80,7 +86,7 @@ export default {
                 })
                 .catch(
                     function(error) {
-                        this.errors = error.response.data.errors
+                       self.errors = error.response.data.errors
                     }
                 )
         }

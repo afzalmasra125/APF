@@ -93,6 +93,7 @@
 </template>
 <script>
 import axios from 'axios'
+import mixin from '../mixin'
 export default {
     data: function() {
         return {
@@ -111,6 +112,7 @@ export default {
             needs_improvement: "",
         };
     },
+    mixins: [mixin],
     created: function() {
         const token = localStorage.getItem('jwt')
         axios.get("/manager", { headers: { "Authorization": `Bearer ${token}` } }).then(
@@ -123,6 +125,9 @@ export default {
                 this.pending_reviews = response.data;
             }.bind(this));
     },
+     mounted: function () {
+        this.hideHeader()
+         },
     methods: {
         getEmployees: function() {
             const token = localStorage.getItem('jwt')

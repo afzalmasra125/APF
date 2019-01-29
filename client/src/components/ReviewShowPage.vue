@@ -33,7 +33,7 @@
                     <th>N/A</th>
                 </tr>
                 <tr>
-                    <th>Judgement</th>
+                    <th>Overall Compentencies Rating</th>
                     <td>{{ selfReview ? (selfReview.judgement + 1).toFixed(1) : 'n/a'}}</td>
                     <td>{{averageJudgement ? (averageJudgement).toFixed(1) : 'n/a'}}</td>
                     <td>{{ getCount(peerReviews, "judgement", 0) }}</td>
@@ -42,7 +42,7 @@
                     <td>{{ getCount(peerReviews, "judgement", 3) }}</td>
                     <td>{{ getCount(peerReviews, "judgement", null) }}</td>
                 </tr>
-                <tr>
+               <!--  <tr>
                     <th>Teamwork / Collaboration</th>
                     <td>{{selfReview ? (selfReview.teamwork + 1).toFixed(1) : 'n/a'}}</td>
                     <td>{{averageTeamwork ? (averageTeamwork).toFixed(1) : 'n/a'}}</td>
@@ -72,16 +72,16 @@
                     <td>{{ getCount(peerReviews, "technical", 3) }}</td>
                     <td>{{ getCount(peerReviews, "technical", null) }}</td>
                 </tr>
-                <tr>
-                    <th><b><h4>Total Average</h4></b></th>
+                <tr> -->
+                   <!--  <th><b><h4>Total Average</h4></b></th>
                     <td>{{ selfReview ? ((selfReview.judgement + selfReview.teamwork + selfReview.technical + selfReview.leadership + 4) / 4).toFixed(1) : 'n/a'}}</td>
-                    <td>{{((averageJudgement + averageTeamwork + averageLeadership + averageTechnical)/4).toFixed(1)}}
-                    </td>
+                    <td>{{((averageJudgement + averageTeamwork + averageLeadership + averageTechnical)/4).toFixed(1)}} -->
+                    <!-- </td>
                     <td></td>
+                    <td></td> -->
+                  <!--   <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td></td> -->
                 </tr>
             </table>
             <table class="review" id="selfReview">
@@ -124,11 +124,11 @@
                         <h3><br><center> Manager Summary </center></h3>
                     </th>
                 <tr>
-                    <td><b>Judegment</b></td>
+                    <td><b>Overall Rating</b></td>
                     <td>{{convertRatings(managerReview.judgement)}}</td>
                     <td rowspan="4">{{managerReview.positive_feedback}}</td>
                 </tr>
-                <tr>
+               <!--  <tr>
                     <td><b>Teamwork/Collaboration</b></td>
                     <td>{{convertRatings(managerReview.teamwork)}}</td>
                 </tr>
@@ -138,7 +138,7 @@
                 </tr>
                 <tr>
                     <td><b>Functional/Technical</b></td>
-                    <td>{{convertRatings(managerReview.technical)}}</td>
+                    <td>{{convertRatings(managerReview.technical)}}</td> -->
                 </tr>
             </table>
         </div>
@@ -159,13 +159,13 @@ export default {
             managerReview: null,
             peerReviews: null,
             averageJudgement: null,
-            averageTeamwork: null,
-            averageLeadership: null,
-            averageTechnical: null,
+            // averageTeamwork: null,
+            // averageLeadership: null,
+            // averageTechnical: null,
             countJudgement: null,
-            countTeamwork: null,
-            countLeadership: null,
-            countTechnical: null,
+            // countTeamwork: null,
+            // countLeadership: null,
+            // countTechnical: null,
             ChartedEmployees: [],
             search: "",
         };
@@ -180,9 +180,9 @@ export default {
                 this.managerReview = this.employee.reviews.filter(review => review.reviewer_manager_status && review.reviewee_id !== review.reviewer_id)[0];
                 this.peerReviews = this.employee.reviews.filter(review => !review.reviewer_manager_status && review.reviewee_id !== review.reviewer_id);
                 this.averageJudgement = this.getAverage(this.peerReviews.map(review => review.judgement + 1));
-                this.averageTeamwork = this.getAverage(this.peerReviews.map(review => review.teamwork + 1));
-                this.averageLeadership = this.getAverage(this.peerReviews.map(review => review.leadership + 1));
-                this.averageTechnical = this.getAverage(this.peerReviews.map(review => review.technical + 1));
+                // this.averageTeamwork = this.getAverage(this.peerReviews.map(review => review.teamwork + 1));
+                // this.averageLeadership = this.getAverage(this.peerReviews.map(review => review.leadership + 1));
+                // this.averageTechnical = this.getAverage(this.peerReviews.map(review => review.technical + 1));
             }.bind(this));
 
         axios.get("/employees", { headers: { "Authorization": `Bearer ${token}` } })
@@ -213,9 +213,9 @@ export default {
             }
         },
         judgementcounts(ratings, count) {},
-        teamworkcounts(ratings, count) {},
-        leadershipcounts(ratings, count) {},
-        technicalcounts(ratings, count) {},
+        // teamworkcounts(ratings, count) {},
+        // leadershipcounts(ratings, count) {},
+        // technicalcounts(ratings, count) {},
         getCount(arr, attribute, score) {
             if (!arr) { return }
             return arr.filter(obj => obj[attribute] === score).length;
@@ -268,10 +268,7 @@ export default {
                 },
                 xAxis: {
                     categories: [
-                        'Judegment',
-                        'Teamwork / Collaboration',
-                        'Personal Leadership',
-                        'Functional / Technical',
+                        'Overall',
                     ],
                     crosshair: true
                 },
@@ -291,20 +288,15 @@ export default {
 
                 series: [{
                     name: 'Self',
-                    data: [5, 3, 4, 4]
+                    data: [5, 3]
 
                 }, {
                     name: 'Peer',
-                    data: [3, 3, 3, 2]
+                    data: [3, 3]
 
                 }, {
                     name: 'Manager',
-                    data: [4, 2, 3, 4]
-
-                }, {
-                    name: 'Average',
-                    data: [3.2, 2.4, 2.5, 3.3]
-
+                    data: [4, 2]
                 }]
             });
         }

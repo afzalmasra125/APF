@@ -1,48 +1,50 @@
 <template id="reviews-show-page">
     <div class="vue-component">
-        <div class="container">
-            <div class="row">
-                <div class="name" v-if="employee">
-                    <b>APF review for:- </b> <h3>{{employee.first_name}}  {{employee.last_name}}</h3>
-                    <select style="width:200px;">
-                        <option value="Feb">February 2019</option>
-                        <option value="May">May 2019</option>
-                        <option value="Aug">August 2019</option>
-                        <option value="Nov">November 2019</option>
-                    </select>
-                    <br />
-                    <br />
-                    <button class="btn btn-primary" style="width:250px;"> <a href="#" id="test" @click="fnExcelReport"> <h4 class="text-white"> Download APF </h4></a> </button>
-                </div>
-            </div>
-            <div id="highchart"></div>
-            <table class="review" id="ratings">
-                <tr>
-                    <th COLSPAN="8">
-                        <h3><br/><center>Ratings</center></h3>
-                    </th>
-                </tr>
-                <tr>
-                    <th>Question</th>
-                    <th>Self Ratings</th>
-                    <th>Peer Ratings(Average)</th>
-                    <th>Did not meet Expectations(Peer)</th>
-                    <th>Partially Meets Expectations(Peer)</th>
-                    <th>Fully Meets Expectations(Peer)</th>
-                    <th>Exceeds Expectations(Peer)</th>
-                    <th>N/A</th>
-                </tr>
-                <tr>
-                    <th>Judgement</th>
-                    <td>{{ selfReview ? (selfReview.judgement + 1).toFixed(1) : 'n/a'}}</td>
-                    <td>{{averageJudgement ? (averageJudgement).toFixed(1) : 'n/a'}}</td>
-                    <td>{{ getCount(peerReviews, "judgement", 0) }}</td>
-                    <td>{{ getCount(peerReviews, "judgement", 1) }}</td>
-                    <td>{{ getCount(peerReviews, "judgement", 2) }}</td>
-                    <td>{{ getCount(peerReviews, "judgement", 3) }}</td>
-                    <td>{{ getCount(peerReviews, "judgement", null) }}</td>
-                </tr>
-                <tr>
+        <div class="asc-container">
+            <div class="container">
+                <div class="profileContainer">
+                    <div class="row">
+                        <div class="name" v-if="employee">
+                            <b>Agile Perfomance review for:- </b> <h3>{{employee.first_name}}  {{employee.last_name}}</h3>
+                            <select style="width:200px;">
+                                <option value="Feb">February 2019</option>
+                                <option value="May">May 2019</option>
+                                <option value="Aug">August 2019</option>
+                                <option value="Nov">November 2019</option>
+                            </select>
+                            <br />
+                            <br />
+                            <button class="btn btn-primary" style="width:250px;"> <a href="#" id="test" @click="fnExcelReport"> <h4 class="text-white"> Download APF </h4></a> </button>
+                        </div>
+                    </div>
+                    <div id="highchart"></div>
+                    <table class="review" id="ratings">
+                        <tr>
+                            <th COLSPAN="8">
+                                <h3><br/><center>Ratings</center></h3>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Question</th>
+                            <th>Self Ratings</th>
+                            <th>Peer Ratings(Average)</th>
+                            <th>Did not meet Expectations(Peer)</th>
+                            <th>Partially Meets Expectations(Peer)</th>
+                            <th>Fully Meets Expectations(Peer)</th>
+                            <th>Exceeds Expectations(Peer)</th>
+                            <th>N/A</th>
+                        </tr>
+                        <tr>
+                            <th>Overall Compentencies Rating</th>
+                            <td>{{ selfReview ? (selfReview.judgement + 1).toFixed(1) : 'n/a'}}</td>
+                            <td>{{averageJudgement ? (averageJudgement).toFixed(1) : 'n/a'}}</td>
+                            <td>{{ getCount(peerReviews, "judgement", 0) }}</td>
+                            <td>{{ getCount(peerReviews, "judgement", 1) }}</td>
+                            <td>{{ getCount(peerReviews, "judgement", 2) }}</td>
+                            <td>{{ getCount(peerReviews, "judgement", 3) }}</td>
+                            <td>{{ getCount(peerReviews, "judgement", null) }}</td>
+                        </tr>
+                        <!--  <tr>
                     <th>Teamwork / Collaboration</th>
                     <td>{{selfReview ? (selfReview.teamwork + 1).toFixed(1) : 'n/a'}}</td>
                     <td>{{averageTeamwork ? (averageTeamwork).toFixed(1) : 'n/a'}}</td>
@@ -72,63 +74,63 @@
                     <td>{{ getCount(peerReviews, "technical", 3) }}</td>
                     <td>{{ getCount(peerReviews, "technical", null) }}</td>
                 </tr>
-                <tr>
-                    <th><b><h4>Total Average</h4></b></th>
+                <tr> -->
+                        <!--  <th><b><h4>Total Average</h4></b></th>
                     <td>{{ selfReview ? ((selfReview.judgement + selfReview.teamwork + selfReview.technical + selfReview.leadership + 4) / 4).toFixed(1) : 'n/a'}}</td>
-                    <td>{{((averageJudgement + averageTeamwork + averageLeadership + averageTechnical)/4).toFixed(1)}}
-                    </td>
+                    <td>{{((averageJudgement + averageTeamwork + averageLeadership + averageTechnical)/4).toFixed(1)}} -->
+                        <!-- </td>
                     <td></td>
+                    <td></td> -->
+                        <!--   <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
-            <table class="review" id="selfReview">
-                <tr>
-                    <th COLSPAN="2">
-                        <h3><br/><center>Self Review</center></h3>
-                    </th>
-                <tr>
-                    <th><h3>Area of Strength</h3>
-                    </th>
-                    <th><h3>Area of Improvement</h3>
-                    </th>
-                </tr>
-                <tr>
-                    <td>{{selfReview.positive_feedback}}</td>
-                    <td>{{selfReview.needs_improvement}}</td>
-                </tr>
-            </table>
-            <div v-if="peerReviews">
-                <table class="review" id="peer" v-if="peerReviews">
-                    <tr>
-                        <th COLSPAN="2">
-                            <h3><br><center>Peer Comments </center></h3>
-                        </th>
-                    <tr>
-                        <th><h3>Area of Strength</h3>
-                        </th>
-                        <th><h3>Area of Improvement</h3>
-                        </th>
-                    </tr>
-                    <tr v-for="peer in peerReviews">
-                        <td>{{peer.positive_feedback}}</td>
-                        <td>{{peer.needs_improvement}}</td>
-                    </tr>
-                </table>
-            </div>
-            <table v-if="managerReview" class="review" id="manager">
-                <tr>
-                    <th COLSPAN="3">
-                        <h3><br><center> Manager Summary </center></h3>
-                    </th>
-                <tr>
-                    <td><b>Judegment</b></td>
-                    <td>{{convertRatings(managerReview.judgement)}}</td>
-                    <td rowspan="4">{{managerReview.positive_feedback}}</td>
-                </tr>
-                <tr>
+                    <td></td> -->
+                        </tr>
+                    </table>
+                    <table class="review" id="selfReview">
+                        <tr>
+                            <th COLSPAN="2">
+                                <h3><br/><center>Self Review</center></h3>
+                            </th>
+                        <tr>
+                            <th><h3>Area of Strength</h3>
+                            </th>
+                            <th><h3>Area of Improvement</h3>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>{{selfReview.positive_feedback}}</td>
+                            <td>{{selfReview.needs_improvement}}</td>
+                        </tr>
+                    </table>
+                    <div v-if="peerReviews">
+                        <table class="review" id="peer" v-if="peerReviews">
+                            <tr>
+                                <th COLSPAN="2">
+                                    <h3><br><center>Peer Comments </center></h3>
+                                </th>
+                            <tr>
+                                <th><h3>Area of Strength</h3>
+                                </th>
+                                <th><h3>Area of Improvement</h3>
+                                </th>
+                            </tr>
+                            <tr v-for="peer in peerReviews">
+                                <td>{{peer.positive_feedback}}</td>
+                                <td>{{peer.needs_improvement}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <table v-if="managerReview" class="review" id="manager">
+                        <tr>
+                            <th COLSPAN="3">
+                                <h3><br><center> Manager Summary </center></h3>
+                            </th>
+                        <tr>
+                            <td><b>Overall Rating</b></td>
+                            <td>{{convertRatings(managerReview.judgement)}}</td>
+                            <td rowspan="4">{{managerReview.positive_feedback}}</td>
+                        </tr>
+                        <!--  <tr>
                     <td><b>Teamwork/Collaboration</b></td>
                     <td>{{convertRatings(managerReview.teamwork)}}</td>
                 </tr>
@@ -138,9 +140,11 @@
                 </tr>
                 <tr>
                     <td><b>Functional/Technical</b></td>
-                    <td>{{convertRatings(managerReview.technical)}}</td>
-                </tr>
-            </table>
+                    <td>{{convertRatings(managerReview.technical)}}</td> -->
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
     </div>
@@ -159,13 +163,13 @@ export default {
             managerReview: null,
             peerReviews: null,
             averageJudgement: null,
-            averageTeamwork: null,
-            averageLeadership: null,
-            averageTechnical: null,
+            // averageTeamwork: null,
+            // averageLeadership: null,
+            // averageTechnical: null,
             countJudgement: null,
-            countTeamwork: null,
-            countLeadership: null,
-            countTechnical: null,
+            // countTeamwork: null,
+            // countLeadership: null,
+            // countTechnical: null,
             ChartedEmployees: [],
             search: "",
         };
@@ -180,9 +184,9 @@ export default {
                 this.managerReview = this.employee.reviews.filter(review => review.reviewer_manager_status && review.reviewee_id !== review.reviewer_id)[0];
                 this.peerReviews = this.employee.reviews.filter(review => !review.reviewer_manager_status && review.reviewee_id !== review.reviewer_id);
                 this.averageJudgement = this.getAverage(this.peerReviews.map(review => review.judgement + 1));
-                this.averageTeamwork = this.getAverage(this.peerReviews.map(review => review.teamwork + 1));
-                this.averageLeadership = this.getAverage(this.peerReviews.map(review => review.leadership + 1));
-                this.averageTechnical = this.getAverage(this.peerReviews.map(review => review.technical + 1));
+                // this.averageTeamwork = this.getAverage(this.peerReviews.map(review => review.teamwork + 1));
+                // this.averageLeadership = this.getAverage(this.peerReviews.map(review => review.leadership + 1));
+                // this.averageTechnical = this.getAverage(this.peerReviews.map(review => review.technical + 1));
             }.bind(this));
 
         axios.get("/employees", { headers: { "Authorization": `Bearer ${token}` } })
@@ -213,9 +217,9 @@ export default {
             }
         },
         judgementcounts(ratings, count) {},
-        teamworkcounts(ratings, count) {},
-        leadershipcounts(ratings, count) {},
-        technicalcounts(ratings, count) {},
+        // teamworkcounts(ratings, count) {},
+        // leadershipcounts(ratings, count) {},
+        // technicalcounts(ratings, count) {},
         getCount(arr, attribute, score) {
             if (!arr) { return }
             return arr.filter(obj => obj[attribute] === score).length;
@@ -268,10 +272,7 @@ export default {
                 },
                 xAxis: {
                     categories: [
-                        'Judegment',
-                        'Teamwork / Collaboration',
-                        'Personal Leadership',
-                        'Functional / Technical',
+                        'Overall',
                     ],
                     crosshair: true
                 },
@@ -291,20 +292,15 @@ export default {
 
                 series: [{
                     name: 'Self',
-                    data: [5, 3, 4, 4]
+                    data: [5, 3]
 
                 }, {
                     name: 'Peer',
-                    data: [3, 3, 3, 2]
+                    data: [3, 3]
 
                 }, {
                     name: 'Manager',
-                    data: [4, 2, 3, 4]
-
-                }, {
-                    name: 'Average',
-                    data: [3.2, 2.4, 2.5, 3.3]
-
+                    data: [4, 2]
                 }]
             });
         }
@@ -327,6 +323,11 @@ export default {
     }
 }
 </script>
+<style>
+.profileContainer {
+    margin-top: 12%;
+}
+</style>
 <style scooped>
 .review {
     margin-top: 10px;

@@ -36,7 +36,7 @@
                 </select>
             </div>
             <div class="form-group" style="width:500px;">
-                <label>Judgement</label>
+                <label>Overall</label>
                 <select class="form-control" v-model="judgement">
                     <option value="">Select</option>
                     <option value="0">Does not meet expectation</option>
@@ -45,7 +45,7 @@
                     <option value="3">Exceed expectation</option>
                 </select>
             </div>
-            <div class="form-group" style="width:500px;">
+       <!--     <div class="form-group" style="width:500px;">
                 <label>Teamwork</label>
                 <select class="form-control" v-model="teamwork">>
                     <option value=""> Select</option>
@@ -74,7 +74,7 @@
                     <option value="2">Fully meet expectation</option>
                     <option value="3">Exceed expectation</option>
                 </select>
-            </div>
+            </div> -->
             <div>
                 <label>Positive Feedback</label>
                 <textarea rows="4" cols="119" v-model="positive_feedback" style="height:200px;" width="500px">
@@ -93,21 +93,21 @@
 </template>
 <script>
 import axios from 'axios'
-import mixin from '../mixin'
+import mixin from '../mixin' 
 export default {
     data: function() {
         return {
             managers: [],
             employees_names: [],
-            pending_reviews: [],
+            // pending_reviews: [],
             errors: [],
             manager_id: "",
             reviewee_id: "",
             relationship: "",
             judgement: "",
-            teamwork: "",
-            leadership: "",
-            technical: "",
+            // teamwork: "",
+            // leadership: "",
+            // technical: "",
             positive_feedback: "",
             needs_improvement: "",
         };
@@ -119,11 +119,11 @@ export default {
             function(response) {
                 this.managers = response.data;
             }.bind(this));
-        axios
-            .get("/pending_reviews", { headers: { "Authorization": `Bearer ${token}` } })
-            .then(function(response) {
-                this.pending_reviews = response.data;
-            }.bind(this));
+        // axios
+        //     .get("/pending_reviews", { headers: { "Authorization": `Bearer ${token}` } })
+        //     .then(function(response) {
+        //         this.pending_reviews = response.data;
+        //     }.bind(this));
     },
      mounted: function () {
         this.hideHeader()
@@ -141,9 +141,10 @@ export default {
             var params = {
                 reviewee_id: this.reviewee_id,
                 relationship: this.relationship,
-                teamwork: this.teamwork,
-                technical: this.technical,
-                leadership: this.leadership,
+                judgement: this.judgement,
+                // teamwork: this.teamwork,
+                // technical: this.technical,
+                // leadership: this.leadership,
                 positive_feedback: this.positive_feedback,
                 needs_improvement: this.needs_improvement
             };

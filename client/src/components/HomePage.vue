@@ -14,6 +14,7 @@
 </template>
 <script>
 import axios from 'axios'
+import mixin from '../mixin'
 export default {
     data: function() {
         return {
@@ -21,6 +22,7 @@ export default {
             managerStatus: false
         };
     },
+    mixins: [mixin],
     created: function() {
         const token = localStorage.getItem("jwt");
         axios.get("/current_employee", { headers: { "Authorization": `Bearer ${token}` } })
@@ -29,8 +31,10 @@ export default {
                 this.managerStatus = employee.manager_status
                 this.first_name = employee.first_name
             })
-
-    },
+},
+       mounted: function () {
+        this.hideHeader()
+         },
     methods: {},
     computed: {}
 };
@@ -38,9 +42,7 @@ export default {
 <style scoped>
 .profileContainer {
     margin-top: 3%;
-
 }
-
 .asc-container {
     min-width: 650px;
     min-height: 350px;
@@ -48,8 +50,6 @@ export default {
     top: 30%;
     position: absolute;
     background-color: #FFFFFF;
-
-
 
 
     box-sizing: content-box;

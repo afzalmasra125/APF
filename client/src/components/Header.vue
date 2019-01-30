@@ -1,12 +1,25 @@
 <template id="header">
     <div class="vue-component">
-        <div>
-            <img src="../assets/csg-logo.png" class="loginLogo" />
+        <div class="header-container">
+            <div>
+                <img src="../assets/csg-logo.png" class="loginLogo" />
+            </div>
+            <div class="name">
+                {{ first_name }}
+            </div>
+            <div class="logout">
+                <a v-bind:href="'/#/logout'">LOG OUT</a>
+            </div>
+            <div>
+                <hr
+                    class="menu"
+                    align="left"
+                    width="100%"
+                    solid="15px"
+                    color="#d9d9d9"
+                />
+            </div>
         </div>
-        <div class="name">
-            {{ first_name }}
-        </div>
-        <div class="logout"></div>
     </div>
 </template>
 <script>

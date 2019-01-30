@@ -4,26 +4,26 @@
             <div class="ascContainer">
                 <div class="container">
                     <div class="loginLogoCon">
-                        <img src="../assets/csg-logo.png" class="loginLogo">
+                        <img src="../assets/csg-logo.png" class="loginLogo"/>
               </div>
                         <ul>
                             <li class="text-danger" v-for="(error, i) in errors" :key="i">{{ error }}</li>
                         </ul>
                         <div class="form-group">
                             <label>Email:</label>
-                            <input type="email" class="form-control" v-model="email">
+                            <input type="email" class="form-control" v-model="email"/>
                         </div>
                         <div class="form-group">
                             <label>Password:</label>
-                            <input type="password" class="form-control" v-model="password">
+                            <input type="password" class="form-control" v-model="password"/>
                         </div>
                         <button class="btn btn-primary btn-login" v-on:click="submit()">Submit</button>
-                        <br />
-                        <br />
+                        <br/>
+                        <br/>
                         <a href="#" target="_blank">Forgot your password?</a>
-                        <br />
-                        <br />
-                        <a href="/#/signup" target="_blank">Create an account</a>
+                        <br/>
+                        <br/>
+                        <a href="/#/signup">Create an account</a>
                     </div>
                 </div>
             </div>
@@ -77,6 +77,7 @@ export default {
     top: 20%;
     position: absolute;
     background-color: #FFFFFF;
+    border-radius: 16px;
 
 }
 

@@ -1,6 +1,6 @@
 <template id="header">
     <div class="vue-component">
-        <div class="header-container">
+        <!-- <div class="header-container">
             <div>
                 <img src="../assets/csg-logo.png" class="loginLogo" />
             </div>
@@ -19,7 +19,44 @@
                     color="#d9d9d9"
                 />
             </div>
-        </div>
+        </div> -->
+        <nav
+            class="navbar navbar-expand-lg navbar-light bg-transparent border-bottom"
+        >
+            <a class="navbar-brand" href="#">
+                <img
+                    src="../assets/csg-logo.png"
+                    class="img-fluid"
+                    width="175px"
+                />
+            </a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div
+                v-if="first_name"
+                class="collapse navbar-collapse"
+                id="navbarSupportedContent"
+            >
+                <div class="navbar-nav ml-auto">
+                    <div class="nav-link disabled h5 text-dark">
+                        {{ first_name }}
+                    </div>
+                    <div class="nav-link h5">
+                        <a href="/#/logout" class="text-secondary">Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
     </div>
 </template>
 <script>
@@ -45,7 +82,7 @@ export default {
     computed: {}
 };
 </script>
-<style scoped>
+<!-- <style scoped>
 .name {
     right: 6.7%;
     top: 2.5%;
@@ -74,3 +111,4 @@ export default {
     position: absolute;
 }
 </style>
+ -->

@@ -1,20 +1,42 @@
 <template id="home-page">
     <div class="vue-component">
-            <div class="asc-container">
-                <div class="container">
-                    <div class="profileContainer">
-                        <label><b><h3>Agile Performance Review</h3></b></label>
-                    </div>
-                    <a class="btn btn-primary btn-home" v-bind:href="'/#/reviews/new' ">Create Review</a>
-                    <a id="manager" :class="'btn btn-primary btn-home ' + (managerStatus ? '' : 'disabled') " v-bind:href="'/#/employees' ">View Review</a>
-                    <a id="manager" :class="'btn btn-primary btn-home ' + (managerStatus ? '' : 'disabled') " v-bind:href="'/#/reviews/pending' ">Pending Review</a>
+        <div class="ascContainer">
+            <div class="container">
+                <div class="profileContainer">
+                    <label
+                        ><b><h3>Agile Performance Review</h3></b></label
+                    >
                 </div>
+                <a
+                    class="btn btn-primary btn-home"
+                    v-bind:href="'/#/reviews/new'"
+                    >Create Review</a
+                >
+                <a
+                    id="manager"
+                    :class="
+                        'btn btn-primary btn-home ' +
+                            (managerStatus ? '' : 'disabled')
+                    "
+                    v-bind:href="'/#/employees'"
+                    >View Review</a
+                >
+                <a
+                    id="manager"
+                    :class="
+                        'btn btn-primary btn-home ' +
+                            (managerStatus ? '' : 'disabled')
+                    "
+                    v-bind:href="'/#/reviews/pending'"
+                    >Pending Review</a
+                >
             </div>
         </div>
+    </div>
 </template>
 <script>
-import axios from 'axios'
-import mixin from '../mixin'
+import axios from "axios";
+import mixin from "../mixin";
 export default {
     data: function() {
         return {
@@ -25,16 +47,19 @@ export default {
     mixins: [mixin],
     created: function() {
         const token = localStorage.getItem("jwt");
-        axios.get("/current_employee", { headers: { "Authorization": `Bearer ${token}` } })
-            .then((response) => {
-                const employee = response.data
-                this.managerStatus = employee.manager_status
-                this.first_name = employee.first_name
+        axios
+            .get("/current_employee", {
+                headers: { Authorization: `Bearer ${token}` }
             })
-},
-       mounted: function () {
-        this.hideHeader()
-         },
+            .then(response => {
+                const employee = response.data;
+                this.managerStatus = employee.manager_status;
+                this.first_name = employee.first_name;
+            });
+    },
+    mounted: function() {
+        this.hideHeader();
+    },
     methods: {},
     computed: {}
 };
@@ -49,8 +74,7 @@ export default {
     margin-left: 35%;
     top: 30%;
     position: absolute;
-    background-color: #FFFFFF;
-
+    background-color: #ffffff;
 
     box-sizing: content-box;
     box-shadow: 2px 2px #d9d9d9;

@@ -150,15 +150,16 @@ export default {
                 positive_feedback: this.positive_feedback,
                 needs_improvement: this.needs_improvement
             };
+            const token = localStorage.getItem('jwt')
             axios
-                .post("/reviews", params)
+                .post("/reviews", params, { headers: { "Authorization": `Bearer ${token}`} })
                 .then(function(response) {
-                    router.push("/reviews");
+                    router.push("/home");
                 })
                 .catch(
                     function(error) {
                         if (error.response.status === 401) {
-                            router.push("/reviews");
+                            router.push("/");
                         } else if (error.response.status === 422) {
                             this.errors = error.response.data.errors;
                         } else {

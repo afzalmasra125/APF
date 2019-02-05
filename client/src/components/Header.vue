@@ -69,6 +69,7 @@ export default {
 
 .loginLogo {
     max-width: 175px;
+    margin-left:1%;
     top: 2%;
     align: right;
     position: absolute;

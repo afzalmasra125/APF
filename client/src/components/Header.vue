@@ -1,37 +1,45 @@
 <template id="header">
- <div class="vue-component">
+    <div class="vue-component">
         <div class="header-container">
-          <div>
-            <img src="../assets/csg-logo.png" class="loginLogo"/>
-          </div>
+            <div>
+                <img src="../assets/csg-logo.png" class="loginLogo" />
+            </div>
             <div class="name">
-                {{first_name}}
+                {{ first_name }}
             </div>
             <div class="logout">
-                <a v-bind:href="'/#/logout' ">LOG OUT</a>
+                <a v-bind:href="'/#/logout'">LOG OUT</a>
             </div>
             <div>
-                <hr class="menu" align="left" width="100%" solid="15px" color="#d9d9d9"/>
+                <hr
+                    class="menu"
+                    align="left"
+                    width="100%"
+                    solid="15px"
+                    color="#d9d9d9"
+                />
             </div>
         </div>
-      </div>
+    </div>
 </template>
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
     data: function() {
         return {
-            first_name: "",
+            first_name: ""
         };
     },
     created: function() {
-      const token = localStorage.getItem("jwt");
-      axios.get("/current_employee", { headers: { "Authorization": `Bearer ${token}` } })
-          .then((response) => {
-              const employee = response.data
-              this.first_name = employee.first_name
-          })
-
+        const token = localStorage.getItem("jwt");
+        axios
+            .get("/current_employee", {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+            .then(response => {
+                const employee = response.data;
+                this.first_name = employee.first_name;
+            });
     },
     methods: {},
     computed: {}

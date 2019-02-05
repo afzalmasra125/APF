@@ -6,7 +6,6 @@ class ReviewsController < ApplicationController
   end 
   def pending_reviews
       @reviews = Review.all
-      # @reviews = Review.all
       render 'index.json.jbuilder'
   end
   def create 
@@ -16,6 +15,7 @@ class ReviewsController < ApplicationController
                         relationship: params[:relationship].to_i,
                         judgement: params[:judgement].to_i,
                         teamwork: params[:teamwork].to_i,
+                        dependability: params[:dependability].to_i,
                         positive_feedback: params[:positive_feedback],
                         needs_improvement: params[:needs_improvement]
                        })
@@ -34,9 +34,10 @@ class ReviewsController < ApplicationController
       review.relationship = params[:relationship].to_i||review.relationship
       review.judgement = params[:judgement].to_i||review.judgement = params[:judgement]
       review.teamwork = params[:teamwork].to_i||review.teamwork = params[:teamwork]
+      review.dependability = params[:dependability].to_i||review.dependability = params[:dependability]
       review.positive_feedback = params[:positive_feedback].to_i||review.positive_feedback
       review.positive_feedback = params[:positive_feedback].to_i||review.positive_feedback
-      review.needs_improvement = params[:needs_improvement].to_i||eview.needs_improvement
+      review.needs_improvement = params[:needs_improvement].to_i||review.needs_improvement
   end    
    def destroy
    review = Review.find(params[:id])

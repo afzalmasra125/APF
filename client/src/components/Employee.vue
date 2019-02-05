@@ -1,25 +1,29 @@
 <template id="employees-index-page">
     <div class="vue-component">
-        <div class="container">
-            <div class="card-block">
-                <div></div>
-                <table class="table">
-                    <thead>
-                        <input type="text" v-model="search" placeholder="Search Name..." />
-                        <tr>
-                            <th>First Name</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="employee in filteredEmployees" :key="employee.id">
-                            <th>{{ employee.first_name }} {{employee.last_name }}</th>
-                            <td>
-                                <a class="btn btn-primary" v-bind:href="'/#/employees/' + employee.id">Reviews</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="asc-container">
+            <div class="container">
+                <div class="profileContainer">
+                    <div class="card-block">
+                        <div></div>
+                        <table class="table">
+                            <thead>
+                                <input type="text" v-model="search" placeholder="Search Name..." />
+                                <tr>
+                                    <th>First Name</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="employee in filteredEmployees" :key="employee.id">
+                                    <th>{{ employee.first_name }} {{employee.last_name }}</th>
+                                    <td>
+                                        <a class="btn btn-primary" v-bind:href="'/#/employees/' + employee.id">Reviews</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

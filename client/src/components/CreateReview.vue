@@ -153,16 +153,16 @@ export default {
             axios
                 .post("/reviews", params)
                 .then(function(response) {
-                    router.push("/reviews");
+                    router.push("/home");
                 })
                 .catch(
                     function(error) {
                         if (error.response.status === 401) {
-                            router.push("/reviews");
+                            router.push("/");
                         } else if (error.response.status === 422) {
                             this.errors = error.response.data.errors;
                         } else {
-                            router.push("/");
+                            router.push("/home");
                         }
                     }.bind(this)
                 );

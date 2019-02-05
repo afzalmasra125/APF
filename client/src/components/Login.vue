@@ -33,6 +33,7 @@
 import axios from 'axios'
 import mixin from '../mixin'
 export default {
+    mixins: [mixin],
     data: function() {
         return {
             email: "",
@@ -40,7 +41,6 @@ export default {
             errors: []
         };
     },
-    mixins: [mixin],
     mounted: function () {
         this.hideHeader()
     },

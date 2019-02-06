@@ -86,7 +86,7 @@
                     <td></td> -->
                         </tr>
                     </table>
-                    <table class="review" id="selfReview">
+                    <table class="review" id="selfReview" v-if="selfReviews">
                         <tr>
                             <th COLSPAN="2">
                                 <h3><br/><center>Self Review</center></h3>
@@ -102,8 +102,7 @@
                             <td>{{selfReview.needs_improvement}}</td>
                         </tr>
                     </table>
-                    <div v-if="peerReviews">
-                        <table class="review" id="peer" v-if="peerReviews">
+                        <table v-if="peerReviews" class="review" id="peer">
                             <tr>
                                 <th COLSPAN="2">
                                     <h3><br><center>Peer Comments </center></h3>
@@ -119,8 +118,7 @@
                                 <td>{{peer.needs_improvement}}</td>
                             </tr>
                         </table>
-                    </div>
-                    <table v-if="managerReview" class="review" id="manager">
+                    <table class="review" id="manager" v-if="managerReview">
                         <tr>
                             <th COLSPAN="3">
                                 <h3><br><center> Manager Summary </center></h3>
@@ -141,7 +139,7 @@
                 <tr>
                     <td><b>Functional/Technical</b></td>
                     <td>{{convertRatings(managerReview.technical)}}</td> -->
-                        </tr>
+                       <!--  </tr> -->
                     </table>
                 </div>
             </div>

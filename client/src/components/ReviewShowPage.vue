@@ -17,7 +17,8 @@
                             <button class="btn btn-primary" style="width:250px;"> <a href="#" id="test" @click="fnExcelReport"> <h4 class="text-white"> Download APF </h4></a> </button>
                         </div>
                     </div>
-                    <div id="highchart"></div>
+                    <div id="highchart">
+                    </div>
                     <table class="review" id="ratings">
                         <tr>
                             <th COLSPAN="8">
@@ -84,9 +85,9 @@
                         <!--   <td></td>
                     <td></td>
                     <td></td> -->
-                        </tr>
+                        <!-- </tr> -->
                     </table>
-                    <table class="review" id="selfReview" v-if="selfReviews">
+                    <table class="review" id="selfReview"  v-if="selfReview">
                         <tr>
                             <th COLSPAN="2">
                                 <h3><br/><center>Self Review</center></h3>
@@ -100,6 +101,18 @@
                         <tr>
                             <td>{{selfReview.positive_feedback}}</td>
                             <td>{{selfReview.needs_improvement}}</td>
+                        </tr>
+                    </table>
+                        <table v-else class="review" id="selfReview">
+                            <tr>
+                            <th COLSPAN="2">
+                                <h3><br/><center>Self Review</center></h3>
+                            </th>
+                        <tr>
+                            <th><h3>Area of Strength</h3>
+                            </th>
+                            <th><h3>Area of Improvement</h3>
+                            </th>
                         </tr>
                     </table>
                         <table v-if="peerReviews" class="review" id="peer">
@@ -141,6 +154,16 @@
                     <td>{{convertRatings(managerReview.technical)}}</td> -->
                        <!--  </tr> -->
                     </table>
+                     <table v-else class="review" id="manager">
+                         <tr>
+                            <th COLSPAN="3">
+                                <h3><br><center> Manager Summary </center></h3>
+                            </th>
+                        <tr>
+                            <td><b>Overall Rating</b></td>
+                        </tr>
+                    </table>
+
                 </div>
             </div>
         </div>
@@ -157,10 +180,11 @@ export default {
     data: function() {
         return {
             employee: null,
-            selfReview: [],
+            selfReview: [
+            ],
             managerReview: null,
             peerReviews: null,
-            averageJudgement: null,
+            averageJudgement: 0,
             // averageTeamwork: null,
             // averageLeadership: null,
             // averageTechnical: null,
@@ -185,6 +209,7 @@ export default {
                 // this.averageTeamwork = this.getAverage(this.peerReviews.map(review => review.teamwork + 1));
                 // this.averageLeadership = this.getAverage(this.peerReviews.map(review => review.leadership + 1));
                 // this.averageTechnical = this.getAverage(this.peerReviews.map(review => review.technical + 1));
+                this.addChart();
             }.bind(this));
 
         axios.get("/employees", { headers: { "Authorization": `Bearer ${token}` } })
@@ -194,7 +219,6 @@ export default {
     },
 
     mounted: function() {
-        this.addChart(this.selfReview, this.peerReviews, this.managerReview);
         this.hideHeader()
     },
 
@@ -257,7 +281,8 @@ export default {
             }
         },
 
-        addChart() {
+        addChart() { 
+
             Highcharts.chart('highchart', {
                 chart: {
                     type: 'column'
@@ -270,7 +295,7 @@ export default {
                 },
                 xAxis: {
                     categories: [
-                        'Overall',
+                        '',
                     ],
                     crosshair: true
                 },
@@ -288,17 +313,20 @@ export default {
                     }
                 },
 
-                series: [{
-                    name: 'Self',
-                    data: [5, 3]
-
-                }, {
+                series: [
+                {
                     name: 'Peer',
-                    data: [3, 3]
+                    data: [this.averageJudgement]
 
-                }, {
+                },
+                {
+                    name: 'Self',
+                   data: [this.selfReview && this.selfReview.judgement ? this.selfReview.judgement + 1: 0]
+
+                },
+                 {
                     name: 'Manager',
-                    data: [4, 2]
+                    data: [this.managerReview && this.managerReview.judgement ? this.managerReview.judgement + 1: 0]
                 }]
             });
         }

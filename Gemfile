@@ -31,9 +31,10 @@ gem 'puma', '~> 3.7'
 
 # Use Figaro gem to securely store API keys
 gem 'figaro'
-
-# User Mailgun for email
+# Use Mailgun for email
 gem 'mailgun-ruby', '~>1.1.6'
+# User for API calls
+gem 'http'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

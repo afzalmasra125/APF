@@ -37,7 +37,7 @@
                         </tr>
                         <tr>
                             <th>Overall Compentencies Rating</th>
-                            <td>{{ selfReview ? (selfReview.judgement + 1).toFixed(1) : 'n/a'}}</td>
+                            <td>{{ selfReview  ? (selfReview.judgement + 1).toFixed(1) : 'n/a'}}</td>
                             <td>{{averageJudgement ? (averageJudgement).toFixed(1) : 'n/a'}}</td>
                             <td>{{ getCount(peerReviews, "judgement", 0) }}</td>
                             <td>{{ getCount(peerReviews, "judgement", 1) }}</td>
@@ -114,6 +114,10 @@
                             <th><h3>Area of Improvement</h3>
                             </th>
                         </tr>
+                        <tr>
+                            <td> Not Available </td>
+                            <td> Not Available </td>
+                        </tr>
                     </table>
                         <table v-if="peerReviews" class="review" id="peer">
                             <tr>
@@ -126,8 +130,8 @@
                                 <th><h3>Area of Improvement</h3>
                                 </th>
                             </tr>
-                            <tr v-for="peer in peerReviews">
-                                <td>{{peer.positive_feedback}}</td>
+                            <tr v-for="peer in peerReviews" v-if ="peerReviews">
+                                <td>{peer.positive_feedback}}</td>
                                 <td>{{peer.needs_improvement}}</td>
                             </tr>
                         </table>
@@ -161,6 +165,8 @@
                             </th>
                         <tr>
                             <td><b>Overall Rating</b></td>
+                             <td>Not Available </td>
+                            <td rowspan="4">Not Available</td>
                         </tr>
                     </table>
 

@@ -51,17 +51,26 @@ class ReviewsController < ApplicationController
   end
 
   def email
-    mg_client = Mailgun::Client.new ENV["mailgun_private_api_key"]
+    # Mailgun Setup
+    # mg_client = Mailgun::Client.new ENV["mailgun_private_api_key"]
 
-    message_params = {
-      :from    => 'postmaster@sandbox58c6fdfec83a472ca457affa4f1c321b.mailgun.org',  
-      :to      => 'tfisher21@gmail.com',
-      :subject => 'The Ruby SDK is awesome!',
-      :text    => 'It is really easy to send a message!'
-    }
+    # message_params = {
+    #   :from    => 'postmaster@sandbox58c6fdfec83a472ca457affa4f1c321b.mailgun.org',  
+    #   :to      => 'tfisher21@gmail.com',
+    #   :subject => 'The Ruby SDK is awesome!',
+    #   :text    => 'It is really easy to send a message!'
+    # }
 
-    mg_client.send_message ENV["mailgun_subdomain"], message_params
+    # mg_client.send_message ENV["mailgun_subdomain"], message_params
 
-    render json: {msg: "sent"}
+    # render json: {msg: "sent"}
+
+    # Gmail SMTP
+    @user = current_employee
+
+    PendingReviewMailer.sample_email(@user).deliver
+
+    render json: {msg: "Email Sent"}
+
   end
 end

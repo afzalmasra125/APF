@@ -119,7 +119,7 @@
                             <td> Not Available </td>
                         </tr>
                     </table>
-                        <table v-if="peerReviews" class="review" id="peer">
+                        <table v-if="peerReviews != 0" class="review" id="peer">
                             <tr>
                                 <th COLSPAN="2">
                                     <h3><br><center>Peer Comments </center></h3>
@@ -131,8 +131,24 @@
                                 </th>
                             </tr>
                             <tr v-for="peer in peerReviews" v-if ="peerReviews">
-                                <td>{peer.positive_feedback}}</td>
+                                <td>{{peer.positive_feedback}}</td>
                                 <td>{{peer.needs_improvement}}</td>
+                            </tr>
+                        </table>
+                           <table v-else class="review" id="peer">
+                            <tr>
+                                <th COLSPAN="2">
+                                    <h3><br><center>Peer Comments </center></h3>
+                                </th>
+                            <tr>
+                                <th><h3>Area of Strength</h3>
+                                </th>
+                                <th><h3>Area of Improvement</h3>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>Not Available</td>
+                                <td>Available</td>
                             </tr>
                         </table>
                     <table class="review" id="manager" v-if="managerReview">
@@ -209,8 +225,8 @@ export default {
             .then(function(response) {
                 this.employee = response.data;
                 this.selfReview = this.employee.reviews.filter(review => review.reviewee_id === review.reviewer_id)[0];
-                this.managerReview = this.employee.reviews.filter(review => review.reviewer_manager_status && review.reviewee_id !== review.reviewer_id)[0];
-                this.peerReviews = this.employee.reviews.filter(review => !review.reviewer_manager_status && review.reviewee_id !== review.reviewer_id);
+                this.managerReview = this.employee.reviews.find(review => review.reviewer_manager_status && this.employee.manager_id === review.reviewer_id);
+                this.peerReviews = this.employee.reviews.filter(review => review.reviewee_id !== review.reviewer_id && this.employee.manager_id !== review.reviewer_id);
                 this.averageJudgement = this.getAverage(this.peerReviews.map(review => review.judgement + 1));
                 // this.averageTeamwork = this.getAverage(this.peerReviews.map(review => review.teamwork + 1));
                 // this.averageLeadership = this.getAverage(this.peerReviews.map(review => review.leadership + 1));
@@ -340,18 +356,7 @@ export default {
     },
 
     computed: {
-        filteredEmployees: function() {
-            let employees = [];
-            for (var i = this.ChartedEmployees.length - 1; i >= 0; i--) {
-                const firstName = this.ChartedEmployees[i].first_name || '';
-                const lastName = this.ChartedEmployees[i].last_name || '';
-                const fullName = firstName + lastName;
-                if (fullName.toLowerCase().includes(this.search.toLowerCase())) {
-                    employees.push(this.ChartedEmployees[i]);
-                }
-            }
-            return employees;
-        }
+
     }
 }
 </script>

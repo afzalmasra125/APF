@@ -153,19 +153,18 @@ export default {
             const token = localStorage.getItem('jwt')
             axios
                 .post("/reviews", params, { headers: { "Authorization": `Bearer ${token}`} })
-                .then(function(response) {
-                    router.push("/home");
+                .then((response) => {
+                    this.$router.push("/home");
                 })
-                .catch(
-                    function(error) {
-                        if (error.response.status === 401) {
-                            router.push("/");
-                        } else if (error.response.status === 422) {
-                            this.errors = error.response.data.errors;
-                        } else {
-                            router.push("/");
-                        }
-                    }.bind(this)
+                .catch((error) => {
+                    if (error.response.status === 401) {
+                        this.$router.push("/");
+                    } else if (error.response.status === 422) {
+                        this.errors = error.response.data.errors;
+                    } else {
+                        this.$router.push("/");
+                    }
+                }
                 );
         }
     }

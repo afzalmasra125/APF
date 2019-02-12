@@ -176,6 +176,15 @@ export default {
                         this.employees[employee[1] - 1].last_name
                 );
             });
+
+            // console.log(this.checkedEmployees);
+            axios({
+                method: "post",
+                url: "/email/send",
+                data: {
+                    checkedEmployees: this.checkedEmployees
+                }
+            });
         },
         sortUnreviewedEmployees(reviewedEmployeeIds) {
             this.unreviewedEmployees = this.employees.filter(function(

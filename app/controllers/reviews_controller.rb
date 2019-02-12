@@ -51,9 +51,18 @@ class ReviewsController < ApplicationController
   end
 
   def email
-    @user = current_employee
 
-    PendingReviewMailer.pending_review_request(@user).deliver
+    @checked_employees = params["checkedEmployees"]
+
+    @checked_employees.each do |reviewer, reviewee|
+      @reviewer = Employee.find_by(id: reviewer)
+      @reviewee = Employee.find_by(id: reviewee)
+
+      PendingReviewMailer.pending_review_request(@reviewer, @reviewee).deliver
+    end
+    # @user = current_employee
+
+    # PendingReviewMailer.pending_review_request(@user).deliver
 
     render json: {msg: "Email Sent"}
 

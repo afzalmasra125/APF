@@ -1,36 +1,26 @@
 <template id="employees-index-page">
     <div class="vue-component">
+        <Header />
         <div class="asc-container">
             <div class="container">
                 <div class="profileContainer">
-                    <div class="card-block">
-                        <div></div>
-                        <table class="table">
-                            <thead>
-                                <input type="text" v-model="search" placeholder="Search Name..." />
-                                <tr>
-                                    <th>First Name</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="employee in filteredEmployees" :key="employee.id">
-                                    <th>{{ employee.first_name }} {{employee.last_name }}</th>
-                                    <td>
-                                        <a class="btn btn-primary" v-bind:href="'/#/employees/' + employee.id">Reviews</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <h2> Employees </h2>
+                    <div class ="row">
+                    <div v-for="employee in filteredEmployees" :key="employee.id" class="col-md-3">
+                     <div class ="card md-4">
+                         <button class="card-body" v-bind:href="'/#/employees/' + employee.id"><h4>{{ employee.first_name }}</h4> <h4>{{employee.last_name }}</h4>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+       </div>
     </div>
 </template>
 <script>
 import axios from "axios";
-import mixin from '../mixin'
+import Header from './Header'
 export default {
     data: function() {
         return {
@@ -38,7 +28,9 @@ export default {
             search: ""
         };
     },
-    mixins: [mixin],
+    components: {
+        Header
+    },
     created: function() {
         const token = localStorage.getItem('jwt')
         axios.get("/manager_employees", { headers: { "Authorization": `Bearer ${token}` } }).then(
@@ -46,9 +38,6 @@ export default {
                 this.employees = response.data;
             }.bind(this)
         );
-    },
-    mounted: function() {
-        this.hideHeader()
     },
     methods: {},
     computed: {

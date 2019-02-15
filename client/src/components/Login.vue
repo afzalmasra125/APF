@@ -31,7 +31,6 @@
 </template>
 <script>
 import axios from 'axios'
-import mixin from '../mixin'
 export default {
     data: function() {
         return {
@@ -39,10 +38,6 @@ export default {
             password: "",
             errors: []
         };
-    },
-    mixins: [mixin],
-    mounted: function () {
-        this.hideHeader()
     },
     methods: {
         submit() {

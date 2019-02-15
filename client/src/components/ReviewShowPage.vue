@@ -1,5 +1,6 @@
 <template id="reviews-show-page">
     <div class="vue-component">
+        <Header />
         <div class="asc-container">
             <div class="container">
                 <div class="profileContainer">
@@ -196,7 +197,7 @@
 import axios from 'axios'
 import $ from 'jquery'
 import Highcharts from 'highcharts'
-import mixin from '../mixin'
+import Header from './Header'
 
 export default {
     data: function() {
@@ -218,7 +219,9 @@ export default {
             search: "",
         };
     },
-    mixins: [mixin],
+    components: {
+        Header
+    },
     created: function() {
         const token = localStorage.getItem("jwt");
         axios.get("/employees/" + this.$route.params.id, { headers: { "Authorization": `Bearer ${token}` } })
@@ -239,11 +242,6 @@ export default {
                 this.ChartedEmployees = response.data;
             }.bind(this));
     },
-
-    mounted: function() {
-        this.hideHeader()
-    },
-
     methods: {
         getAverage(arr) {
             return arr.reduce((a, b) => a + b, 0) / arr.length;

@@ -56,9 +56,9 @@
                     </ul>
                 </div>
             </div> -->
-            <div class="card">
-                <div class="container">
-                    <h3>Send Review Request</h3>
+            <div class="container">
+                <div class="card px-2">
+                    <h3 class="">Send Review Request</h3>
                     <!-- <ul v-show="confirmed">
                         <li class="text-success">Email(s) Sent.</li>
                     </ul> -->

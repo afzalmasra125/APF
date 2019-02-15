@@ -64,7 +64,7 @@ class ReviewsController < ApplicationController
 
     # PendingReviewMailer.pending_review_request(@user).deliver
 
-    render json: {msg: "Email Sent"}
+    render json: {sent: true}
 
   end
 end

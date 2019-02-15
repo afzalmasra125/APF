@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card">
+            <!-- <div class="card">
                 <div class="container">
                     <h3>Employees Reviewed</h3>
                     <ul>
@@ -55,10 +55,13 @@
                         </li>
                     </ul>
                 </div>
-            </div>
-            <div class="card">
-                <div class="container">
-                    <h3>Send Review Request</h3>
+            </div> -->
+            <div class="container">
+                <div class="card px-2">
+                    <h3 class="">Send Review Request</h3>
+                    <!-- <ul v-show="confirmed">
+                        <li class="text-success">Email(s) Sent.</li>
+                    </ul> -->
                     <table
                         v-if="Object.keys(selectedEmployee).length !== 0"
                         class="table table-striped"
@@ -89,13 +92,23 @@
                                         <input
                                             class="form-check-input"
                                             type="checkbox"
-                                            :disabled="reviewed(employee.id)"
                                             v-bind:value="[
                                                 selectedEmployee.id,
                                                 employee.id
                                             ]"
                                             v-model="checkedEmployees"
                                         />
+                                        <!-- For when reviewed logic is active -->
+                                        <!-- <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            :disabled="reviewed(employee.id)"
+                                            v-bind:value="[
+                                                selectedEmployee.id,
+                                                employee.id
+                                            ]"
+                                            v-model="checkedEmployees"
+                                        /> -->
                                     </div>
                                 </td>
                             </tr>
@@ -132,6 +145,7 @@ export default {
             reviewedEmployeeIds: [],
             unreviewedEmployees: [],
             checkedEmployees: []
+            // confirmed: false
         };
     },
     created: function() {
@@ -162,19 +176,28 @@ export default {
     },
     methods: {
         submit() {
-            /*
-            This will email the checked employees their peers they're asked to review. We currently have this set to output a console.log with a breakdown of who is being asked to review whom. We need to add email functionality where each employee will receive an email per peer they are being asked to review#
-            */
-            this.checkedEmployees.forEach(employee => {
-                console.log(
-                    this.employees[employee[0] - 1].first_name +
-                        " " +
-                        this.employees[employee[0] - 1].last_name +
-                        " will review " +
-                        this.employees[employee[1] - 1].first_name +
-                        " " +
-                        this.employees[employee[1] - 1].last_name
-                );
+            // this.checkedEmployees.forEach(employee => {
+            //     console.log(
+            //         this.employees[employee[0] - 1].first_name +
+            //             " " +
+            //             this.employees[employee[0] - 1].last_name +
+            //             " will review " +
+            //             this.employees[employee[1] - 1].first_name +
+            //             " " +
+            //             this.employees[employee[1] - 1].last_name
+            //     );
+            // });
+
+            // console.log(this.checkedEmployees);
+            axios({
+                method: "post",
+                url: "/email/send",
+                data: {
+                    checkedEmployees: this.checkedEmployees
+                }
+            }).then(res => {
+                // this.confirmed = res.data["sent"];
+                this.$router.push("/home");
             });
         },
         sortUnreviewedEmployees(reviewedEmployeeIds) {

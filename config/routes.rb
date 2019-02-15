@@ -17,4 +17,6 @@ Rails.application.routes.draw do
   get '/reviews/:id' => 'reviews#show'
   patch '/review/:id' => 'reviews#update'
   delete '/review/:id' => 'reviews#destroy'
+
+  post '/email/send' => 'reviews#email'
 end

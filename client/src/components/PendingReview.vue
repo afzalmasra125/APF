@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card">
+            <!-- <div class="card">
                 <div class="container">
                     <h3>Employees Reviewed</h3>
                     <ul>
@@ -55,7 +55,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
             <div class="card">
                 <div class="container">
                     <h3>Send Review Request</h3>
@@ -90,12 +90,19 @@
                                             class="form-check-input"
                                             type="checkbox"
                                             :disabled="reviewed(employee.id)"
+                                            v-model="checkedEmployees"
+                                        />
+                                        <!-- For when reviewed logic is active -->
+                                        <!-- <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            :disabled="reviewed(employee.id)"
                                             v-bind:value="[
                                                 selectedEmployee.id,
                                                 employee.id
                                             ]"
                                             v-model="checkedEmployees"
-                                        />
+                                        /> -->
                                     </div>
                                 </td>
                             </tr>

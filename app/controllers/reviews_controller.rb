@@ -1,12 +1,12 @@
 class ReviewsController < ApplicationController
-  before_action :authenticate_employee
+  # before_action :authenticate_employee
   def index
         reviews = Review.all
         render json: reviews.as_json
   end 
   def pending_reviews
       @reviews = Review.all
-      render 'index.json.juilder'
+      render 'index.json.jbuilder'
   end
   def create 
     reviews = Review.new( {

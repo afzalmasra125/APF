@@ -5,17 +5,21 @@
             <div class="container">
                 <div class="profileContainer">
                     <h2> Employees </h2>
-                    <div class ="row">
-                    <div v-for="employee in filteredEmployees" :key="employee.id" class="col-md-3">
-                     <div class ="card md-4">
-                         <button class="card-body" v-bind:href="'/#/employees/' + employee.id"><h4>{{ employee.first_name }}</h4> <h4>{{employee.last_name }}</h4>
-                            </button>
-                        </div>
-                    </div>
+                    <img src="../assets/icon-search.svg"/>
+                    <input placeholder="filter" v-model="search" />
+                    <table class="table">
+                        <tbody>
+                            <tr v-for="employee in filteredEmployees" :key="employee.id">
+                                <th> <a  v-bind:href="'/#/employees/' + employee.id"><h4>{{ employee.first_name }} {{employee.last_name }}</h4>
+                            </a></th>
+                                <td>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-       </div>
     </div>
 </template>
 <script>
@@ -25,7 +29,7 @@ export default {
     data: function() {
         return {
             employees: [],
-            search: ""
+            search: "",
         };
     },
     components: {
@@ -57,4 +61,6 @@ export default {
 };
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped></style>
+<style scoped>
+
+</style>

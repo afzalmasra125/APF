@@ -17,3 +17,5 @@
 
 node_modules
 client/node_modules
+
+/config/application.yml

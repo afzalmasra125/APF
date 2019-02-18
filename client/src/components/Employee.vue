@@ -5,15 +5,21 @@
             <div class="container">
                 <div class="profileContainer">
                     <h2> Employees </h2>
-                    <img src="../assets/icon-search.svg"/>
-                    <input placeholder="filter" v-model="search" />
-                    <table class="table">
+                    <img id = "icon-search" src="../assets/icon-search.svg"/>
+                    <input class = "search" placeholder="Filter by name" v-model="search" />
+                    <table class="review">
                         <tbody>
+                            <tr>
+                                <th><h3> Employee Name </h3>
+                                </th>
+                                <th> <h3> Coach </h3>
+                                </th>
+                            </tr>
                             <tr v-for="employee in filteredEmployees" :key="employee.id">
-                                <th> <a  v-bind:href="'/#/employees/' + employee.id"><h4>{{ employee.first_name }} {{employee.last_name }}</h4>
-                            </a></th>
-                                <td>
-                                </td>
+                                <th><a id="employeename"  v-bind:href="'/#/employees/' + employee.id">
+                               <h5>{{ employee.first_name }} {{employee.last_name }}</h5>
+                            </a> </th>
+                            <td>   </td>
                             </tr>
                         </tbody>
                     </table>
@@ -62,5 +68,20 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+#icon-search
+{
+    min-height:35px;
+}
+.search 
+{
+ margin-top:22px;
+ margin-bottom: 25px;
+ font-size:25px;
+ min-height:40px;
+ border:none; 
+}
+#employeename
+{
+   color:black;
+}
 </style>

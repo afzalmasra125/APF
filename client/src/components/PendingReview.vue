@@ -3,7 +3,7 @@
         <div class="asc-container">
             <div class="container">
                 <div class="profileContainer">
-                    <div class="container mt-5">
+                    <div class="container">
                         <h2>Pending Reviews</h2>
                         <h3>
                             Manager: {{ currentUser.first_name }}
@@ -29,77 +29,86 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="card">
-                <div class="container">
-                    <h3>Employees Reviewed</h3>
-                    <ul>
-                        <li
-                            v-for="reviewedEmployee in reviewedEmployees"
-                            :key="reviewedEmployee.id"
-                        >
-                            {{ reviewedEmployee.first_name }}
-                            {{ reviewedEmployee.last_name }}
-                        </li>
-                    </ul>
+            <div class="container">
+                <div class="card">
+                    <div class="container">
+                        <h3>Employees Reviewed</h3>
+                        <ul>
+                            <li
+                                v-for="reviewedEmployee in reviewedEmployees"
+                                :key="reviewedEmployee.id"
+                            >
+                                {{ reviewedEmployee.first_name }}
+                                {{ reviewedEmployee.last_name }}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="card my-3">
-                <div class="container">
-                    <h3>Employees to be Reviewed</h3>
-                    <ul v-if="Object.keys(selectedEmployee).length !== 0">
-                        <li
-                            v-for="employee in unreviewedEmployees"
-                            :key="employee.id"
-                        >
-                            {{ employee.first_name + " " + employee.last_name }}
-                        </li>
-                    </ul>
+            <div class="container my-2">
+                <div class="card">
+                    <div class="container">
+                        <h3>Employees to be Reviewed</h3>
+                        <ul v-if="Object.keys(selectedEmployee).length !== 0">
+                            <li
+                                v-for="employee in unreviewedEmployees"
+                                :key="employee.id"
+                            >
+                                {{
+                                    employee.first_name +
+                                        " " +
+                                        employee.last_name
+                                }}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div> -->
+            </div>
             <div class="container">
-                <div class="card px-2">
-                    <h3 class="">Send Review Request</h3>
-                    <!-- <ul v-show="confirmed">
+                <div class="card">
+                    <div class="container">
+                        <h3 class="">Send Review Request</h3>
+                        <!-- <ul v-show="confirmed">
                         <li class="text-success">Email(s) Sent.</li>
                     </ul> -->
-                    <table
-                        v-if="Object.keys(selectedEmployee).length !== 0"
-                        class="table table-striped"
-                    >
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th
-                                    v-for="employee in employees"
-                                    :key="employee.id"
-                                >
-                                    {{ employee.first_name }}
-                                    {{ employee.last_name }}
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">
-                                    {{ selectedEmployee.first_name }}
-                                    {{ selectedEmployee.last_name }}
-                                </th>
-                                <td
-                                    v-for="employee in employees"
-                                    :key="employee.id"
-                                >
-                                    <div class="form-check">
-                                        <input
-                                            class="form-check-input"
-                                            type="checkbox"
-                                            v-bind:value="[
-                                                selectedEmployee.id,
-                                                employee.id
-                                            ]"
-                                            v-model="checkedEmployees"
-                                        />
-                                        <!-- For when reviewed logic is active -->
-                                        <!-- <input
+                        <table
+                            v-if="Object.keys(selectedEmployee).length !== 0"
+                            class="table table-striped"
+                        >
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th
+                                        v-for="employee in employees"
+                                        :key="employee.id"
+                                    >
+                                        {{ employee.first_name }}
+                                        {{ employee.last_name }}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">
+                                        {{ selectedEmployee.first_name }}
+                                        {{ selectedEmployee.last_name }}
+                                    </th>
+                                    <td
+                                        v-for="employee in employees"
+                                        :key="employee.id"
+                                    >
+                                        <div class="form-check">
+                                            <input
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                v-bind:value="[
+                                                    selectedEmployee.id,
+                                                    employee.id
+                                                ]"
+                                                v-model="checkedEmployees"
+                                            />
+                                            <!-- For when reviewed logic is active -->
+                                            <!-- <input
                                             class="form-check-input"
                                             type="checkbox"
                                             :disabled="reviewed(employee.id)"
@@ -109,11 +118,12 @@
                                             ]"
                                             v-model="checkedEmployees"
                                         /> -->
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <button class="btn btn-primary my-3" v-on:click="submit()">

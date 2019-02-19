@@ -126,9 +126,11 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary my-3" v-on:click="submit()">
-                Send Request
-            </button>
+            <div class="container">
+                <button class="btn btn-primary my-3" v-on:click="submit()">
+                    Send Request
+                </button>
+            </div>
         </div>
     </div>
 </template>
@@ -146,7 +148,6 @@ export default {
             reviewedEmployeeIds: [],
             unreviewedEmployees: [],
             checkedEmployees: []
-            // confirmed: false
         };
     },
     created: function() {
@@ -161,11 +162,9 @@ export default {
         );
 
         //Populating all employees
-        /* Do we want to pull all employees or just the employees of the logged in manager? */
         axios.get("/employees").then(
             function(response) {
                 this.employees = response.data;
-                // console.log(this.employees);
             }.bind(this)
         );
 
@@ -177,29 +176,13 @@ export default {
     },
     methods: {
         submit() {
-            // this.checkedEmployees.forEach(employee => {
-            //     console.log(
-            //         this.employees[employee[0] - 1].first_name +
-            //             " " +
-            //             this.employees[employee[0] - 1].last_name +
-            //             " will review " +
-            //             this.employees[employee[1] - 1].first_name +
-            //             " " +
-            //             this.employees[employee[1] - 1].last_name
-            //     );
-            // });
-
-            // console.log(this.checkedEmployees);
             axios({
                 method: "post",
                 url: "/email/send",
                 data: {
                     checkedEmployees: this.checkedEmployees
                 }
-            }).then(res => {
-                // this.confirmed = res.data["sent"];
-                this.$router.push("/home");
-            });
+            }).then(this.$router.push("/home"));
         },
         sortUnreviewedEmployees(reviewedEmployeeIds) {
             this.unreviewedEmployees = this.employees.filter(function(

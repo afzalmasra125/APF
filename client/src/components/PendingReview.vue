@@ -131,16 +131,7 @@ export default {
             currentUser: {},
             reviews: [],
             employees: [],
-            review: {
-                reviewer_id: "",
-                reviewee_id: "",
-                relationship: "",
-                judgement: "",
-                leadership: "",
-                technical: "",
-                positive_feedback: "",
-                needs_improvement: ""
-            },
+            review: {},
             selectedEmployee: {},
             reviewedEmployeeIds: [],
             unreviewedEmployees: [],

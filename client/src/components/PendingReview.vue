@@ -51,7 +51,7 @@
                         <h3>Employees to be Reviewed</h3>
                         <ul v-if="Object.keys(selectedEmployee).length !== 0">
                             <li
-                                v-for="employee in unreviewedEmployees"
+                                v-for="employee in reviewRequestedEmployees"
                                 :key="employee.id"
                             >
                                 {{
@@ -79,7 +79,7 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th
-                                        v-for="employee in employees"
+                                        v-for="employee in unreviewedEmployees"
                                         :key="employee.id"
                                     >
                                         {{ employee.first_name }}
@@ -94,7 +94,7 @@
                                         {{ selectedEmployee.last_name }}
                                     </th>
                                     <td
-                                        v-for="employee in employees"
+                                        v-for="employee in unreviewedEmployees"
                                         :key="employee.id"
                                     >
                                         <div class="form-check">
@@ -107,17 +107,6 @@
                                                 ]"
                                                 v-model="checkedEmployees"
                                             />
-                                            <!-- For when reviewed logic is active -->
-                                            <!-- <input
-                                            class="form-check-input"
-                                            type="checkbox"
-                                            :disabled="reviewed(employee.id)"
-                                            v-bind:value="[
-                                                selectedEmployee.id,
-                                                employee.id
-                                            ]"
-                                            v-model="checkedEmployees"
-                                        /> -->
                                         </div>
                                     </td>
                                 </tr>
@@ -136,17 +125,13 @@
 </template>
 <script>
 import axios from "axios";
-// import $ from "jquery";
 export default {
     data: function() {
         return {
             currentUser: {},
             reviews: [],
             employees: [],
-            review: {},
             selectedEmployee: {},
-            reviewedEmployeeIds: [],
-            unreviewedEmployees: [],
             checkedEmployees: []
         };
     },
@@ -171,7 +156,6 @@ export default {
         // Pulling Current User information
         axios.get("/current_employee").then(res => {
             this.currentUser = res.data;
-            // console.log(res.data);
         });
     },
     methods: {
@@ -191,17 +175,6 @@ export default {
                 return this.indexOf(employee.id) < 0;
             },
             reviewedEmployeeIds);
-        },
-        reviewed(employeeId) {
-            if (
-                this.unreviewedEmployees
-                    .map(employee => employee.id)
-                    .indexOf(employeeId) >= 0
-            ) {
-                return false;
-            } else {
-                return true;
-            }
         }
     },
     computed: {
@@ -216,14 +189,33 @@ export default {
         reviewedEmployees: function() {
             const reviewedEmployees = this.reviews
                 .filter(
-                    review => this.selectedEmployee.id === review.reviewer_id
+                    review =>
+                        this.selectedEmployee.id === review.reviewer_id &&
+                        review.relationship !== null
+                )
+                .map(review => review.reviewee);
+            return reviewedEmployees;
+        },
+        reviewRequestedEmployees: function() {
+            const reviewRequestedEmployees = this.reviews
+                .filter(
+                    review =>
+                        this.selectedEmployee.id === review.reviewer_id &&
+                        review.relationship === null
                 )
                 .map(review => review.reviewee);
 
-            this.sortUnreviewedEmployees(
-                reviewedEmployees.map(employee => employee.id)
-            );
-            return reviewedEmployees;
+            return reviewRequestedEmployees;
+        },
+        unreviewedEmployees: function() {
+            const unreviewedEmployees = this.employees.filter(function(
+                employee
+            ) {
+                return this.indexOf(employee.id) < 0;
+            },
+            this.reviewedEmployees.concat(this.reviewRequestedEmployees).map(employee => employee.id));
+
+            return unreviewedEmployees;
         }
     }
 };

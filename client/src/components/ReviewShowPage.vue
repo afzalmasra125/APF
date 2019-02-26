@@ -1,5 +1,6 @@
 <template id="reviews-show-page">
     <div class="vue-component">
+        <Header />
         <div class="asc-container">
             <div class="container">
                 <div class="profileContainer">
@@ -14,7 +15,7 @@
                             </select>
                             <br />
                             <br />
-                            <button class="btn btn-primary" style="width:250px;"> <a href="#" id="test" @click="fnExcelReport"> <h4 class="text-white"> Download APF </h4></a> </button>
+                            <button class="btn btn-primary" style="width:200px;"> <a href="#" id="test" @click="fnExcelReport"> <h4 class="text-white"> Download APF </h4></a> </button>
                         </div>
                     </div>
                     <div id="highchart">
@@ -196,7 +197,7 @@
 import axios from 'axios'
 import $ from 'jquery'
 import Highcharts from 'highcharts'
-import mixin from '../mixin'
+import Header from './Header'
 
 export default {
     data: function() {
@@ -218,7 +219,9 @@ export default {
             search: "",
         };
     },
-    mixins: [mixin],
+    components: {
+        Header
+    },
     created: function() {
         const token = localStorage.getItem("jwt");
         axios.get("/employees/" + this.$route.params.id, { headers: { "Authorization": `Bearer ${token}` } })
@@ -239,11 +242,6 @@ export default {
                 this.ChartedEmployees = response.data;
             }.bind(this));
     },
-
-    mounted: function() {
-        this.hideHeader()
-    },
-
     methods: {
         getAverage(arr) {
             return arr.reduce((a, b) => a + b, 0) / arr.length;
@@ -364,20 +362,14 @@ export default {
 .profileContainer {
     margin-top: 12%;
 }
-</style>
-<style scooped>
-.review {
-    margin-top: 10px;
-    margin-bottom: 50px;
-    width: 100%;
-    border: 5px solid red;
-    border-style: solid;
-    padding: 10px;
-}
-
 table {
     margin-top: 50px;
     border: 5px black
+}
+th {
+    border: 1px black;
+    border-style: solid;
+    padding: 10px;
 }
 
 tr {
@@ -385,17 +377,33 @@ tr {
     border-style: solid;
     padding: 10px;
 }
-
-th {
-    border: 1px black;
-    border-style: solid;
-    padding: 10px;
-}
-
 td {
     border: 1px black;
     border-style: solid;
     padding: 10px;
     margin: 0px;
 }
+.review {
+    margin-top: 10px;
+    margin-bottom: 50px;
+    width: 100%;
+    border: 5px;
+    border-style: solid;
+    padding: 10px;
+}
+</style>
+<style scoped>
+.row{
+ max-width: 40%;
+}
+
+#highchart
+{
+    max-width: 50%;
+    max-height:5%;
+    margin-left:55%;
+    margin-top:-12%
+}
+.b
+
 </style>

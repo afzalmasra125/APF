@@ -10,16 +10,11 @@
 </template>
 <script>
 import axios from 'axios'
-import mixin from '../mixin'
 export default {
-    mixins: [mixin],
     created: function() {
         axios.defaults.headers.common["Authorization"] = undefined;
         localStorage.removeItem("jwt");
         this.$router.push("/logout");
     },
-    mounted: function () {
-        this.hideHeader()
-    }
 }
 </script>

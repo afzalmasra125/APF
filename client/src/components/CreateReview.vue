@@ -1,5 +1,6 @@
 <template id="reviews-new-page">
     <div class="vue-component">
+     <Header />
         <div class="asc-container">
             <div class="container">
                 <div class="profileContainer">
@@ -95,7 +96,7 @@
 </template>
 <script>
 import axios from 'axios'
-import mixin from '../mixin'
+import Header from './Header'
 export default {
     data: function() {
         return {
@@ -114,7 +115,9 @@ export default {
             needs_improvement: "",
         };
     },
-    mixins: [mixin],
+      components: {
+        Header
+    },
     created: function() {
         const token = localStorage.getItem('jwt')
         axios.get("/manager", { headers: { "Authorization": `Bearer ${token}` } }).then(
@@ -126,9 +129,6 @@ export default {
         //     .then(function(response) {
         //         this.pending_reviews = response.data;
         //     }.bind(this));
-    },
-    mounted: function() {
-        this.hideHeader()
     },
     methods: {
         getEmployees: function() {

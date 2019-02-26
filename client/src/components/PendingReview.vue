@@ -1,12 +1,9 @@
-<<<<<<< HEAD
-<template id="pending-reviews-page">    <div class="vue-component">        <Header />        <div class="asc-container">            <div class="container">                <div class="profileContainer">                    <div class="container mt-5">                        <h2>Pending Reviews</h2>                        <h3>Manager: {{ currentUser.first_name }} {{ currentUser.last_name }}</h3>                        <div class="form-group">                            <label class="h3">Employee</label>                            <select class="form-control" v-model="selectedEmployee" v-on:input="reviewedEmployees">                                <option :value="{}">Select</option>                                <option v-for="employee of managedEmployees" :value="employee" :key="employee.id">                                    {{ employee.first_name}} {{employee.last_name }}                                </option>                            </select>                        </div>                    </div>                </div>            </div>            <div class="card">                <div class="container">                    <h3>Employees Reviewed</h3>                    <ul>                        <li v-for="review in reviewedEmployees" :key="review.id">                            {{ review.reviewee.first_name + " " + review.reviewee.last_name }}                        </li>                    </ul>                </div>            </div>            <div class="card my-3">                <div class="container">                    <h3>Employees to be Reviewed</h3>                    <ul>                        <li v-for="employee in unreviewedEmployees" :key="employee.id">                            {{ employee.first_name + " " + employee.last_name }}                        </li>                    </ul>                </div>            </div>            <div class="card">                <div class="container">                    <h3>Send Review Request</h3>                    <table v-if="Object.keys(selectedEmployee).length !== 0" class="table table-striped">                        <thead>                            <tr>                                <th scope="col">#</th>                                <th v-for="employee in employees" :key="employee.id">                                    {{ employee.first_name }} {{ employee.last_name }}                                </th>                            </tr>                        </thead>                        <tbody>                            <tr>                                <th scope="row">                                    {{ selectedEmployee.first_name }}                                    {{ selectedEmployee.last_name }}                                </th>                                <td v-for="employee in employees" :key="employee.id">                                    <div class="form-check">                                        <input class="form-check-input" type="checkbox" v-bind:value="[selectedEmployee.id, employee.id]" v-model="checkedEmployees" />                                    </div>                                </td>                            </tr>                        </tbody>                    </table>                </div>            </div>            <button class="btn btn-primary my-3" v-on:click="submit()">                Send Request            </button>        </div>    </div></template><script>import axios from "axios";import Header from './Header'export default {    data: function() {        return {            currentUser: {},            reviews: [],            employees: [],            review: {                reviewer_id: "",                reviewee_id: "",                relationship: "",                judgement: "",                leadership: "",                technical: "",                positive_feedback: "",                needs_improvement: ""            },            selectedEmployee: {},            reviewedEmployeeIds: [],            unreviewedEmployees: [],            checkedEmployees: []        };    },    components: {        Header    },    created: function() {        const token = localStorage.getItem("jwt");        axios.defaults.headers.common["Authorization"] = "Bearer " + token;        //Populate information on reviews that need to be completed.        axios.get("/pending_reviews").then(            function(response) {                this.reviews = response.data;            }.bind(this)        );        //Populating all employees        /* Do we want to pull all employees or just the employees of the logged in manager? */        axios.get("/employees").then(            function(response) {                this.employees = response.data;                // console.log(this.employees);            }.bind(this)        );        // Pulling Current User information        axios.get("/current_employee").then(res => {            this.currentUser = res.data;            // console.log(res.data);        });    },    methods: {        submit() {            /*            This will email the checked employees their peers they're asked to review. We currently have this set to output a console.log with a breakdown of who is being asked to review whom. We need to add email functionality where each employee will receive an email per peer they are being asked to review            */            this.checkedEmployees.forEach(employee => {                console.log(                    this.employees[employee[0] - 1].first_name +                    " " +                    this.employees[employee[0] - 1].last_name +                    " will review " +                    this.employees[employee[1] - 1].first_name +                    " " +                    this.employees[employee[1] - 1].last_name                );            });        },        reviewedEmployees() {            if (Object.keys(this.selectedEmployee).length !== 0) {                return [];            }            this.reviewedEmployeeIds = this.reviews                .filter(review => this.selectedEmployee === review.reviewer_id)                .map(review => review.reviewee.id);            this.unreviewedEmployees = this.employees.filter(                employee => !this.reviewedEmployeeIds.includes(employee.id)            );            return this.reviews.filter(                review => this.selectedEmployee === review.reviewer_id            );        }    },    computed: {        managedEmployees() {            if (!this.currentUser.id) {                return [];            }            return this.employees.filter(                employee => this.currentUser.id === employee.manager_id            );        }    }};</script>
-=======
 <template id="pending-reviews-page">
     <div class="vue-component">
         <div class="asc-container">
             <div class="container">
                 <div class="profileContainer">
-                    <div class="container mt-5">
+                    <div class="container">
                         <h2>Pending Reviews</h2>
                         <h3>
                             Manager: {{ currentUser.first_name }}
@@ -32,176 +29,141 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="card">
-                <div class="container">
-                    <h3>Employees Reviewed</h3>
-                    <ul>
-                        <li
-                            v-for="reviewedEmployee in reviewedEmployees"
-                            :key="reviewedEmployee.id"
-                        >
-                            {{ reviewedEmployee.first_name }}
-                            {{ reviewedEmployee.last_name }}
-                        </li>
-                    </ul>
+            <div class="container">
+                <div class="card">
+                    <div class="container">
+                        <h3>Employees Reviewed</h3>
+                        <ul>
+                            <li
+                                v-for="reviewedEmployee in reviewedEmployees"
+                                :key="reviewedEmployee.id"
+                            >
+                                {{ reviewedEmployee.first_name }}
+                                {{ reviewedEmployee.last_name }}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="card my-3">
-                <div class="container">
-                    <h3>Employees to be Reviewed</h3>
-                    <ul v-if="Object.keys(selectedEmployee).length !== 0">
-                        <li
-                            v-for="employee in unreviewedEmployees"
-                            :key="employee.id"
-                        >
-                            {{ employee.first_name + " " + employee.last_name }}
-                        </li>
-                    </ul>
+            <div class="container my-2">
+                <div class="card">
+                    <div class="container">
+                        <h3>Employees to be Reviewed</h3>
+                        <ul v-if="Object.keys(selectedEmployee).length !== 0">
+                            <li
+                                v-for="employee in reviewRequestedEmployees"
+                                :key="employee.id"
+                            >
+                                {{
+                                    employee.first_name +
+                                        " " +
+                                        employee.last_name
+                                }}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div> -->
+            </div>
             <div class="container">
-                <div class="card px-2">
-                    <h3 class="">Send Review Request</h3>
-                    <!-- <ul v-show="confirmed">
+                <div class="card">
+                    <div class="container">
+                        <h3 class="">Send Review Request</h3>
+                        <!-- <ul v-show="confirmed">
                         <li class="text-success">Email(s) Sent.</li>
                     </ul> -->
-                    <table
-                        v-if="Object.keys(selectedEmployee).length !== 0"
-                        class="table table-striped"
-                    >
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th
-                                    v-for="employee in employees"
-                                    :key="employee.id"
-                                >
-                                    {{ employee.first_name }}
-                                    {{ employee.last_name }}
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">
-                                    {{ selectedEmployee.first_name }}
-                                    {{ selectedEmployee.last_name }}
-                                </th>
-                                <td
-                                    v-for="employee in employees"
-                                    :key="employee.id"
-                                >
-                                    <div class="form-check">
-                                        <input
-                                            class="form-check-input"
-                                            type="checkbox"
-                                            v-bind:value="[
-                                                selectedEmployee.id,
-                                                employee.id
-                                            ]"
-                                            v-model="checkedEmployees"
-                                        />
-                                        <!-- For when reviewed logic is active -->
-                                        <!-- <input
-                                            class="form-check-input"
-                                            type="checkbox"
-                                            :disabled="reviewed(employee.id)"
-                                            v-bind:value="[
-                                                selectedEmployee.id,
-                                                employee.id
-                                            ]"
-                                            v-model="checkedEmployees"
-                                        /> -->
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                        <table
+                            v-if="Object.keys(selectedEmployee).length !== 0"
+                            class="table table-striped"
+                        >
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th
+                                        v-for="employee in unreviewedEmployees"
+                                        :key="employee.id"
+                                    >
+                                        {{ employee.first_name }}
+                                        {{ employee.last_name }}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">
+                                        {{ selectedEmployee.first_name }}
+                                        {{ selectedEmployee.last_name }}
+                                    </th>
+                                    <td
+                                        v-for="employee in unreviewedEmployees"
+                                        :key="employee.id"
+                                    >
+                                        <div class="form-check">
+                                            <input
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                v-bind:value="[
+                                                    selectedEmployee.id,
+                                                    employee.id
+                                                ]"
+                                                v-model="checkedEmployees"
+                                            />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-            <button class="btn btn-primary my-3" v-on:click="submit()">
-                Send Request
-            </button>
+            <div class="container">
+                <button class="btn btn-primary my-3" v-on:click="submit()">
+                    Send Request
+                </button>
+            </div>
         </div>
     </div>
 </template>
 <script>
 import axios from "axios";
-// import $ from "jquery";
 export default {
     data: function() {
         return {
             currentUser: {},
             reviews: [],
             employees: [],
-            review: {
-                reviewer_id: "",
-                reviewee_id: "",
-                relationship: "",
-                judgement: "",
-                leadership: "",
-                technical: "",
-                positive_feedback: "",
-                needs_improvement: ""
-            },
             selectedEmployee: {},
-            reviewedEmployeeIds: [],
-            unreviewedEmployees: [],
             checkedEmployees: []
-            // confirmed: false
         };
     },
     created: function() {
         const token = localStorage.getItem("jwt");
         axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-
         //Populate information on reviews that need to be completed.
         axios.get("/pending_reviews").then(
             function(response) {
                 this.reviews = response.data;
             }.bind(this)
         );
-
         //Populating all employees
-        /* Do we want to pull all employees or just the employees of the logged in manager? */
         axios.get("/employees").then(
             function(response) {
                 this.employees = response.data;
-                // console.log(this.employees);
             }.bind(this)
         );
-
         // Pulling Current User information
         axios.get("/current_employee").then(res => {
             this.currentUser = res.data;
-            // console.log(res.data);
         });
     },
     methods: {
         submit() {
-            // this.checkedEmployees.forEach(employee => {
-            //     console.log(
-            //         this.employees[employee[0] - 1].first_name +
-            //             " " +
-            //             this.employees[employee[0] - 1].last_name +
-            //             " will review " +
-            //             this.employees[employee[1] - 1].first_name +
-            //             " " +
-            //             this.employees[employee[1] - 1].last_name
-            //     );
-            // });
-
-            // console.log(this.checkedEmployees);
             axios({
                 method: "post",
                 url: "/email/send",
                 data: {
                     checkedEmployees: this.checkedEmployees
                 }
-            }).then(res => {
-                // this.confirmed = res.data["sent"];
-                this.$router.push("/home");
-            });
+            }).then(this.$router.push("/home"));
         },
         sortUnreviewedEmployees(reviewedEmployeeIds) {
             this.unreviewedEmployees = this.employees.filter(function(
@@ -210,17 +172,6 @@ export default {
                 return this.indexOf(employee.id) < 0;
             },
             reviewedEmployeeIds);
-        },
-        reviewed(employeeId) {
-            if (
-                this.unreviewedEmployees
-                    .map(employee => employee.id)
-                    .indexOf(employeeId) >= 0
-            ) {
-                return false;
-            } else {
-                return true;
-            }
         }
     },
     computed: {
@@ -235,16 +186,32 @@ export default {
         reviewedEmployees: function() {
             const reviewedEmployees = this.reviews
                 .filter(
-                    review => this.selectedEmployee.id === review.reviewer_id
+                    review =>
+                        this.selectedEmployee.id === review.reviewer_id &&
+                        review.relationship !== null
                 )
                 .map(review => review.reviewee);
-
-            this.sortUnreviewedEmployees(
-                reviewedEmployees.map(employee => employee.id)
-            );
             return reviewedEmployees;
+        },
+        reviewRequestedEmployees: function() {
+            const reviewRequestedEmployees = this.reviews
+                .filter(
+                    review =>
+                        this.selectedEmployee.id === review.reviewer_id &&
+                        review.relationship === null
+                )
+                .map(review => review.reviewee);
+            return reviewRequestedEmployees;
+        },
+        unreviewedEmployees: function() {
+            const unreviewedEmployees = this.employees.filter(function(
+                employee
+            ) {
+                return this.indexOf(employee.id) < 0;
+            },
+            this.reviewedEmployees.concat(this.reviewRequestedEmployees).map(employee => employee.id));
+            return unreviewedEmployees;
         }
     }
 };
 </script>
->>>>>>> 55dda7b617e79f7f0b8a1a81331cbdbe7f4c3762

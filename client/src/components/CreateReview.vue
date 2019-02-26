@@ -184,6 +184,7 @@ export default {
       const token = localStorage.getItem("jwt");
 
       var params = {
+        reviewer_id: this.current_user.id,
         reviewee_id: this.reviewee_id,
         relationship: this.relationship,
         judgement: this.judgement,
@@ -207,7 +208,18 @@ export default {
               .map(review => review.reviewee_id)
               .indexOf(this.reviewee_id) >= 0
           ) {
-            route += "/" + this.reviewee_id;
+            // FIGURE OUT HOW TO GET THE EXISTING REVIEW_ID
+
+            const review_id = res.data
+              .filter(review => {
+                return (
+                  review.reviewer_id === this.current_user.id &&
+                  review.reviewee_id === this.reviewee_id
+                );
+              })
+              .map(review => review.id);
+
+            route += "/" + review_id;
             axios
               .patch(route, params, {
                 headers: { Authorization: `Bearer ${token}` }

@@ -42,6 +42,10 @@ class ReviewsController < ApplicationController
     review.positive_feedback = params[:positive_feedback].to_i||review.positive_feedback
     review.positive_feedback = params[:positive_feedback].to_i||review.positive_feedback
     review.needs_improvement = params[:needs_improvement].to_i||review.needs_improvement
+
+    review.save
+
+    render json: {msg: "Review #{review.id} Updated"}
   end
 
   def destroy

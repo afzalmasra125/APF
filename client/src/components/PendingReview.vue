@@ -201,6 +201,7 @@ export default {
                         review.relationship === null
                 )
                 .map(review => review.reviewee);
+
             return reviewRequestedEmployees;
         },
         unreviewedEmployees: function() {

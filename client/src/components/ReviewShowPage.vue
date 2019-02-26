@@ -404,6 +404,4 @@ td {
     margin-left:55%;
     margin-top:-12%
 }
-.b
-
 </style>

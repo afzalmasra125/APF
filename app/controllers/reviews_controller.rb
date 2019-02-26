@@ -47,6 +47,7 @@ class ReviewsController < ApplicationController
       render review.as_json
     else
       render json: {errors: reviews.errors}
+    end
   end
 
   def destroy

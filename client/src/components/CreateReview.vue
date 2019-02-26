@@ -208,8 +208,6 @@ export default {
               .map(review => review.reviewee_id)
               .indexOf(this.reviewee_id) >= 0
           ) {
-            // FIGURE OUT HOW TO GET THE EXISTING REVIEW_ID
-
             const review_id = res.data
               .filter(review => {
                 return (
@@ -236,7 +234,6 @@ export default {
               });
           } else {
             route += "s";
-
             axios
               .post(route, params, {
                 headers: { Authorization: `Bearer ${token}` }
@@ -252,6 +249,9 @@ export default {
                 }
               });
           }
+        })
+        .catch(errors => {
+          console.log(errors);
         });
     }
   }

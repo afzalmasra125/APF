@@ -162,9 +162,7 @@ export default {
         this.current_user = res.data;
       });
   },
-  mounted: function() {
-    this.hideHeader();
-  },
+  mounted: function() {},
   methods: {
     getEmployees: function() {
       const token = localStorage.getItem("jwt");

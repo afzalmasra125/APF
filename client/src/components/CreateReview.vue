@@ -121,7 +121,6 @@
 </template>
 <script>
 import axios from "axios";
-import mixin from "../mixin";
 export default {
   data: function() {
     return {
@@ -141,7 +140,6 @@ export default {
       needs_improvement: ""
     };
   },
-  mixins: [mixin],
   created: function() {
     const token = localStorage.getItem("jwt");
     axios
@@ -218,6 +216,7 @@ export default {
               .map(review => review.id);
 
             route += "/" + review_id;
+
             axios
               .patch(route, params, {
                 headers: { Authorization: `Bearer ${token}` }

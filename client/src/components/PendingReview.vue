@@ -138,21 +138,18 @@ export default {
     created: function() {
         const token = localStorage.getItem("jwt");
         axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-
         //Populate information on reviews that need to be completed.
         axios.get("/pending_reviews").then(
             function(response) {
                 this.reviews = response.data;
             }.bind(this)
         );
-
         //Populating all employees
         axios.get("/employees").then(
             function(response) {
                 this.employees = response.data;
             }.bind(this)
         );
-
         // Pulling Current User information
         axios.get("/current_employee").then(res => {
             this.currentUser = res.data;
@@ -214,7 +211,6 @@ export default {
                 return this.indexOf(employee.id) < 0;
             },
             this.reviewedEmployees.concat(this.reviewRequestedEmployees).map(employee => employee.id));
-
             return unreviewedEmployees;
         }
     }

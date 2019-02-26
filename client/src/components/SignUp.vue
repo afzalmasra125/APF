@@ -52,7 +52,6 @@
 </template>
 <script>
 import axios from 'axios'
-import mixin from '../mixin'
 export default {
     data: function() {
         return {
@@ -66,15 +65,11 @@ export default {
             errors: []
         };
     },
-    mixins: [mixin],
     created: function() {
         axios.get("/manager").then(
             function(response) {
                 this.managers = response.data;
             }.bind(this));
-    },
-    mounted: function() {
-        this.hideHeader()
     },
     methods: {
         submit() {

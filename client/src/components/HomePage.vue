@@ -1,5 +1,6 @@
 <template id="home-page">
     <div class="vue-component">
+            <Header />
             <div class="asc-container">
                 <div class="container">
                     <div class="profileContainer">
@@ -14,7 +15,7 @@
 </template>
 <script>
 import axios from 'axios'
-import mixin from '../mixin'
+import Header from './Header.vue'
 export default {
     data: function() {
         return {
@@ -22,7 +23,9 @@ export default {
             managerStatus: false
         };
     },
-    mixins: [mixin],
+    components: {
+        Header
+    },
     created: function() {
         const token = localStorage.getItem("jwt");
         axios.get("/current_employee", { headers: { "Authorization": `Bearer ${token}` } })
@@ -32,9 +35,6 @@ export default {
                 this.first_name = employee.first_name
             })
 },
-       mounted: function () {
-        this.hideHeader()
-         },
     methods: {},
     computed: {}
 };

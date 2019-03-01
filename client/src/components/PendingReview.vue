@@ -163,7 +163,7 @@ export default {
                 data: {
                     checkedEmployees: this.checkedEmployees
                 }
-            });
+            }).then(this.$route.push({ path: "/home" }));
         },
         sortUnreviewedEmployees(reviewedEmployeeIds) {
             this.unreviewedEmployees = this.employees.filter(function(

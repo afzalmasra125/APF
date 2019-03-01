@@ -6,7 +6,9 @@
                 <div class="profileContainer">
                     <div class="row">
                         <div class="name" v-if="employee">
-                            <b>Agile Perfomance review for:- </b> <h3>{{employee.first_name}}  {{employee.last_name}}</h3>
+                            <b>Agile Perfomance review for:- </b>
+                            <h3>{{employee.first_name}} {{employee.last_name}}</h3>
+                            <p>Job Title:- {{employee.job_title}}</p>
                             <select style="width:200px;">
                                 <option value="Feb">February 2019</option>
                                 <option value="May">May 2019</option>
@@ -15,7 +17,9 @@
                             </select>
                             <br />
                             <br />
-                            <button class="btn btn-primary" style="width:200px;"> <a href="#" id="test" @click="fnExcelReport"> <h4 class="text-white"> Download APF </h4></a> </button>
+                            <button class="btn btn-primary" style="width:200px;"> <a href="#" id="test" @click="fnExcelReport">
+                                    <h4 class="text-white"> Download APF </h4>
+                                </a> </button>
                         </div>
                     </div>
                     <div id="highchart">
@@ -23,7 +27,9 @@
                     <table class="review" id="ratings">
                         <tr>
                             <th COLSPAN="8">
-                                <h3><br/><center>Ratings</center></h3>
+                                <h3><br />
+                                    <center>Ratings</center>
+                                </h3>
                             </th>
                         </tr>
                         <tr>
@@ -38,7 +44,7 @@
                         </tr>
                         <tr>
                             <th>Overall Compentencies Rating</th>
-                            <td>{{ selfReview  ? (selfReview.judgement + 1).toFixed(1) : 'n/a'}}</td>
+                            <td>{{ selfReview ? (selfReview.judgement + 1).toFixed(1) : 'n/a'}}</td>
                             <td>{{averageJudgement ? (averageJudgement).toFixed(1) : 'n/a'}}</td>
                             <td>{{ getCount(peerReviews, "judgement", 0) }}</td>
                             <td>{{ getCount(peerReviews, "judgement", 1) }}</td>
@@ -88,15 +94,19 @@
                     <td></td> -->
                         <!-- </tr> -->
                     </table>
-                    <table class="review" id="selfReview"  v-if="selfReview">
+                    <table class="review" id="selfReview" v-if="selfReview">
                         <tr>
                             <th COLSPAN="2">
-                                <h3><br/><center>Self Review</center></h3>
+                                <h3><br />
+                                    <center>Self Review</center>
+                                </h3>
                             </th>
                         <tr>
-                            <th><h3>Area of Strength</h3>
+                            <th>
+                                <h3>Area of Strength</h3>
                             </th>
-                            <th><h3>Area of Improvement</h3>
+                            <th>
+                                <h3>Area of Improvement</h3>
                             </th>
                         </tr>
                         <tr>
@@ -104,15 +114,19 @@
                             <td>{{selfReview.needs_improvement}}</td>
                         </tr>
                     </table>
-                        <table v-else class="review" id="selfReview">
-                            <tr>
+                    <table v-else class="review" id="selfReview">
+                        <tr>
                             <th COLSPAN="2">
-                                <h3><br/><center>Self Review</center></h3>
+                                <h3><br />
+                                    <center>Self Review</center>
+                                </h3>
                             </th>
                         <tr>
-                            <th><h3>Area of Strength</h3>
+                            <th>
+                                <h3>Area of Strength</h3>
                             </th>
-                            <th><h3>Area of Improvement</h3>
+                            <th>
+                                <h3>Area of Improvement</h3>
                             </th>
                         </tr>
                         <tr>
@@ -120,42 +134,52 @@
                             <td> Not Available </td>
                         </tr>
                     </table>
-                        <table v-if="peerReviews != 0" class="review" id="peer">
-                            <tr>
-                                <th COLSPAN="2">
-                                    <h3><br><center>Peer Comments </center></h3>
-                                </th>
-                            <tr>
-                                <th><h3>Area of Strength</h3>
-                                </th>
-                                <th><h3>Area of Improvement</h3>
-                                </th>
-                            </tr>
-                            <tr v-for="peer in peerReviews" v-if ="peerReviews">
-                                <td>{{peer.positive_feedback}}</td>
-                                <td>{{peer.needs_improvement}}</td>
-                            </tr>
-                        </table>
-                           <table v-else class="review" id="peer">
-                            <tr>
-                                <th COLSPAN="2">
-                                    <h3><br><center>Peer Comments </center></h3>
-                                </th>
-                            <tr>
-                                <th><h3>Area of Strength</h3>
-                                </th>
-                                <th><h3>Area of Improvement</h3>
-                                </th>
-                            </tr>
-                            <tr>
-                                <td>Not Available</td>
-                                <td>Available</td>
-                            </tr>
-                        </table>
+                    <table v-if="peerReviews != 0" class="review" id="peer">
+                        <tr>
+                            <th COLSPAN="2">
+                                <h3><br>
+                                    <center>Peer Comments </center>
+                                </h3>
+                            </th>
+                        <tr>
+                            <th>
+                                <h3>Area of Strength</h3>
+                            </th>
+                            <th>
+                                <h3>Area of Improvement</h3>
+                            </th>
+                        </tr>
+                        <tr v-for="peer in peerReviews" v-if="peerReviews">
+                            <td>{{peer.positive_feedback}}</td>
+                            <td>{{peer.needs_improvement}}</td>
+                        </tr>
+                    </table>
+                    <table v-else class="review" id="peer">
+                        <tr>
+                            <th COLSPAN="2">
+                                <h3><br>
+                                    <center>Peer Comments </center>
+                                </h3>
+                            </th>
+                        <tr>
+                            <th>
+                                <h3>Area of Strength</h3>
+                            </th>
+                            <th>
+                                <h3>Area of Improvement</h3>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>Not Available</td>
+                            <td>Available</td>
+                        </tr>
+                    </table>
                     <table class="review" id="manager" v-if="managerReview">
                         <tr>
                             <th COLSPAN="3">
-                                <h3><br><center> Manager Summary </center></h3>
+                                <h3><br>
+                                    <center> Manager Summary </center>
+                                </h3>
                             </th>
                         <tr>
                             <td><b>Overall Rating</b></td>
@@ -173,20 +197,21 @@
                 <tr>
                     <td><b>Functional/Technical</b></td>
                     <td>{{convertRatings(managerReview.technical)}}</td> -->
-                       <!--  </tr> -->
+                        <!--  </tr> -->
                     </table>
-                     <table v-else class="review" id="manager">
-                         <tr>
+                    <table v-else class="review" id="manager">
+                        <tr>
                             <th COLSPAN="3">
-                                <h3><br><center> Manager Summary </center></h3>
+                                <h3><br>
+                                    <center> Manager Summary </center>
+                                </h3>
                             </th>
                         <tr>
                             <td><b>Overall Rating</b></td>
-                             <td>Not Available </td>
+                            <td>Not Available </td>
                             <td rowspan="4">Not Available</td>
                         </tr>
                     </table>
-
                 </div>
             </div>
         </div>
@@ -198,13 +223,11 @@ import axios from 'axios'
 import $ from 'jquery'
 import Highcharts from 'highcharts'
 import Header from './Header'
-
 export default {
     data: function() {
         return {
             employee: null,
-            selfReview: [
-            ],
+            selfReview: [],
             managerReview: null,
             peerReviews: null,
             averageJudgement: 0,
@@ -236,7 +259,6 @@ export default {
                 // this.averageTechnical = this.getAverage(this.peerReviews.map(review => review.technical + 1));
                 this.addChart();
             }.bind(this));
-
         axios.get("/employees", { headers: { "Authorization": `Bearer ${token}` } })
             .then(function(response) {
                 this.ChartedEmployees = response.data;
@@ -269,23 +291,17 @@ export default {
         fnExcelReport() {
             var tab_text = '<html xmlns:x="urn:schemas-microsoft-com:office:excel">';
             tab_text = tab_text + '<head><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>';
-
             tab_text = tab_text + '<x:Name>Test Sheet</x:Name>';
-
             tab_text = tab_text + '<x:WorksheetOptions><x:Panes></x:Panes></x:WorksheetOptions></x:ExcelWorksheet>';
             tab_text = tab_text + '</x:ExcelWorksheets></x:ExcelWorkbook></xml></head><body>';
-
             tab_text = tab_text + "<table border='1px'>";
             tab_text = tab_text + $('#ratings').html();
             tab_text = tab_text + $('#selfReview').html();
             tab_text = tab_text + $('#peer').html();
             tab_text = tab_text + $('#manager').html();
-
             console.log(tab_text);
             tab_text = tab_text + '</table></body></html>';
-
             var data_type = 'data:application/vnd.ms-excel';
-
             var ua = window.navigator.userAgent;
             var msie = ua.indexOf("MSIE ");
             if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
@@ -300,9 +316,7 @@ export default {
                 $('#test').attr('download', 'APF_2019.xls');
             }
         },
-
-        addChart() { 
-
+        addChart() {
             Highcharts.chart('highchart', {
                 chart: {
                     type: 'column'
@@ -325,47 +339,41 @@ export default {
                         text: 'Rating (%)'
                     }
                 },
-
                 plotOptions: {
                     column: {
                         pointPadding: 0.0,
                         borderWidth: 0
                     }
                 },
-
-                series: [
-                {
-                    name: 'Peer',
-                    data: [this.averageJudgement]
-
-                },
-                {
-                    name: 'Self',
-                   data: [this.selfReview && this.selfReview.judgement ? this.selfReview.judgement + 1: 0]
-
-                },
-                 {
-                    name: 'Manager',
-                    data: [this.managerReview && this.managerReview.judgement ? this.managerReview.judgement + 1: 0]
-                }]
+                series: [{
+                        name: 'Peer',
+                        data: [this.averageJudgement]
+                    },
+                    {
+                        name: 'Self',
+                        data: [this.selfReview && this.selfReview.judgement ? this.selfReview.judgement + 1 : 0]
+                    },
+                    {
+                        name: 'Manager',
+                        data: [this.managerReview && this.managerReview.judgement ? this.managerReview.judgement + 1 : 0]
+                    }
+                ]
             });
         }
-
     },
-
-    computed: {
-
-    }
+    computed: {}
 }
 </script>
 <style>
 .profileContainer {
     margin-top: 12%;
 }
+
 table {
     margin-top: 50px;
     border: 5px black
 }
+
 th {
     border: 1px black;
     border-style: solid;
@@ -377,12 +385,14 @@ tr {
     border-style: solid;
     padding: 10px;
 }
+
 td {
     border: 1px black;
     border-style: solid;
     padding: 10px;
     margin: 0px;
 }
+
 .review {
     margin-top: 10px;
     margin-bottom: 50px;
@@ -393,15 +403,14 @@ td {
 }
 </style>
 <style scoped>
-.row{
- max-width: 40%;
+.row {
+    max-width: 40%;
 }
 
-#highchart
-{
+#highchart {
     max-width: 50%;
-    max-height:5%;
-    margin-left:55%;
-    margin-top:-12%
+    max-height: 5%;
+    margin-left: 55%;
+    margin-top: -12%
 }
 </style>

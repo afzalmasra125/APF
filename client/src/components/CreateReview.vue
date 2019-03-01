@@ -196,14 +196,17 @@ export default {
       axios
         .get("/reviews", { headers: { Authorization: `Bearer ${token}` } })
         .then(res => {
-          if (
-            res.data
-              .map(review => review.reviewer_id)
-              .indexOf(this.current_user.id) >= 0 &&
-            res.data
-              .map(review => review.reviewee_id)
-              .indexOf(this.reviewee_id) >= 0
-          ) {
+          const reviewer_ee = res.data.map(review => [
+            review.reviewer_id,
+            review.reviewee_id
+          ]);
+          let reviewExists = false;
+          reviewer_ee.forEach(pair => {
+            if (pair == [this.current_user.id, this.reviewee_id]) {
+              reviewExists = true;
+            }
+          });
+          if (reviewExists) {
             const review_id = res.data
               .filter(review => {
                 return (
@@ -219,14 +222,14 @@ export default {
               .patch(route, params, {
                 headers: { Authorization: `Bearer ${token}` }
               })
-              .then(this.$router.push("/home"))
+              .then(res => {
+                this.$router.push({ path: "/home", response: res.data });
+              })
               .catch(error => {
-                if (error.response.status === 401) {
-                  this.$router.push("/");
-                } else if (error.response.status === 422) {
+                if (error.response.status === 422) {
                   this.errors = error.response.data.errors;
                 } else {
-                  this.$router.push("/");
+                  this.$router.push({ path: "/", params: error.response });
                 }
               });
           } else {
@@ -237,18 +240,13 @@ export default {
               })
               .then(this.$router.push("/home"))
               .catch(error => {
-                if (error.response.status === 401) {
-                  this.$router.push("/");
-                } else if (error.response.status === 422) {
+                if (error.response.status === 422) {
                   this.errors = error.response.data.errors;
                 } else {
-                  this.$router.push("/");
+                  this.$router.push({ path: "/", params: error.response });
                 }
               });
           }
-        })
-        .catch(errors => {
-          console.log(errors);
         });
     }
   }

@@ -22,9 +22,10 @@ class ReviewsController < ApplicationController
                         needs_improvement: params[:needs_improvement]
                        })
     if reviews.save
-      render json: reviews.as_json
+      render json: {msg: "Review Submitted"}
     else
-      reviews.errors
+      # reviews.errors
+      render json: {errors: reviews.error}
     end
   end
 
@@ -39,9 +40,14 @@ class ReviewsController < ApplicationController
     review.judgement = params[:judgement].to_i||review.judgement = params[:judgement]
     review.teamwork = params[:teamwork].to_i||review.teamwork = params[:teamwork]
     review.dependability = params[:dependability].to_i||review.dependability = params[:dependability]
-    review.positive_feedback = params[:positive_feedback].to_i||review.positive_feedback
-    review.positive_feedback = params[:positive_feedback].to_i||review.positive_feedback
-    review.needs_improvement = params[:needs_improvement].to_i||review.needs_improvement
+    review.positive_feedback = params[:positive_feedback] ||review.positive_feedback
+    review.needs_improvement = params[:needs_improvement] ||review.needs_improvement
+
+    if review.save
+      render json: {msg: "Successfully Updated"}
+    else
+      render json: {errors: reviews.errors}
+    end
   end
 
   def destroy

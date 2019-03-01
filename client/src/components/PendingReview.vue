@@ -45,7 +45,7 @@
                     </div>
                 </div>
             </div>
-            <div class="container my-2">
+            <!-- <div class="container my-2">
                 <div class="card">
                     <div class="container">
                         <h3>Employees to be Reviewed</h3>
@@ -63,8 +63,8 @@
                         </ul>
                     </div>
                 </div>
-            </div>
-            <div class="container">
+            </div> -->
+            <div class="container mt-2">
                 <div class="card">
                     <div class="container">
                         <h3 class="">Send Review Request</h3>
@@ -163,7 +163,7 @@ export default {
                 data: {
                     checkedEmployees: this.checkedEmployees
                 }
-            }).then(this.$router.push("/home"));
+            }).then(this.$route.push({ path: "/home" }));
         },
         sortUnreviewedEmployees(reviewedEmployeeIds) {
             this.unreviewedEmployees = this.employees.filter(function(

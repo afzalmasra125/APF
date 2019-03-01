@@ -1,5 +1,6 @@
 <template id="pending-reviews-page">
     <div class="vue-component">
+        <Header />
         <div class="asc-container">
             <div class="container">
                 <div class="profileContainer">
@@ -125,6 +126,7 @@
 </template>
 <script>
 import axios from "axios";
+import Header from "./Header.vue";
 export default {
     data: function() {
         return {
@@ -134,6 +136,9 @@ export default {
             selectedEmployee: {},
             checkedEmployees: []
         };
+    },
+    components: {
+        Header
     },
     created: function() {
         const token = localStorage.getItem("jwt");

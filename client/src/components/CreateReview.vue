@@ -190,62 +190,16 @@ export default {
         positive_feedback: this.positive_feedback,
         needs_improvement: this.needs_improvement
       };
-
-      let route = "/review";
-
       axios
-        .get("/reviews", { headers: { Authorization: `Bearer ${token}` } })
-        .then(res => {
-          const reviewer_ee = res.data.map(review => [
-            review.reviewer_id,
-            review.reviewee_id
-          ]);
-          let reviewExists = false;
-          reviewer_ee.forEach(pair => {
-            if (pair == [this.current_user.id, this.reviewee_id]) {
-              reviewExists = true;
-            }
-          });
-          if (reviewExists) {
-            const review_id = res.data
-              .filter(review => {
-                return (
-                  review.reviewer_id === this.current_user.id &&
-                  review.reviewee_id === this.reviewee_id
-                );
-              })
-              .map(review => review.id);
-
-            route += "/" + review_id;
-
-            axios
-              .patch(route, params, {
-                headers: { Authorization: `Bearer ${token}` }
-              })
-              .then(res => {
-                this.$router.push({ path: "/home", response: res.data });
-              })
-              .catch(error => {
-                if (error.response.status === 422) {
-                  this.errors = error.response.data.errors;
-                } else {
-                  this.$router.push({ path: "/", params: error.response });
-                }
-              });
+        .post("/reviews", params, {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+        .then(this.$router.push("/home"))
+        .catch(error => {
+          if (error.response.status === 422) {
+            this.errors = error.response.data.errors;
           } else {
-            route += "s";
-            axios
-              .post(route, params, {
-                headers: { Authorization: `Bearer ${token}` }
-              })
-              .then(this.$router.push("/home"))
-              .catch(error => {
-                if (error.response.status === 422) {
-                  this.errors = error.response.data.errors;
-                } else {
-                  this.$router.push({ path: "/", params: error.response });
-                }
-              });
+            this.$router.push({ path: "/", params: error.response });
           }
         });
     }

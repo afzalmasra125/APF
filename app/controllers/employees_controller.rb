@@ -20,6 +20,11 @@ class EmployeesController < ApplicationController
     render json: @managers.as_json
   end
 
+  def show
+    @employee = Employee.find(params[:id])
+    render 'show.json.jbuilder'
+  end
+
   def create
     @employees = Employee.new(
                         first_name: params[:first_name],
@@ -38,11 +43,6 @@ class EmployeesController < ApplicationController
     else
       render json: {errors: 'Error creating account'}, status: :bad_requested
     end
-  end
-
-  def show
-    @employee = Employee.find(params[:id])
-    render 'show.json.jbuilder'
   end
 
   def update

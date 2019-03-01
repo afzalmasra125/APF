@@ -7,6 +7,7 @@ json.manager_status @employee.manager_status
 json.admin_status @employee.admin_status
 json.coach @employee.coach
 json.job_title @employee.job_title
+json.manager @employee.manager
 
 json.reviews @employee.reviews.each do|review|
   json.review_id review.id

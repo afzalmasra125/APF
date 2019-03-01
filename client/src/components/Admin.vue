@@ -4,7 +4,7 @@
         <div class="asc-container">
             <div class="container">
                 <div class="profileContainer">
-                    <h2> Employees </h2>
+                    
                     <img id = "icon-search" src="../assets/icon-search.svg"/>
                     <input class = "search" placeholder="Filter by name" v-model="search" />
                     <table class="review">

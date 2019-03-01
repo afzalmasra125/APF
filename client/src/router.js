@@ -28,8 +28,6 @@ let router = new Router({
     { path: "/reviews/new", component: ReviewsNewPage , meta: { requiresAuth: true }},
     { path: "/admin", component: Admin , meta: { requiresAuth: true }},
     { path: "/updateemployee/:id", component: UpdateEmployee , meta: { requiresAuth: true }},
-
-
   ]
 })
 

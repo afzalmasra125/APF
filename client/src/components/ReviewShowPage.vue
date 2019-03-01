@@ -8,6 +8,7 @@
                         <div class="name" v-if="employee">
                             <b>Agile Perfomance review for:- </b>
                             <h3>{{employee.first_name}} {{employee.last_name}}</h3>
+                            <p>Job Title:- {{employee.job_title}}</p>
                             <select style="width:200px;">
                                 <option value="Feb">February 2019</option>
                                 <option value="May">May 2019</option>
@@ -214,7 +215,7 @@
                 </div>
             </div>
         </div>
-      </div>
+    </div>
     </div>
 </template>
 <script>

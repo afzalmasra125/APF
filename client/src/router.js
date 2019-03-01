@@ -8,6 +8,9 @@ import EmployeeIndexPage from './components/Employee.vue'
 import PendingReviewPage from './components/PendingReview.vue'
 import ReviewsNewPage from './components/CreateReview.vue'
 import ReviewShowPage from './components/ReviewShowPage.vue'
+import Admin from './components/Admin.vue'
+import UpdateEmployee from './components/UpdateEmployee.vue'
+
 
 
 Vue.use(Router)
@@ -23,6 +26,10 @@ let router = new Router({
     { path: "/employees/:id", component: ReviewShowPage, meta: { requiresAuth: true }},
     { path: "/reviews/pending", component: PendingReviewPage , meta: { requiresAuth: true }},
     { path: "/reviews/new", component: ReviewsNewPage , meta: { requiresAuth: true }},
+    { path: "/admin", component: Admin , meta: { requiresAuth: true }},
+    { path: "/updateemployee/:id", component: UpdateEmployee , meta: { requiresAuth: true }},
+
+
   ]
 })
 

@@ -28,7 +28,10 @@ class EmployeesController < ApplicationController
                         manager_id: params[:manager_id],
                         manager_status: params[:manager_status],
                         password: params[:password],
-                        password_confirmation: params[:password_confirmation]
+                        password_confirmation: params[:password_confirmation],
+                        admin_status: parmas[:admin_status],
+                        coach: params[:coach],
+                        job_title: params[:job_title]
       )
     if @employees.save
       render json: {message: 'Employee created successfully'}, status: :created
@@ -50,6 +53,9 @@ class EmployeesController < ApplicationController
     employee.email = params[:email] || employee.email
     employee.manager_id = params[:manager_id] || employee.manager_id
     employee.manager_status = params[:manager_status] || employee.manager_status
+    employee.admin_status = params[:admin_status] || employee.admin_status
+    employee.coach = params[:coach]||employee.coach
+    employee.job_title = params[:job_title]||employee.job_title
     render json: employee.as_json
   end
 

@@ -6,9 +6,10 @@
                     <div class="profileContainer">
                         <label><b><h3>Agile Performance Review</h3></b></label>
                     </div>
-                    <a class="btn btn-primary btn-home" v-bind:href="'/#/reviews/new' ">Create Review</a>
+                    <a id="manager" class="btn btn-primary btn-home" v-bind:href="'/#/reviews/new' ">Create Review</a>
                     <a id="manager" :class="'btn btn-primary btn-home ' + (managerStatus ? '' : 'disabled') " v-bind:href="'/#/employees' ">View Review</a>
                     <a id="manager" :class="'btn btn-primary btn-home ' + (managerStatus ? '' : 'disabled') " v-bind:href="'/#/reviews/pending' ">Pending Review</a>
+                    <a id="admin" :class="'btn btn-primary btn-home' + (adminStatus ? '' : ' disabled')" v-bind:href="'/#/admin'">Admin</a>
                 </div>
             </div>
         </div>
@@ -20,7 +21,8 @@ export default {
     data: function() {
         return {
             first_name: "",
-            managerStatus: false
+            managerStatus: false,
+            adminStatus: false
         };
     },
     components: {
@@ -33,6 +35,8 @@ export default {
                 const employee = response.data
                 this.managerStatus = employee.manager_status
                 this.first_name = employee.first_name
+                this.adminStatus = employee.admin_status
+
             })
 },
     methods: {},
@@ -57,15 +61,25 @@ export default {
     border: solid 5px #d9d9d9;
     border-radius: 4px;
 }
-
-.btn-home {
-    width: 90%;
+#admin
+{
+   width: 90%;
     border-radius: 0px 0px 0px 0px;
     margin-top: 10px;
     min-height: 45px;
     margin-left: 5%;
+
 }
 
+.btn
+{
+   width: 90%;
+    border-radius: 0px 0px 0px 0px;
+    margin-top: 10px;
+    min-height: 45px;
+    margin-left: 5%;
+
+}
 .profileContainer {
     text-align: center;
     font-size: larger;

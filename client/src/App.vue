@@ -5,13 +5,18 @@
 </template>
 
 <script>
-import router from './router'
+import router from "./router";
 
 export default {
-  name: 'app',
+  name: "app",
   router
-}
+};
 </script>
 
 <style>
+body,
+html,
+#app {
+  height: 100%;
+}
 </style>

@@ -3,39 +3,48 @@
     <div class="container-fluid h-100">
       <div class="row align-items-center justify-content-end h-100">
         <div class="col-4 h-75 mr-5 d-inline-block px-5">
-          <div class="container h-100 d-inline-block bg-white">
-            <div class="container px-5 mt-4">
+          <div class="container p-4 h-100 d-inline-block bg-white">
+            <div class="container">
               <img src="../assets/csg-logo.png" class="img-fluid" />
             </div>
-            <ul>
-              <li class="text-danger" v-for="(error, i) in errors" :key="i">
-                {{ error }}
-              </li>
-            </ul>
             <div class="container">
-              <div class="form-group">
-                <label>Email:</label>
-                <input type="email" class="form-control" v-model="email" />
-              </div>
-              <div class="form-group">
-                <label>Password:</label>
+              <form v-on:submit.prevent="submit()">
+                <ul>
+                  <li class="text-danger" v-for="(error, i) in errors" :key="i">
+                    {{ error }}
+                  </li>
+                </ul>
+
+                <div class="form-group">
+                  <label class="text-muted">Email</label>
+                  <input
+                    type="email"
+                    class="bg-light form-control"
+                    v-model="email"
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="text-muted">Password</label>
+                  <input
+                    type="password"
+                    class="bg-light form-control"
+                    v-model="password"
+                  />
+                </div>
                 <input
-                  type="password"
-                  class="form-control"
-                  v-model="password"
+                  type="submit"
+                  class="btn btn-primary btn-block"
+                  value="SIGN IN"
                 />
+              </form>
+            </div>
+            <div class="container my-4">
+              <div class="text-center">
+                <a href="#">Forgot your password?</a>
               </div>
-              <button class="btn btn-primary btn-login" v-on:click="submit()">
-                Submit
-              </button>
-            </div>
-            <div class="container">
-              <a class="h-100 mx-auto" href="#" target="_blank"
-                >Forgot your password?</a
-              >
-            </div>
-            <div class="container">
-              <a href="/#/signup">Create an account</a>
+              <div class="text-center">
+                <a href="/#/signup">Create an account</a>
+              </div>
             </div>
           </div>
         </div>

@@ -1,32 +1,44 @@
 <template id="loginpage">
   <div id="backgroundImage" class="container-fluid">
-    <div class="row">
-      <div class="col-3 bg-white">
-        <div class="loginLogoCon">
-          <img src="../assets/csg-logo.png" class="loginLogo" />
+    <div class="container-fluid h-100">
+      <div class="row align-items-center justify-content-end h-100">
+        <div class="col-4 h-75 mr-5 d-inline-block px-5">
+          <div class="container h-100 d-inline-block bg-white">
+            <div class="container px-5 mt-4">
+              <img src="../assets/csg-logo.png" class="img-fluid" />
+            </div>
+            <ul>
+              <li class="text-danger" v-for="(error, i) in errors" :key="i">
+                {{ error }}
+              </li>
+            </ul>
+            <div class="container">
+              <div class="form-group">
+                <label>Email:</label>
+                <input type="email" class="form-control" v-model="email" />
+              </div>
+              <div class="form-group">
+                <label>Password:</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  v-model="password"
+                />
+              </div>
+              <button class="btn btn-primary btn-login" v-on:click="submit()">
+                Submit
+              </button>
+            </div>
+            <div class="container">
+              <a class="h-100 mx-auto" href="#" target="_blank"
+                >Forgot your password?</a
+              >
+            </div>
+            <div class="container">
+              <a href="/#/signup">Create an account</a>
+            </div>
+          </div>
         </div>
-        <ul>
-          <li class="text-danger" v-for="(error, i) in errors" :key="i">
-            {{ error }}
-          </li>
-        </ul>
-        <div class="form-group">
-          <label>Email:</label>
-          <input type="email" class="form-control" v-model="email" />
-        </div>
-        <div class="form-group">
-          <label>Password:</label>
-          <input type="password" class="form-control" v-model="password" />
-        </div>
-        <button class="btn btn-primary btn-login" v-on:click="submit()">
-          Submit
-        </button>
-        <br />
-        <br />
-        <a href="#" target="_blank">Forgot your password?</a>
-        <br />
-        <br />
-        <a href="/#/signup">Create an account</a>
       </div>
     </div>
   </div>
@@ -73,18 +85,7 @@ export default {
   background-size: cover;
 }
 
-.loginLogoCon {
-  margin-top: 50px;
-}
-
-.loginLogo {
-  /*max-width: 250px;*/
-  /*align: right;*/
-  width: 75%;
-}
-
 .btn-login {
   width: 100%;
-  border-radius: 0px 0px 0px 0px;
 }
 </style>

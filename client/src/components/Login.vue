@@ -1,9 +1,10 @@
 <template id="loginpage">
   <div id="backgroundImage" class="container-fluid">
     <div class="container-fluid h-100">
-      <div class="row align-items-center justify-content-end h-100">
-        <div class="col-4 h-75 mr-5 d-inline-block px-5">
-          <div class="container p-4 h-100 d-inline-block bg-white">
+      <div class="row align-items-center h-100 no-gutters">
+        <div class="offset-lg-8"></div>
+        <div class="col-12 col-sm-10 col-lg-3 mx-auto">
+          <div class="container p-4 bg-white h-100">
             <div class="container">
               <img src="../assets/csg-logo.png" class="img-fluid" />
             </div>
